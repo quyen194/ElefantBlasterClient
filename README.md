@@ -1,2 +1,2 @@
-BomberManClient
+ElefantBlasterClient
 ===============
