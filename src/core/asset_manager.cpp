@@ -62,33 +62,33 @@ void AssetManager::Load() {
 
   sprite_size_ = static_cast<float>(map_texture->h);
 
-  map_textures_.resize(MapTileType::kMax);
-  map_textures_[MapTileType::kGrass].sdl_texture = map_texture;
-  map_textures_[MapTileType::kGrass].rect = { AssetTileType::kGrass * sprite_size_, 0, sprite_size_, sprite_size_ };
-  map_textures_[MapTileType::kWall].sdl_texture = map_texture;
-  map_textures_[MapTileType::kWall].rect = { AssetTileType::kWall * sprite_size_, 0, sprite_size_, sprite_size_ };
-  map_textures_[MapTileType::kBalk].sdl_texture = map_texture;
-  map_textures_[MapTileType::kBalk].rect = { AssetTileType::kBalk * sprite_size_, 0, sprite_size_, sprite_size_ };
-  map_textures_[MapTileType::kTeleportGate].sdl_texture = map_texture;
-  map_textures_[MapTileType::kTeleportGate].rect = { AssetTileType::kTeleportGate * sprite_size_, 0, sprite_size_, sprite_size_ };
-  map_textures_[MapTileType::kQuarantineZone].sdl_texture = map_texture;
-  map_textures_[MapTileType::kQuarantineZone].rect = { AssetTileType::kQuarantineZone * sprite_size_, 0, sprite_size_, sprite_size_ };
-  map_textures_[MapTileType::kDragonEggGst].sdl_texture = map_texture;
-  map_textures_[MapTileType::kDragonEggGst].rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_.resize(AssetTileType::kMax);
+  map_textures_[AssetTileType::kGrass].sdl_texture = map_texture;
+  map_textures_[AssetTileType::kGrass].rect = { AssetTileType::kGrass * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[AssetTileType::kWall].sdl_texture = map_texture;
+  map_textures_[AssetTileType::kWall].rect = { AssetTileType::kWall * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[AssetTileType::kBalk].sdl_texture = map_texture;
+  map_textures_[AssetTileType::kBalk].rect = { AssetTileType::kBalk * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[AssetTileType::kTeleportGate].sdl_texture = map_texture;
+  map_textures_[AssetTileType::kTeleportGate].rect = { AssetTileType::kTeleportGate * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[AssetTileType::kQuarantineZone].sdl_texture = map_texture;
+  map_textures_[AssetTileType::kQuarantineZone].rect = { AssetTileType::kQuarantineZone * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[AssetTileType::kDragonEggGst].sdl_texture = map_texture;
+  map_textures_[AssetTileType::kDragonEggGst].rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
 
   dragon_egg_gst_texture_ = loadTexture(renderer, "assets/graphics/animations/dragon_egg_gst.png");
 
   SDL_Texture *spoil_texture = loadTexture(renderer, "assets/graphics/tilesets/spoils.png");
 
-  spoil_textures_.resize(SpoilType::kMax);
-  spoil_textures_[SpoilType::kDragonEggMystic].sdl_texture = map_texture;
-  spoil_textures_[SpoilType::kDragonEggMystic].rect = { SpoilType::kDragonEggMystic * sprite_size_, 0, sprite_size_, sprite_size_ };
-  spoil_textures_[SpoilType::kDragonEggAttack].sdl_texture = map_texture;
-  spoil_textures_[SpoilType::kDragonEggAttack].rect = { SpoilType::kDragonEggAttack * sprite_size_, 0, sprite_size_, sprite_size_ };
-  spoil_textures_[SpoilType::kDragonEggDelay].sdl_texture = map_texture;
-  spoil_textures_[SpoilType::kDragonEggDelay].rect = { SpoilType::kDragonEggDelay * sprite_size_, 0, sprite_size_, sprite_size_ };
-  spoil_textures_[SpoilType::kDragonEggSpeed].sdl_texture = map_texture;
-  spoil_textures_[SpoilType::kDragonEggSpeed].rect = { SpoilType::kDragonEggSpeed * sprite_size_, 0, sprite_size_, sprite_size_ };
+  spoil_textures_.resize(AssetSpoilType::kMax);
+  spoil_textures_[AssetSpoilType::kDragonEggMystic].sdl_texture = spoil_texture;
+  spoil_textures_[AssetSpoilType::kDragonEggMystic].rect = { 0, AssetSpoilType::kDragonEggMystic * sprite_size_, sprite_size_, sprite_size_ };
+  spoil_textures_[AssetSpoilType::kDragonEggAttack].sdl_texture = spoil_texture;
+  spoil_textures_[AssetSpoilType::kDragonEggAttack].rect = { 0, AssetSpoilType::kDragonEggAttack * sprite_size_, sprite_size_, sprite_size_ };
+  spoil_textures_[AssetSpoilType::kDragonEggDelay].sdl_texture = spoil_texture;
+  spoil_textures_[AssetSpoilType::kDragonEggDelay].rect = { 0, AssetSpoilType::kDragonEggDelay * sprite_size_, sprite_size_, sprite_size_ };
+  spoil_textures_[AssetSpoilType::kDragonEggSpeed].sdl_texture = spoil_texture;
+  spoil_textures_[AssetSpoilType::kDragonEggSpeed].rect = { 0, AssetSpoilType::kDragonEggSpeed * sprite_size_, sprite_size_, sprite_size_ };
 
   player_animation_ = Animation(4, 1.6f);
 
@@ -108,6 +108,42 @@ void AssetManager::Unload() {
   for (SDL_Texture *tex : player_textures_) {
     SDL_DestroyTexture(tex);
   }
+}
+// -----------------------------------------------------------------------------
+
+AssetTexture AssetManager::MapTexture(MapTileType type) {
+  switch (type) {
+    case MapTileType::kGrass:
+      return map_textures_[AssetTileType::kGrass];
+    case MapTileType::kWall:
+      return map_textures_[AssetTileType::kWall];
+    case MapTileType::kBalk:
+      return map_textures_[AssetTileType::kBalk];
+    case MapTileType::kTeleportGate:
+      return map_textures_[AssetTileType::kTeleportGate];
+    case MapTileType::kQuarantineZone:
+      return map_textures_[AssetTileType::kQuarantineZone];
+    case MapTileType::kDragonEggGst:
+      return map_textures_[AssetTileType::kDragonEggGst];
+  }
+
+  return map_textures_[AssetTileType::kGrass];
+}
+// -----------------------------------------------------------------------------
+
+AssetTexture AssetManager::SpoilTexture(SpoilType object) {
+  switch (object) {
+    case SpoilType::kDragonEggSpeed:
+      return spoil_textures_[AssetSpoilType::kDragonEggSpeed];
+    case SpoilType::kDragonEggAttack:
+      return spoil_textures_[AssetSpoilType::kDragonEggAttack];
+    case SpoilType::kDragonEggDelay:
+      return spoil_textures_[AssetSpoilType::kDragonEggDelay];
+    case SpoilType::kDragonEggMystic:
+      return spoil_textures_[AssetSpoilType::kDragonEggMystic];
+  }
+
+  return spoil_textures_[AssetSpoilType::kDragonEggMystic];
 }
 // -----------------------------------------------------------------------------
 

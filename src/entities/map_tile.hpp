@@ -43,13 +43,12 @@ typedef _AssetTileType::T AssetTileType;
 // -----------------------------------------------------------------------------
 namespace _MapTileType {
 enum T {
-  kGrass,
-  kWall,
-  kBalk,
-  kTeleportGate,
-  kQuarantineZone,
-  kDragonEggGst,
-  kMax,
+  kGrass = 0,
+  kWall = 1,
+  kBalk = 2,
+  kTeleportGate = 3,
+  kQuarantineZone = 4,
+  kDragonEggGst = 5,
 };
 };
 typedef _MapTileType::T MapTileType;

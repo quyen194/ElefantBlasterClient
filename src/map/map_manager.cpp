@@ -99,13 +99,24 @@ void MapManager::Draw() {
       } break;
     }
   }
+
+  for (Spoil obj : layer_spoils_) {
+    SDL_FRect dst = {
+        screen_pos_.x + obj.screen_pos.x,    // x
+        screen_pos_.y + obj.screen_pos.y,    // y
+        obj.rect.w,                          // w
+        obj.rect.h,                          // h
+    };
+    SDL_RenderTexture(renderer, obj.texture, &obj.rect, &dst);
+  }
 }
 // -----------------------------------------------------------------------------
 
 void MapManager::Load() {
   const int rows = 14;
   const int cols = 26;
-  int map[rows][cols] = {
+
+  int map_tiles[rows][cols] = {
       { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
       { 1,0,0,0,2,2,2,2,0,0,2,2,3,2,2,2,2,2,2,2,2,1,3,5,2,1 },
       { 1,0,0,3,3,3,3,1,1,1,3,2,3,2,2,2,2,3,2,2,2,1,3,2,2,1 },
@@ -126,7 +137,7 @@ void MapManager::Load() {
 
   for (int r = 0; r < rows; r++) {
     for (int c = 0; c < cols; c++) {
-      MapTileType type = static_cast<MapTileType>(map[r][c]);
+      MapTileType type = static_cast<MapTileType>(map_tiles[r][c]);
       switch (type) {
         case MapTileType::kGrass:
         case MapTileType::kWall:
@@ -158,6 +169,45 @@ void MapManager::Load() {
           // add to map
           layer_tiles_.push_back(obj);
           dynamic_tiles_.push_back(obj);
+        } break;
+      }
+    }
+  }
+
+  int map_spoils[rows][cols] = {
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,5,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+      { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+  };
+
+  for (int r = 0; r < rows; r++) {
+    for (int c = 0; c < cols; c++) {
+      SpoilType type = static_cast<SpoilType>(map_spoils[r][c]);
+      switch (type) {
+        case SpoilType::kDragonEggSpeed:
+        case SpoilType::kDragonEggAttack:
+        case SpoilType::kDragonEggDelay:
+        case SpoilType::kDragonEggMystic: {
+          Spoil obj;
+          obj.type = type;
+          obj.map_pos = glm::vec2(c, r);
+          obj.screen_pos = glm::vec2(c * sprite_size, r * sprite_size);
+          AssetTexture aText = asset_manager_.SpoilTexture(obj.type);
+          obj.texture = aText.sdl_texture;
+          obj.rect = aText.rect;
+          // add to map
+          layer_spoils_.push_back(obj);
         } break;
       }
     }

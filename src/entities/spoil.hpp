@@ -24,13 +24,25 @@
 
 
 // -----------------------------------------------------------------------------
-namespace _SpoilType {
+namespace _AssetSpoilType {
 enum T {
   kDragonEggMystic,
   kDragonEggAttack,
   kDragonEggDelay,
   kDragonEggSpeed,
   kMax,
+};
+};
+typedef _AssetSpoilType::T AssetSpoilType;
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+namespace _SpoilType {
+enum T {
+  kDragonEggSpeed = 3,
+  kDragonEggAttack = 4,
+  kDragonEggDelay = 5,
+  kDragonEggMystic = 6,
 };
 };
 typedef _SpoilType::T SpoilType;
@@ -41,6 +53,9 @@ typedef _SpoilType::T SpoilType;
 struct Spoil {
   SpoilType type;
   glm::vec2 map_pos;
+  glm::vec2 screen_pos;
+  SDL_Texture *texture = nullptr;
+  SDL_FRect rect;
 };
 // -----------------------------------------------------------------------------
 

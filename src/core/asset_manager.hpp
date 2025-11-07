@@ -77,8 +77,8 @@ class AssetManager {
 
   float SpriteSize() { return sprite_size_; }
 
-  AssetTexture MapTexture(MapTileType object) { return map_textures_[object]; }
-  AssetTexture SpoilTexture(SpoilType object) { return map_textures_[object]; }
+  AssetTexture MapTexture(MapTileType type);
+  AssetTexture SpoilTexture(SpoilType type);
 
   SDL_Texture* DragonEggGstTexture() { return dragon_egg_gst_texture_; }
 
