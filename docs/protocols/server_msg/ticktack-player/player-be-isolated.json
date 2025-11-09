@@ -1,0 +1,38 @@
+{
+    "id": 553,
+    "tag": "player:be-isolated",
+    "timestamp": 1701444679533,
+    "gameStatus": "playing",
+    "gameRemainTime": 0,
+    "player_id": "player1-xxx",
+    "map_info": {
+        "players": [
+            {
+                "id": "player1-xxx",
+                "currentPosition": {
+                    "col": 2,
+                    "row": 8
+                },
+                "previousPosition": {
+                    "col": 1,
+                    "row": 5
+                },
+                "speed": 230,
+                "power": 1,
+                "delay": 1600,
+                "lives": 1000,
+                "score": 1,
+                "box": 2,
+                "dragonEggSpeed": 0,
+                "dragonEggAttack": 0,
+                "dragonEggDelay": 1,
+                "dragonEggMystic": 0,
+                "dragonEggMysticAddEgg": 0,
+                "dragonEggMysticMinusEgg": 0,
+                "dragonEggMysticIsolateGate": 0,
+                "gstEggBeingAttacked": 0,
+                "quarantine": 1
+            }
+        ]
+    }
+}

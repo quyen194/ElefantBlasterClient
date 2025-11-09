@@ -1,0 +1,30 @@
+{
+    "id": 358,
+    "tag": "bomb:setup",
+    "timestamp": 1701443836474,
+    "gameRemainTime": 0,
+    "gameStatus": "playing",
+    "player_id": "player1-xxx",
+    "map_info": {
+        "new_bombs": [
+            {
+                "row": 1,
+                "col": 3,
+                "power": 1,
+                "remainTime": 1999,
+                "createdAt": 1701443836473,
+                "playerId": "player1-xxx"
+            }
+        ],
+        "bombs": [
+            {
+                "row": 2,
+                "col": 4,
+                "power": 1,
+                "remainTime": 999,
+                "createdAt": 1701443835473,
+                "playerId": "player1-xxx"
+            }
+        ]
+    }
+}

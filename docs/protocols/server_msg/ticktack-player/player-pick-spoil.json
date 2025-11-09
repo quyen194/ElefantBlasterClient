@@ -1,0 +1,42 @@
+{
+    "id": 382,
+    "tag": "player:pick-spoil",
+    "timestamp": 1701443839893,
+    "gameStatus": "playing",
+    "gameRemainTime": 0,
+    "player_id": "player1-xxx",
+    "map_info": {
+        "picked_spoils": [
+            {
+                "col": 4,
+                "row": 1,
+                "spoil_type": 5
+            }
+        ],
+        "spoils": [],
+        "players": [
+            {
+                "id": "player1-xxx",
+                "currentPosition": {
+                    "col": 4,
+                    "row": 1
+                },
+                "speed": 230,
+                "power": 1,
+                "delay": 1600,
+                "lives": 1000,
+                "score": 2,
+                "box": 1,
+                "dragonEggSpeed": 0,
+                "dragonEggAttack": 0,
+                "dragonEggDelay": 1,
+                "dragonEggMystic": 0,
+                "dragonEggMysticAddEgg": 0,
+                "dragonEggMysticMinusEgg": 0,
+                "dragonEggMysticIsolateGate": 0,
+                "gstEggBeingAttacked": 0,
+                "quarantine": 0
+            }
+        ]
+    }
+}

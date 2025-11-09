@@ -1,0 +1,91 @@
+{
+    "id": 283,
+    "tag": "player-joined",
+    "timestamp": 1701443814901,
+    "gameStatus": "lobby",
+    "gameRemainTime": 0,
+    "player_id": "player1-xxx",
+    "map_info": {
+        "size": {
+            "rows": 14,
+            "cols": 26
+        },
+        "cellSize": 35,
+        "map": [
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+            [ 1, 0, 0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 3, 5, 2, 1 ],
+            [ 1, 0, 0, 3, 3, 3, 3, 1, 1, 1, 3, 2, 3, 2, 2, 2, 2, 3, 2, 2, 2, 1, 3, 2, 2, 1 ],
+            [ 1, 0, 0, 3, 2, 2, 2, 0, 3, 0, 2, 2, 3, 2, 2, 2, 0, 2, 3, 2, 2, 1, 3, 2, 2, 1 ],
+            [ 1, 1, 0, 3, 2, 0, 0, 0, 0, 0, 0, 2, 3, 2, 2, 0, 0, 2, 2, 3, 2, 2, 1, 3, 2, 1 ],
+            [ 1, 4, 1, 3, 2, 0, 3, 1, 1, 1, 1, 1, 3, 2, 0, 0, 2, 2, 2, 3, 2, 0, 2, 3, 2, 1 ],
+            [ 1, 1, 1, 3, 2, 0, 0, 3, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 3, 2, 0, 0, 2, 2, 1 ],
+            [ 1, 1, 1, 3, 2, 0, 0, 2, 2, 2, 3, 2, 2, 2, 0, 2, 2, 2, 2, 3, 2, 0, 0, 2, 2, 1 ],
+            [ 1, 4, 1, 3, 2, 0, 3, 1, 1, 1, 1, 1, 3, 2, 0, 0, 2, 2, 2, 3, 2, 0, 2, 3, 2, 1 ],
+            [ 1, 1, 0, 3, 2, 0, 0, 0, 0, 0, 0, 2, 3, 2, 2, 0, 0, 2, 2, 3, 2, 2, 1, 3, 2, 1 ],
+            [ 1, 0, 0, 3, 2, 2, 2, 0, 3, 0, 2, 2, 3, 2, 2, 2, 0, 2, 3, 2, 2, 1, 3, 2, 2, 1 ],
+            [ 1, 0, 0, 3, 3, 3, 3, 1, 1, 1, 3, 2, 3, 2, 2, 2, 2, 3, 2, 2, 2, 1, 3, 2, 2, 1 ],
+            [ 1, 0, 0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 3, 5, 2, 1 ],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+        ],
+        "dragonEggGSTArray": [
+            {
+                "col": 23,
+                "row": 1,
+                "id": "player1-xxx"
+            },
+            {
+                "col": 23,
+                "row": 12,
+                "id": "player2-xxx"
+            }
+        ],
+        "spoils": [],
+        "players": [
+            {
+                "id": "player1-xxx",
+                "currentPosition": {
+                    "col": 1,
+                    "row": 3
+                },
+                "speed": 230,
+                "power": 1,
+                "delay": 2000,
+                "lives": 1000,
+                "score": 0,
+                "box": 0,
+                "dragonEggSpeed": 0,
+                "dragonEggAttack": 0,
+                "dragonEggDelay": 0,
+                "dragonEggMystic": 0,
+                "dragonEggMysticAddEgg": 0,
+                "dragonEggMysticMinusEgg": 0,
+                "dragonEggMysticIsolateGate": 0,
+                "gstEggBeingAttacked": 0,
+                "quarantine": 0
+            },
+            {
+                "id": "player2-xxx",
+                "currentPosition": {
+                    "col": 1,
+                    "row": 10
+                },
+                "speed": 230,
+                "power": 1,
+                "delay": 2000,
+                "lives": 1000,
+                "score": 0,
+                "box": 0,
+                "dragonEggSpeed": 0,
+                "dragonEggAttack": 0,
+                "dragonEggDelay": 0,
+                "dragonEggMystic": 0,
+                "dragonEggMysticAddEgg": 0,
+                "dragonEggMysticMinusEgg": 0,
+                "dragonEggMysticIsolateGate": 0,
+                "gstEggBeingAttacked": 0,
+                "quarantine": 0
+            }
+        ],
+        "bombs": []
+    }
+}

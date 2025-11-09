@@ -1,0 +1,38 @@
+{
+    "id": 321,
+    "tag": "player:start-moving",
+    "timestamp": 1701443826235,
+    "gameStatus": "playing",
+    "gameRemainTime": 0,
+    "player_id": "player1-xxx",
+    "map_info": {
+        "players": [
+            {
+                "id": "player1-xxx",
+                "currentPosition": {
+                    "col": 1,
+                    "row": 2
+                },
+                "nextPosition": {
+                    "col": 1,
+                    "row": 1
+                },
+                "speed": 230,
+                "power": 1,
+                "delay": 2000,
+                "lives": 1000,
+                "score": 0,
+                "box": 0,
+                "dragonEggSpeed": 0,
+                "dragonEggAttack": 0,
+                "dragonEggDelay": 0,
+                "dragonEggMystic": 0,
+                "dragonEggMysticAddEgg": 0,
+                "dragonEggMysticMinusEgg": 0,
+                "dragonEggMysticIsolateGate": 0,
+                "gstEggBeingAttacked": 0,
+                "quarantine": 0
+            }
+        ]
+    }
+}
