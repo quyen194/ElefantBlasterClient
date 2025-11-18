@@ -19,7 +19,6 @@
 
 // -----------------------------------------------------------------------------
 #include "map/map_updater.h"
-
 // -----------------------------------------------------------------------------
 
 
@@ -30,7 +29,20 @@ class NetClient : public MapUpdater {
   NetClient();
   virtual ~NetClient();
 
+  bool Connect(const std::string &ip, int port);
+  void Disconnect();
+
+ public:
+  void OnConnected();
+  void OnDisconnected();
+  void OnError(int error_code, const std::string &error_message);
+  void OnDataRecv(const uint8_t *data, size_t length);
+
  protected:
+  void* socket_;
+
+  std::string ip_;
+  int port_;
 };
 // -----------------------------------------------------------------------------
 
