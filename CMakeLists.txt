@@ -3,11 +3,14 @@
 #
 cmake_minimum_required (VERSION 3.12)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # prevent installing to system directories.
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE INTERNAL "")
 
 # Declare the project
-project ("BomberManClient")
+project ("ElefantBlasterClient" LANGUAGES C CXX)
 
 # set the output directory for built objects.
 # This makes sure that the dynamic library goes into the build directory automatically.
@@ -43,6 +46,8 @@ target_include_directories(${EXECUTABLE_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+file(GLOB_RECURSE PROTO_FILES "${CMAKE_CURRENT_LIST_DIR}/src/network/protocols/*")
+
 # Add your sources to the target
 target_sources (${EXECUTABLE_NAME}
 PRIVATE
@@ -66,6 +71,7 @@ PRIVATE
     src/network/net_client.h
     src/network/net_client.cpp
     src/network/protocol_def.h
+    ${PROTO_FILES}
 )
 
 # What is iosLaunchScreen.storyboard? This file describes what Apple's mobile platforms
@@ -88,35 +94,59 @@ if(EMSCRIPTEN)
     set(CMAKE_EXECUTABLE_SUFFIX ".html" CACHE INTERNAL "")
 endif()
 
-# glm (C++ mathematics library for graphics software)
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/libs/glm
-    ${CMAKE_BINARY_DIR}/glm
-    EXCLUDE_FROM_ALL
-)
+include(FetchContent)
 
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/libs/json
-    ${CMAKE_BINARY_DIR}/json
-    EXCLUDE_FROM_ALL
+# glm (C++ mathematics library for graphics software)
+FetchContent_Declare(
+    glm
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/glm
 )
+FetchContent_MakeAvailable(glm)
+
+# nlohmann_json (JSON for Modern C++)
+FetchContent_Declare(
+    nlohmann_json
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/json
+)
+FetchContent_MakeAvailable(nlohmann_json)
+
+# abseil-cpp (Abseil C++ Common Libraries)
+FetchContent_Declare(
+    absl
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/abseil-cpp
+)
+FetchContent_MakeAvailable(absl)
+
+# Protocol Buffers (protobuf)
+set(protobuf_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(protobuf_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(protobuf_WITH_ZLIB OFF CACHE BOOL "" FORCE)
+set(protobuf_BUILD_PROTOC_BINARIES OFF CACHE BOOL "" FORCE)
+set(protobuf_INSTALL OFF CACHE BOOL "" FORCE)
+set(protobuf_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(protobuf_MSVC_STATIC_RUNTIME ON CACHE BOOL "" FORCE)
+FetchContent_Declare(
+    protobuf
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/protobuf
+)
+FetchContent_MakeAvailable(protobuf)
 
 # Configure SDL by calling its CMake file.
 # we use EXCLUDE_FROM_ALL so that its install targets and configs don't
 # pollute upwards into our configuration.
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/libs/SDL
-    ${CMAKE_BINARY_DIR}/SDL
-    EXCLUDE_FROM_ALL
+FetchContent_Declare(
+    sdl
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL
 )
+FetchContent_MakeAvailable(sdl)
 
-## If you don't want SDL_ttf, then remove this section.
-#set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
-#add_subdirectory(
-#    ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
-#    ${CMAKE_BINARY_DIR}/SDL_ttf
-#    EXCLUDE_FROM_ALL
-#)
+# If you don't want SDL_ttf, then remove this section.
+set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
+FetchContent_Declare(
+    sdl_ttf
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
+)
+FetchContent_MakeAvailable(sdl_ttf)
 
 # SDL_mixer (used for playing audio)
 set(SDLMIXER_MIDI_NATIVE OFF)     # disable formats we don't use to make the build faster and smaller. Also some of these don't work on all platforms so you'll need to do some experimentation.
@@ -129,11 +159,11 @@ set(SDLMIXER_MP3_MPG123 OFF)
 set(SDLMIXER_VORBIS_VORBISFILE OFF)
 set(SDLMIXER_FLAC_LIBFLAC OFF)
 set(SDLMIXER_VENDORED ON)   # tell SDL_mixer to build its own dependencies
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/libs/SDL_mixer
-    ${CMAKE_BINARY_DIR}/SDL_mixer
-    EXCLUDE_FROM_ALL
+FetchContent_Declare(
+    sdl_mixer
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_mixer
 )
+FetchContent_MakeAvailable(sdl_mixer)
 
 # SDL_image (used for loading various image formats)
 set(SDLIMAGE_VENDORED ON)
@@ -141,26 +171,30 @@ set(SDLIMAGE_AVIF OFF)    # disable formats we don't use to make the build faste
 set(SDLIMAGE_BMP OFF)
 set(SDLIMAGE_JPEG OFF)
 set(SDLIMAGE_WEBP OFF)
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/libs/SDL_image
-    ${CMAKE_BINARY_DIR}/SDL_image
-    EXCLUDE_FROM_ALL
+FetchContent_Declare(
+    sdl_image
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_image
 )
+FetchContent_MakeAvailable(sdl_image)
 
-add_subdirectory(
-    ${CMAKE_SOURCE_DIR}/libs/SDL_net
-    ${CMAKE_BINARY_DIR}/SDL_net
-    EXCLUDE_FROM_ALL
+# SDL_net (used for networking)
+set(SDLNET_VENDORED ON)
+FetchContent_Declare(
+    sdl_net
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_net
 )
+FetchContent_MakeAvailable(sdl_net)
 
 # Link SDL to our executable. This also makes its include directory available to us.
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC
     glm::glm-header-only
     nlohmann_json::nlohmann_json
+    protobuf::libprotobuf
+    $<$<NOT:$<BOOL:${EMSCRIPTEN}>>:websocketpp::websocketpp>
 #   SDL3_ttf::SDL3_ttf      # remove if you are not using SDL_ttf
     SDL3_mixer::SDL3_mixer  # remove if you are not using SDL_mixer
     SDL3_image::SDL3_image  # remove if you are not using SDL_image
-    SDL3_net::SDL3_net      # remove if you are not using SDL_net
+#   SDL3_net::SDL3_net      # remove if you are not using SDL_net
     SDL3::SDL3              # If using satelite libraries, SDL must be the last item in the list.
 )
 
@@ -279,8 +313,8 @@ if(APPLE)
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST "${RESOURCES_DIR}/Info.plist.in"
         XCODE_GENERATE_SCHEME TRUE
-        XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER "com.bomberman.vn"
-        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.bomberman.vn"
+        XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER "com.elefantblasterclient.vn"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.elefantblasterclient.vn"
         XCODE_ATTRIBUTE_CURRENTYEAR "2025"
         RESOURCE "${RESOURCE_FILES}"
     )
