@@ -1,10 +1,21 @@
-# CMakeList.txt : CMake project for BomberMan, include source and define
-# project specific logic here.
+# CMakeList.txt : CMake project for ElefantBlasterClient.
+# Include source and define project specific logic here.
 #
-cmake_minimum_required (VERSION 3.12)
+cmake_minimum_required (VERSION 3.20)
 
-set(CMAKE_CXX_STANDARD 20)
+# C++ standard
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake")
+
+# options
+set_option(ENABLE_SDL_TTF "Enable SDL_ttf support" OFF)
+set_option(ENABLE_SDL_MIXER "Enable SDL_mixer support" OFF)
+set_option(ENABLE_SDL_NET "Enable SDL_net support" OFF)
+
+ElefantBlasterClient_PrintSummary()
 
 # prevent installing to system directories.
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE INTERNAL "")
@@ -140,30 +151,34 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sdl)
 
-# If you don't want SDL_ttf, then remove this section.
-set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
-FetchContent_Declare(
-    sdl_ttf
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
-)
-FetchContent_MakeAvailable(sdl_ttf)
+# SDL_ttf (used for rendering fonts)
+if(ENABLE_SDL_TTF)
+    set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
+    FetchContent_Declare(
+        sdl_ttf
+        SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
+    )
+    FetchContent_MakeAvailable(sdl_ttf)
+endif()
 
 # SDL_mixer (used for playing audio)
-set(SDLMIXER_MIDI_NATIVE OFF)     # disable formats we don't use to make the build faster and smaller. Also some of these don't work on all platforms so you'll need to do some experimentation.
-set(SDLMIXER_GME OFF)
-set(SDLMIXER_WAVPACK OFF)
-set(SDLMIXER_MOD OFF)
-set(SDLMIXER_MOD_XMP OFF)
-set(SDLMIXER_OPUS OFF)
-set(SDLMIXER_MP3_MPG123 OFF)
-set(SDLMIXER_VORBIS_VORBISFILE OFF)
-set(SDLMIXER_FLAC_LIBFLAC OFF)
-set(SDLMIXER_VENDORED ON)   # tell SDL_mixer to build its own dependencies
-FetchContent_Declare(
-    sdl_mixer
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_mixer
-)
-FetchContent_MakeAvailable(sdl_mixer)
+if(ENABLE_SDL_MIXER)
+    set(SDLMIXER_MIDI_NATIVE OFF)     # disable formats we don't use to make the build faster and smaller. Also some of these don't work on all platforms so you'll need to do some experimentation.
+    set(SDLMIXER_GME OFF)
+    set(SDLMIXER_WAVPACK OFF)
+    set(SDLMIXER_MOD OFF)
+    set(SDLMIXER_MOD_XMP OFF)
+    set(SDLMIXER_OPUS OFF)
+    set(SDLMIXER_MP3_MPG123 OFF)
+    set(SDLMIXER_VORBIS_VORBISFILE OFF)
+    set(SDLMIXER_FLAC_LIBFLAC OFF)
+    set(SDLMIXER_VENDORED ON)   # tell SDL_mixer to build its own dependencies
+    FetchContent_Declare(
+        sdl_mixer
+        SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_mixer
+    )
+    FetchContent_MakeAvailable(sdl_mixer)
+endif()
 
 # SDL_image (used for loading various image formats)
 set(SDLIMAGE_VENDORED ON)
@@ -178,12 +193,14 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(sdl_image)
 
 # SDL_net (used for networking)
-set(SDLNET_VENDORED ON)
-FetchContent_Declare(
-    sdl_net
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_net
-)
-FetchContent_MakeAvailable(sdl_net)
+if(ENABLE_SDL_NET)
+    set(SDLNET_VENDORED ON)
+    FetchContent_Declare(
+        sdl_net
+        SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_net
+    )
+    FetchContent_MakeAvailable(sdl_net)
+endif()
 
 # Link SDL to our executable. This also makes its include directory available to us.
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC
@@ -191,10 +208,10 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
     nlohmann_json::nlohmann_json
     protobuf::libprotobuf
     $<$<NOT:$<BOOL:${EMSCRIPTEN}>>:websocketpp::websocketpp>
-#   SDL3_ttf::SDL3_ttf      # remove if you are not using SDL_ttf
-    SDL3_mixer::SDL3_mixer  # remove if you are not using SDL_mixer
+    $<$<BOOL:${ENABLE_SDL_TTF}>:SDL3_ttf::SDL3_ttf>
+    $<$<BOOL:${ENABLE_SDL_MIXER}>:SDL3_mixer::SDL3_mixer>
     SDL3_image::SDL3_image  # remove if you are not using SDL_image
-#   SDL3_net::SDL3_net      # remove if you are not using SDL_net
+    $<$<BOOL:${ENABLE_SDL_NET}>:SDL3_net::SDL3_net>
     SDL3::SDL3              # If using satelite libraries, SDL must be the last item in the list.
 )
 
