@@ -215,27 +215,26 @@ SDL_FRect AssetManager::PlayerAnimationRect(MoveDir dir) {
 }
 // -----------------------------------------------------------------------------
 
-std::string AssetManager::R(std::string path) {
+std::filesystem::path AssetManager::R(std::filesystem::path path) {
 #ifdef __EMSCRIPTEN__
-    std::string base_path = "/assets/";
+    std::string base_path = "/assets";
 #elif defined(_WIN32) || defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
-    std::string base_path = "assets/";
+    std::string base_path = "assets";
 #endif
 
 #if !defined(__IOS__)
-  return std::string(base_path) + path;
+  return std::filesystem::path(base_path) / path;
 #else
   CFBundleRef mainBundle = CFBundleGetMainBundle();
   CFURLRef resourceURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
   char base_path[PATH_MAX];
   if (CFURLGetFileSystemRepresentation(resourceURL, true, (UInt8*)base_path, PATH_MAX)) {
       CFRelease(resourceURL);
-      return std::string(base_path) + "/" + path;
+      return std::filesystem::path(base_path) / path;
   }
   CFRelease(resourceURL);
   return path; // fallback
 #endif
-
 }
 // -----------------------------------------------------------------------------
 

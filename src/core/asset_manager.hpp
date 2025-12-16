@@ -19,6 +19,7 @@
 
 
 // -----------------------------------------------------------------------------
+#include <filesystem>
 #include <string>
 #include <vector>
 
@@ -68,7 +69,7 @@ class AssetManager {
 
  private:
   void Unload();
-  std::string R(std::string path);
+  static std::filesystem::path R(std::filesystem::path path);
   SDL_Texture *loadTexture(SDL_Renderer *renderer, const std::string &filepath);
 
  private:
