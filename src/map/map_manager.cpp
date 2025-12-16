@@ -59,7 +59,9 @@ void MapManager::Update(float delta_time) {
       float distance_total = glm::length(distance_delta);
       float time_moved = movement.animation.GetTotalTime();
       float distance_moved = movement.speed * time_moved;
-      if (distance_total > 1.0f && glm::length(distance_total - distance_moved) > 1.0f) {
+      if (distance_total > 1.0f &&
+          distance_moved < distance_total &&
+          glm::length(distance_total - distance_moved) > 1.0f) {
         glm::vec2 dir_norm = distance_delta / distance_total;
         movement.screen_pos_current = movement.screen_pos_start + dir_norm * distance_moved;
       }

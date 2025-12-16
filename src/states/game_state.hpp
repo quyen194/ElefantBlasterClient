@@ -33,10 +33,17 @@ class GameState : public MapManager {
   GameState();
   virtual ~GameState();
 
-  void Loop();
+  static GameState* CreateInstance();
+
+  SDL_AppResult AppQuit() { return app_quit_; }
+
+  bool Initialize();
+
+  void OnLoop();
   void Update(float delta_time);
   void Draw();
 
+  void OnEvent(SDL_Event &event);
   void HandleKeyInput(Player *player, SDL_Event &event);
 
   void TestParsePlayers();
@@ -46,7 +53,11 @@ class GameState : public MapManager {
   AssetManager asset_manager_;
 
  private:
-  bool inited_;
+  SDL_AppResult app_quit_;
+
+  uint64_t app_time_;
+
+  static GameState *instance_;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(GameState);

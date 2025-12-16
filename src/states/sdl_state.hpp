@@ -35,6 +35,8 @@ class SDLState {
   bool Initialize();
   void Cleanup();
 
+  void ShowWindow();
+
   bool IsInited();
 
   inline void SetWidth(int value) { width_ = value; }

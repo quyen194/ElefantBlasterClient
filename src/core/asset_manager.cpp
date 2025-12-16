@@ -16,6 +16,10 @@
 #include <string>
 #include <vector>
 
+#if defined(__IOS__)
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 #include <glm/glm.hpp>
 
 #include <SDL3/SDL.h>
@@ -24,7 +28,7 @@
 #include "states/sdl_state.hpp"
 
 #include "entities/map_tile.hpp"
-#include "entities/player.h"
+#include "entities/player.hpp"
 #include "entities/spoil.hpp"
 
 #include "core/asset_manager.hpp"
@@ -58,7 +62,7 @@ bool AssetManager::Initialize() {
 void AssetManager::Load() {
   SDL_Renderer *renderer = sdl_state_.Renderer();
 
-  SDL_Texture *map_texture = loadTexture(renderer, "assets/graphics/tilesets/map.png");
+  SDL_Texture *map_texture = loadTexture(renderer, R("graphics/tilesets/map.png"));
 
   sprite_size_ = static_cast<float>(map_texture->h);
 
@@ -76,9 +80,9 @@ void AssetManager::Load() {
   map_textures_[AssetTileType::kDragonEggGst].sdl_texture = map_texture;
   map_textures_[AssetTileType::kDragonEggGst].rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
 
-  dragon_egg_gst_texture_ = loadTexture(renderer, "assets/graphics/animations/dragon_egg_gst.png");
+  dragon_egg_gst_texture_ = loadTexture(renderer, R("graphics/animations/dragon_egg_gst.png"));
 
-  SDL_Texture *spoil_texture = loadTexture(renderer, "assets/graphics/tilesets/spoils.png");
+  SDL_Texture *spoil_texture = loadTexture(renderer, R("graphics/tilesets/spoils.png"));
 
   spoil_textures_.resize(AssetSpoilType::kMax);
   spoil_textures_[AssetSpoilType::kDragonEggMystic].sdl_texture = spoil_texture;
@@ -91,8 +95,8 @@ void AssetManager::Load() {
   spoil_textures_[AssetSpoilType::kDragonEggSpeed].rect = { 0, AssetSpoilType::kDragonEggSpeed * sprite_size_, sprite_size_, sprite_size_ };
 
   player_textures_.resize(PlayerNo::kMax);
-  player_textures_[PlayerNo::k1] = loadTexture(renderer, "assets/graphics/animations/player1.png");
-  player_textures_[PlayerNo::k2] = loadTexture(renderer, "assets/graphics/animations/player2.png");
+  player_textures_[PlayerNo::k1] = loadTexture(renderer, R("graphics/animations/player1.png"));
+  player_textures_[PlayerNo::k2] = loadTexture(renderer, R("graphics/animations/player2.png"));
 
   player_stand_rects_.resize(AssetPlayerDir::kMax);
   player_stand_rects_[AssetPlayerDir::kDown] = { sprite_size_, AssetPlayerDir::kDown * sprite_size_, sprite_size_, sprite_size_ };
@@ -208,6 +212,30 @@ SDL_FRect AssetManager::PlayerAnimationRect(MoveDir dir) {
   }
 
   return player_animation_rects_[AssetPlayerDir::kDown];
+}
+// -----------------------------------------------------------------------------
+
+std::string AssetManager::R(std::string path) {
+#ifdef __EMSCRIPTEN__
+    std::string base_path = "/assets/";
+#elif defined(_WIN32) || defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
+    std::string base_path = "assets/";
+#endif
+
+#if !defined(__IOS__)
+  return std::string(base_path) + path;
+#else
+  CFBundleRef mainBundle = CFBundleGetMainBundle();
+  CFURLRef resourceURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+  char base_path[PATH_MAX];
+  if (CFURLGetFileSystemRepresentation(resourceURL, true, (UInt8*)base_path, PATH_MAX)) {
+      CFRelease(resourceURL);
+      return std::string(base_path) + "/" + path;
+  }
+  CFRelease(resourceURL);
+  return path; // fallback
+#endif
+
 }
 // -----------------------------------------------------------------------------
 

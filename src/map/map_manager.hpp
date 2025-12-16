@@ -22,13 +22,13 @@
 
 #include "definitions/macro.hpp"
 
-#include "entities/map_tile.h"
-#include "entities/player.h"
-#include "entities/spoil.h"
+#include "entities/map_tile.hpp"
+#include "entities/player.hpp"
+#include "entities/spoil.hpp"
 
-#include "map/map_updater.h"
+#include "map/map_updater.hpp"
 
-#include "states/sdl_state.h"
+#include "states/sdl_state.hpp"
 // -----------------------------------------------------------------------------
 
 

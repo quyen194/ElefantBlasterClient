@@ -56,7 +56,7 @@ bool SDLState::Initialize() {
 
   if (result) {
     // create the window
-    window_ = SDL_CreateWindow("BomberMan", width_, height_, SDL_WINDOW_RESIZABLE);
+    window_ = SDL_CreateWindow("BomberMan", width_, height_, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_HIDDEN);
     if (!window_) {
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window", nullptr);
       Cleanup();
@@ -82,6 +82,8 @@ bool SDLState::Initialize() {
                                      SDL_LOGICAL_PRESENTATION_LETTERBOX);
   }
 
+  SDL_SetRenderVSync(renderer_, -1);   // enable vysnc
+
   inited_ = result;
 
   return result;
@@ -96,5 +98,21 @@ void SDLState::Cleanup() {
     SDL_DestroyWindow(window_);
   }
   SDL_Quit();
+}
+// -----------------------------------------------------------------------------
+
+void SDLState::ShowWindow() {
+  // print some information about the window
+  SDL_ShowWindow(window_);
+  {
+    int width, height, bbwidth, bbheight;
+    SDL_GetWindowSize(window_, &width, &height);
+    SDL_GetWindowSizeInPixels(window_, &bbwidth, &bbheight);
+    SDL_Log("Window size: %ix%i", width, height);
+    SDL_Log("Backbuffer size: %ix%i", bbwidth, bbheight);
+    if (width != bbwidth){
+      SDL_Log("This is a highdpi environment.");
+    }
+  }
 }
 // -----------------------------------------------------------------------------

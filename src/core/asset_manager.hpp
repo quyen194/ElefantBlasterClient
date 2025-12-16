@@ -27,7 +27,7 @@
 #include "effects/animation.hpp"
 
 #include "entities/map_tile.hpp"
-#include "entities/player.h"
+#include "entities/player.hpp"
 #include "entities/spoil.hpp"
 
 #include "states/sdl_state.hpp"
@@ -68,6 +68,7 @@ class AssetManager {
 
  private:
   void Unload();
+  std::string R(std::string path);
   SDL_Texture *loadTexture(SDL_Renderer *renderer, const std::string &filepath);
 
  private:

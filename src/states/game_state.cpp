@@ -23,8 +23,7 @@
 
 
 // -----------------------------------------------------------------------------
-#define MAP_WIDTH
-#define MAP_HEIGHT
+ GameState* GameState::instance_ = nullptr;
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -33,82 +32,70 @@ GameState::GameState()
     : sdl_state_(),
       asset_manager_(sdl_state_),
       MapManager(sdl_state_, asset_manager_),
-      inited_(false) {
-  if (!sdl_state_.Initialize()) {
-    return;
-  }
-
-  if (!asset_manager_.Initialize()) {
-    return;
-  }
-
-  if (!MapManager::Initialize()) {
-    return;
-  }
-
-  TestParsePlayers();
-
-  inited_ = true;
+      app_quit_(SDL_APP_CONTINUE) {
 }
 // -----------------------------------------------------------------------------
 
 GameState::~GameState() {
+  instance_ = nullptr;
 }
 // -----------------------------------------------------------------------------
 
-void GameState::Loop() {
-  if (!inited_) {
-    return;
+GameState* GameState::CreateInstance() {
+  instance_ = new GameState();
+  return instance_;
+}
+// -----------------------------------------------------------------------------
+
+bool GameState::Initialize() {
+  if (!sdl_state_.Initialize()) {
+    return false;
   }
 
-  uint64_t prev_time = SDL_GetTicks();
-
-  // start the game loop
-  bool running = true;
-  while (running) {
-    uint64_t now_time = SDL_GetTicks();
-    float delta_time = (now_time - prev_time) / 1000.0f;
-    // delta_time = 0.0001f;
-    SDL_Event event = {};
-    while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-        case SDL_EVENT_QUIT: {
-          running = false;
-        } break;
-
-        case SDL_EVENT_WINDOW_RESIZED: {
-          sdl_state_.SetWidth(event.window.data1);
-          sdl_state_.SetHeight(event.window.data2);
-        } break;
-
-        case SDL_EVENT_KEY_DOWN: {
-          HandleKeyInput(player1_, event);
-        } break;
-      }
-    }
-
-    // update all objects
-    Update(delta_time);
-
-    // perform drawing commands
-    SDL_SetRenderDrawColor(sdl_state_.Renderer(), 20, 10, 30, 255);
-    SDL_RenderClear(sdl_state_.Renderer());
-
-    // draw all objects
-    Draw();
-
-    // display some debug info
-    SDL_SetRenderDrawColor(sdl_state_.Renderer(), 255, 255, 255, 255);
-    SDL_RenderDebugTextFormat(sdl_state_.Renderer(), 5, 5, "Pos: [%.02f:%.02f] Frame: %lu",
-        player1_->movement.screen_pos_current.x,
-        player1_->movement.screen_pos_current.y,
-        player1_->movement.animation.CurrentFrame());
-
-    // swap buffers and present
-    SDL_RenderPresent(sdl_state_.Renderer());
-
-    prev_time = now_time;
+  if (!asset_manager_.Initialize()) {
+    return false;
   }
+
+  if (!MapManager::Initialize()) {
+    return false;
+  }
+
+  sdl_state_.ShowWindow();
+
+  TestParsePlayers();
+
+  app_time_ = SDL_GetTicks();
+
+  return true;
+}
+// -----------------------------------------------------------------------------
+
+void GameState::OnLoop() {
+  uint64_t now_time = SDL_GetTicks();
+  float delta_time = (now_time - app_time_) / 1000.0f;
+  // delta_time = 0.0001f;
+
+  // update all objects
+  Update(delta_time);
+
+  // perform drawing commands
+  SDL_SetRenderDrawColor(sdl_state_.Renderer(), 20, 10, 30, 255);
+  SDL_RenderClear(sdl_state_.Renderer());
+
+  // draw all objects
+  Draw();
+
+  // display some debug info
+  SDL_SetRenderDrawColor(sdl_state_.Renderer(), 255, 255, 255, 255);
+  SDL_RenderDebugTextFormat(sdl_state_.Renderer(), 5, 5, "Pos: [%.02f:%.02f] Frame: %lu",
+      player1_->movement.screen_pos_current.x,
+      player1_->movement.screen_pos_current.y,
+      player1_->movement.animation.CurrentFrame());
+
+  // swap buffers and present
+  SDL_RenderPresent(sdl_state_.Renderer());
+
+  app_time_ = now_time;
 }
 // -----------------------------------------------------------------------------
 
@@ -119,6 +106,24 @@ void GameState::Update(float delta_time) {
 
 void GameState::Draw() {
   MapManager::Draw();
+}
+// -----------------------------------------------------------------------------
+
+void GameState::OnEvent(SDL_Event &event) {
+  switch (event.type) {
+    case SDL_EVENT_QUIT: {
+      app_quit_ = SDL_APP_SUCCESS;
+    } break;
+
+    case SDL_EVENT_WINDOW_RESIZED: {
+      sdl_state_.SetWidth(event.window.data1);
+      sdl_state_.SetHeight(event.window.data2);
+    } break;
+
+    case SDL_EVENT_KEY_DOWN: {
+      HandleKeyInput(player1_, event);
+    } break;
+  }
 }
 // -----------------------------------------------------------------------------
 
