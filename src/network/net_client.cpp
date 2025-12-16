@@ -18,7 +18,7 @@
 #if defined(__EMSCRIPTEN__)
 #include <emscripten/websocket.h>
 #else
-#include <SDL3_net/SDL_net.h>
+//#include <SDL3_net/SDL_net.h>
 #endif
 
 #include "network/net_client.hpp"
@@ -31,7 +31,7 @@ struct SocketHanler {
 #if defined(__EMSCRIPTEN__)
   EMSCRIPTEN_WEBSOCKET_T handle = -1;
 #else
-  NET_StreamSocket* handle = nullptr;
+  //NET_StreamSocket* handle = nullptr;
 #endif
 };
 // -----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ struct SocketHanler {
 
 NetClient::NetClient() : socket_(new SocketHanler()) {
 #if !defined(__EMSCRIPTEN__)
-  NET_Init();
+  // NET_Init();
 #endif
 }
 // -----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ NetClient::NetClient() : socket_(new SocketHanler()) {
 NetClient::~NetClient() {
   delete static_cast<SocketHanler*>(socket_);
 #if !defined(__EMSCRIPTEN__)
-  NET_Quit();
+  // NET_Quit();
 #endif
 }
 // -----------------------------------------------------------------------------
@@ -102,24 +102,24 @@ bool NetClient::Connect(const std::string& ip, int port) {
 
 #else
 
-  NET_Address* addr = NET_ResolveHostname(ip_.c_str());
-  if (NET_WaitUntilResolved(addr, 5000) == NET_FAILURE) {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to resolve hostname %s: %s", ip_.c_str(), SDL_GetError());
-    return false;
-  }
+  // NET_Address* addr = NET_ResolveHostname(ip_.c_str());
+  // if (NET_WaitUntilResolved(addr, 5000) == NET_FAILURE) {
+  //   SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to resolve hostname %s: %s", ip_.c_str(), SDL_GetError());
+  //   return false;
+  // }
 
-  socket->handle = NET_CreateClient(addr, port_);
-  if (!socket->handle) {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to create stream socket to %s:%d: %s", ip_.c_str(), port_, SDL_GetError());
-    return false;
-  }
+  // socket->handle = NET_CreateClient(addr, port_);
+  // if (!socket->handle) {
+  //   SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to create stream socket to %s:%d: %s", ip_.c_str(), port_, SDL_GetError());
+  //   return false;
+  // }
 
-  if (NET_WaitUntilConnected(socket->handle, 5000) == NET_FAILURE) {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to connect to %s:%d: %s", ip_.c_str(), port_, SDL_GetError());
-    NET_DestroyStreamSocket(socket->handle);
-    socket->handle = nullptr;
-    return false;
-  }
+  // if (NET_WaitUntilConnected(socket->handle, 5000) == NET_FAILURE) {
+  //   SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to connect to %s:%d: %s", ip_.c_str(), port_, SDL_GetError());
+  //   NET_DestroyStreamSocket(socket->handle);
+  //   socket->handle = nullptr;
+  //   return false;
+  // }
 #endif
 
   return true;
@@ -135,10 +135,10 @@ void NetClient::Disconnect() {
     socket->handle = -1;
   }
 #else
-  if (socket->handle) {
-    NET_DestroyStreamSocket(socket->handle);
-    socket->handle = nullptr;
-  }
+  // if (socket->handle) {
+  //   NET_DestroyStreamSocket(socket->handle);
+  //   socket->handle = nullptr;
+  // }
 #endif
 }
 // -----------------------------------------------------------------------------
@@ -154,7 +154,7 @@ void NetClient::OnDisconnected() {
 // -----------------------------------------------------------------------------
 
 void NetClient::OnError(int error_code, const std::string& error_message) {
-  SDL_LogError(error_code, "%s", error_message.c_str());
+  //SDL_LogError(error_code, "%s", error_message.c_str());
 }
 // -----------------------------------------------------------------------------
 
