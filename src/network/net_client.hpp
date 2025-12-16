@@ -5,54 +5,38 @@
   author:    quyen19492
   email:     quyen19492@gmail.com
 
-  created:   2025/11/06 6:09
-  filename:  ElefantBlaster/ElefantBlasterClient/states/game_state.hpp
+  created:   2025/11/09 9:07
+  filename:  ElefantBlaster/ElefantBlasterClient/network/net_client.hpp
 
   purpose:
 *********************************************************************/
 
 
 // -----------------------------------------------------------------------------
-#ifndef ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
-#define ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
+#ifndef ELEFANT_BLASTER_CLIENT_NETWORK_NET_CLIENT_HPP
+#define ELEFANT_BLASTER_CLIENT_NETWORK_NET_CLIENT_HPP
 // -----------------------------------------------------------------------------
+
 
 // -----------------------------------------------------------------------------
 #include "definitions/macro.hpp"
 
-#include "states/sdl_state.hpp"
-#include "core/asset_manager.hpp"
-#include "map/map_manager.hpp"
+#include "map/map_updater.hpp"
 // -----------------------------------------------------------------------------
 
 
 // -----------------------------------------------------------------------------
 
-class GameState : public MapManager {
+class NetClient : public MapUpdater {
  public:
-  GameState();
-  virtual ~GameState();
-
-  void Loop();
-  void Update(float delta_time);
-  void Draw();
-
-  void HandleKeyInput(Player *player, SDL_Event &event);
-
-  void TestParsePlayers();
+  NetClient();
+  virtual ~NetClient();
 
  private:
-  SDLState sdl_state_;
-  AssetManager asset_manager_;
-
- private:
-  bool inited_;
-
- private:
-  DISALLOW_COPY_AND_ASSIGN(GameState);
+  DISALLOW_COPY_AND_ASSIGN(NetClient);
 };
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-#endif  // ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
+#endif  // ELEFANT_BLASTER_CLIENT_NETWORK_NET_CLIENT_HPP
 // -----------------------------------------------------------------------------

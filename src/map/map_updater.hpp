@@ -5,54 +5,40 @@
   author:    quyen19492
   email:     quyen19492@gmail.com
 
-  created:   2025/11/06 6:09
-  filename:  ElefantBlaster/ElefantBlasterClient/states/game_state.hpp
+  created:   2025/11/09 8:57
+  filename:  ElefantBlaster/ElefantBlasterClient/map/map_updater.hpp
 
   purpose:
 *********************************************************************/
 
 
 // -----------------------------------------------------------------------------
-#ifndef ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
-#define ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
+#ifndef ELEFANT_BLASTER_CLIENT_MAP_MAP_UPDATER_HPP
+#define ELEFANT_BLASTER_CLIENT_MAP_MAP_UPDATER_HPP
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-#include "definitions/macro.hpp"
+#include <nlohmann/json.hpp>
 
-#include "states/sdl_state.hpp"
-#include "core/asset_manager.hpp"
-#include "map/map_manager.hpp"
+#include "network/protocol_def.hpp"
 // -----------------------------------------------------------------------------
 
 
 // -----------------------------------------------------------------------------
+using json = nlohmann::json;
+// -----------------------------------------------------------------------------
 
-class GameState : public MapManager {
+// -----------------------------------------------------------------------------
+
+class MapUpdater {
  public:
-  GameState();
-  virtual ~GameState();
+  virtual void UpdatePlayers(json &obj) = 0;
 
-  void Loop();
-  void Update(float delta_time);
-  void Draw();
-
-  void HandleKeyInput(Player *player, SDL_Event &event);
-
-  void TestParsePlayers();
-
- private:
-  SDLState sdl_state_;
-  AssetManager asset_manager_;
-
- private:
-  bool inited_;
-
- private:
-  DISALLOW_COPY_AND_ASSIGN(GameState);
+ protected:
+  ServerMsgType server_msg_type_;
 };
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-#endif  // ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
+#endif  // ELEFANT_BLASTER_CLIENT_MAP_MAP_UPDATER_HPP
 // -----------------------------------------------------------------------------

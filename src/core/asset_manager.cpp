@@ -24,9 +24,9 @@
 #include "states/sdl_state.hpp"
 
 #include "entities/map_tile.hpp"
+#include "entities/player.h"
 #include "entities/spoil.hpp"
 
-#include "effects/animation.hpp"
 #include "core/asset_manager.hpp"
 // -----------------------------------------------------------------------------
 
@@ -38,7 +38,7 @@
 // -----------------------------------------------------------------------------
 
 AssetManager::AssetManager(SDLState &sdl_state)
-     : sdl_state_(sdl_state), sprite_size_(32.0f) {
+     : sdl_state_(sdl_state), sprite_size_(35.0f) {
   instance_ = this;
 }
 // -----------------------------------------------------------------------------
@@ -90,11 +90,27 @@ void AssetManager::Load() {
   spoil_textures_[AssetSpoilType::kDragonEggSpeed].sdl_texture = spoil_texture;
   spoil_textures_[AssetSpoilType::kDragonEggSpeed].rect = { 0, AssetSpoilType::kDragonEggSpeed * sprite_size_, sprite_size_, sprite_size_ };
 
-  player_animation_ = Animation(4, 1.6f);
-
   player_textures_.resize(PlayerNo::kMax);
   player_textures_[PlayerNo::k1] = loadTexture(renderer, "assets/graphics/animations/player1.png");
   player_textures_[PlayerNo::k2] = loadTexture(renderer, "assets/graphics/animations/player2.png");
+
+  player_stand_rects_.resize(AssetPlayerDir::kMax);
+  player_stand_rects_[AssetPlayerDir::kDown] = { sprite_size_, AssetPlayerDir::kDown * sprite_size_, sprite_size_, sprite_size_ };
+  player_stand_rects_[AssetPlayerDir::kUp] = { sprite_size_, AssetPlayerDir::kUp * sprite_size_, sprite_size_, sprite_size_ };
+  player_stand_rects_[AssetPlayerDir::kLeft] = { sprite_size_, AssetPlayerDir::kLeft * sprite_size_, sprite_size_, sprite_size_ };
+  player_stand_rects_[AssetPlayerDir::kRight] = { sprite_size_, AssetPlayerDir::kRight * sprite_size_, sprite_size_, sprite_size_ };
+
+  player_animations_.resize(AssetPlayerDir::kMax);
+  player_animations_[AssetPlayerDir::kDown] = Animation(4, 0.25f);
+  player_animations_[AssetPlayerDir::kUp] = Animation(4, 0.25f);
+  player_animations_[AssetPlayerDir::kLeft] = Animation(4, 0.25f);
+  player_animations_[AssetPlayerDir::kRight] = Animation(4, 0.25f);
+
+  player_animation_rects_.resize(AssetPlayerDir::kMax);
+  player_animation_rects_[AssetPlayerDir::kDown] = { 0, AssetPlayerDir::kDown * sprite_size_, sprite_size_, sprite_size_ };
+  player_animation_rects_[AssetPlayerDir::kUp] = { 0, AssetPlayerDir::kUp * sprite_size_, sprite_size_, sprite_size_ };
+  player_animation_rects_[AssetPlayerDir::kLeft] = { 0, AssetPlayerDir::kLeft * sprite_size_, sprite_size_, sprite_size_ };
+  player_animation_rects_[AssetPlayerDir::kRight] = { 0, AssetPlayerDir::kRight * sprite_size_, sprite_size_, sprite_size_ };
 }
 // -----------------------------------------------------------------------------
 
@@ -144,6 +160,54 @@ AssetTexture AssetManager::SpoilTexture(SpoilType object) {
   }
 
   return spoil_textures_[AssetSpoilType::kDragonEggMystic];
+}
+// -----------------------------------------------------------------------------
+
+SDL_FRect AssetManager::PlayerStandRect(MoveDir dir) {
+  switch (dir) {
+    case MoveDir::kLeft:
+      return player_stand_rects_[AssetPlayerDir::kLeft];
+    case MoveDir::kRight:
+      return player_stand_rects_[AssetPlayerDir::kRight];
+    case MoveDir::kUp:
+      return player_stand_rects_[AssetPlayerDir::kUp];
+    case MoveDir::kDown:
+      return player_stand_rects_[AssetPlayerDir::kDown];
+  }
+
+  return player_stand_rects_[AssetPlayerDir::kDown];
+}
+// -----------------------------------------------------------------------------
+
+Animation AssetManager::PlayerAnimation(MoveDir dir) {
+  switch (dir) {
+    case MoveDir::kLeft:
+      return player_animations_[AssetPlayerDir::kLeft];
+    case MoveDir::kRight:
+      return player_animations_[AssetPlayerDir::kRight];
+    case MoveDir::kUp:
+      return player_animations_[AssetPlayerDir::kUp];
+    case MoveDir::kDown:
+      return player_animations_[AssetPlayerDir::kDown];
+  }
+
+  return player_animations_[AssetPlayerDir::kDown];
+}
+// -----------------------------------------------------------------------------
+
+SDL_FRect AssetManager::PlayerAnimationRect(MoveDir dir) {
+  switch (dir) {
+    case MoveDir::kLeft:
+      return player_animation_rects_[AssetPlayerDir::kLeft];
+    case MoveDir::kRight:
+      return player_animation_rects_[AssetPlayerDir::kRight];
+    case MoveDir::kUp:
+      return player_animation_rects_[AssetPlayerDir::kUp];
+    case MoveDir::kDown:
+      return player_animation_rects_[AssetPlayerDir::kDown];
+  }
+
+  return player_animation_rects_[AssetPlayerDir::kDown];
 }
 // -----------------------------------------------------------------------------
 

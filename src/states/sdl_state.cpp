@@ -27,10 +27,10 @@
 
 SDLState::SDLState()
     : inited_(false),
-      width_(1200),
-      height_(900),
-      logW_(1032),
-      logH_(648),
+      width_(1800),
+      height_(1000),
+      logW_(1500),
+      logH_(948),
       window_(nullptr),
       renderer_(nullptr),
       keys_(SDL_GetKeyboardState(nullptr)) {}
