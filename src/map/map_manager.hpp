@@ -36,7 +36,8 @@ class MapManager {
 
   bool Initialize();
 
-  void Draw(float deltaTime);
+  void Update(float deltaTime);
+  void Draw();
 
  private:
   void Load();
@@ -47,7 +48,8 @@ class MapManager {
 
  private:
   glm::vec2 screen_pos_;
-  std::vector<MapTile> layer_tiles_;
+  std::vector<MapTile*> layer_tiles_;
+  std::vector<DynamicMapTile*> dynamic_tiles_;
   std::vector<Spoil> layer_spoils_;
 
  private:

@@ -42,19 +42,62 @@ bool MapManager::Initialize() {
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::Draw(float deltaTime) {
+void MapManager::Update(float deltaTime) {
+  for (DynamicMapTile *tile : dynamic_tiles_) {
+    tile->animation.Step(deltaTime);
+  }
+}
+// -----------------------------------------------------------------------------
+
+void MapManager::Draw() {
   SDL_Renderer *renderer = sdl_state_.Renderer();
   float sprite_size = asset_manager_.SpriteSize();
 
-  for (MapTile tile : layer_tiles_) {
-    SDL_FRect dst = {
-        screen_pos_.x + tile.screen_pos.x,    // x
-        screen_pos_.y + tile.screen_pos.y,    // y
-        tile.rect.w,                          // w
-        tile.rect.h,                          // h
-    };
+  for (MapTile *tile : layer_tiles_) {
+    switch (tile->type) {
+      case MapTileType::kGrass:
+      case MapTileType::kWall:
+      case MapTileType::kBalk:
+      case MapTileType::kTeleportGate:
+      case MapTileType::kQuarantineZone: {
+        StaticMapTile *obj = dynamic_cast<StaticMapTile*>(tile);
+        SDL_FRect dst = {
+            screen_pos_.x + obj->screen_pos.x,    // x
+            screen_pos_.y + obj->screen_pos.y,    // y
+            obj->rect.w,                          // w
+            obj->rect.h,                          // h
+        };
+        SDL_RenderTexture(renderer, obj->texture, &obj->rect, &dst);
+      } break;
 
-    SDL_RenderTexture(renderer, tile.texture, &tile.rect, &dst);
+      case MapTileType::kDragonEggGst: {
+        DynamicMapTile *obj = dynamic_cast<DynamicMapTile*>(tile);
+
+        SDL_FRect bg_dst = {
+            screen_pos_.x + obj->screen_pos.x,    // x
+            screen_pos_.y + obj->screen_pos.y,    // y
+            obj->bg_rect.w,                       // w
+            obj->bg_rect.h,                       // h
+        };
+        SDL_RenderTexture(renderer, obj->bg_texture, &obj->bg_rect, &bg_dst);
+
+        float sprite_size = static_cast<float>(obj->texture->w);
+        float srcY = obj->animation.CurrentFrame() * sprite_size;
+        SDL_FRect src = {
+            0,                                    // x
+            srcY,                                 // y
+            sprite_size,                          // w
+            sprite_size,                          // h
+        };
+        SDL_FRect dst = {
+            screen_pos_.x + obj->screen_pos.x,    // x
+            screen_pos_.y + obj->screen_pos.y,    // y
+            sprite_size,                          // w
+            sprite_size,                          // h
+        };
+        SDL_RenderTexture(renderer, obj->texture, &src, &dst);
+      } break;
+    }
   }
 }
 // -----------------------------------------------------------------------------
@@ -83,35 +126,40 @@ void MapManager::Load() {
 
   for (int r = 0; r < rows; r++) {
     for (int c = 0; c < cols; c++) {
-      MapTile obj;
-      obj.type = static_cast<MapTileType>(map[r][c]);
-      obj.map_pos = glm::vec2(c, r);
-      obj.screen_pos = glm::vec2(c * sprite_size, r * sprite_size);
-      AssetTexture aText = asset_manager_.MapTexture(obj.type);
-      obj.texture = aText.sdl_texture;
-      obj.rect = aText.rect;
-
-      switch (obj.type) {
-        case MapTileType::kGrass: {
-        } break;
-
-        case MapTileType::kWall: {
-        } break;
-
-        case MapTileType::kBalk: {
-        } break;
-
-        case MapTileType::kTeleportGate: {
-        } break;
-
+      MapTileType type = static_cast<MapTileType>(map[r][c]);
+      switch (type) {
+        case MapTileType::kGrass:
+        case MapTileType::kWall:
+        case MapTileType::kBalk:
+        case MapTileType::kTeleportGate:
         case MapTileType::kQuarantineZone: {
+          StaticMapTile *obj = new StaticMapTile();
+          obj->type = type;
+          obj->map_pos = glm::vec2(c, r);
+          obj->screen_pos = glm::vec2(c * sprite_size, r * sprite_size);
+          AssetTexture aText = asset_manager_.MapTexture(obj->type);
+          obj->texture = aText.sdl_texture;
+          obj->rect = aText.rect;
+          // add to map
+          layer_tiles_.push_back(obj);
         } break;
 
         case MapTileType::kDragonEggGst: {
+          DynamicMapTile *obj = new DynamicMapTile();
+          obj->type = type;
+          obj->map_pos = glm::vec2(c, r);
+          obj->screen_pos = glm::vec2(c * sprite_size, r * sprite_size);
+          obj->texture = asset_manager_.DragonEggGstTexture();
+          obj->animation = Animation(20, 5.0f);
+          // this animation have background
+          AssetTexture aText = asset_manager_.MapTexture(MapTileType::kGrass);
+          obj->bg_texture = aText.sdl_texture;
+          obj->bg_rect = aText.rect;
+          // add to map
+          layer_tiles_.push_back(obj);
+          dynamic_tiles_.push_back(obj);
         } break;
       }
-
-      layer_tiles_.push_back(obj);
     }
   }
 }

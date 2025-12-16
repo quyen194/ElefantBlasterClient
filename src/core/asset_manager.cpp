@@ -76,6 +76,8 @@ void AssetManager::Load() {
   map_textures_[MapTileType::kDragonEggGst].sdl_texture = map_texture;
   map_textures_[MapTileType::kDragonEggGst].rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
 
+  dragon_egg_gst_texture_ = loadTexture(renderer, "assets/graphics/animations/dragon_egg_gst.png");
+
   SDL_Texture *spoil_texture = loadTexture(renderer, "assets/graphics/tilesets/spoils.png");
 
   spoil_textures_.resize(SpoilType::kMax);

@@ -80,6 +80,8 @@ class AssetManager {
   AssetTexture MapTexture(MapTileType object) { return map_textures_[object]; }
   AssetTexture SpoilTexture(SpoilType object) { return map_textures_[object]; }
 
+  SDL_Texture* DragonEggGstTexture() { return dragon_egg_gst_texture_; }
+
   Animation PlayerAnimation() { return player_animation_; }
   SDL_Texture* PlayerTexture(PlayerNo no) { return player_textures_[no]; }
 
@@ -94,6 +96,8 @@ class AssetManager {
 
   std::vector<AssetTexture> map_textures_;
   std::vector<AssetTexture> spoil_textures_;
+
+  SDL_Texture *dragon_egg_gst_texture_;
 
   Animation player_animation_;
   std::vector<SDL_Texture *> player_textures_;

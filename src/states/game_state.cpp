@@ -83,14 +83,14 @@ void GameState::Loop() {
     }
 
     // update all objects
-    //gs.UpdateAll(event, deltaTime);
+    map_manager_.Update(deltaTime);
 
     // perform drawing commands
     SDL_SetRenderDrawColor(sdl_state_.Renderer(), 20, 10, 30, 255);
     SDL_RenderClear(sdl_state_.Renderer());
 
     // draw all objects
-    map_manager_.Draw(deltaTime);
+    map_manager_.Draw();
 
     // display some debug info
     // SDL_SetRenderDrawColor(sdl_state_.Renderer(), 255, 255, 255, 255);
