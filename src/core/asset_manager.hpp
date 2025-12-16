@@ -19,37 +19,17 @@
 
 
 // -----------------------------------------------------------------------------
+#include <string>
+#include <vector>
+
 #include "definitions/macro.hpp"
+
+#include "effects/animation.hpp"
+#include "entities/map_tile.hpp"
+#include "entities/spoil.hpp"
+#include "states/sdl_state.hpp"
 // -----------------------------------------------------------------------------
 
-
-// -----------------------------------------------------------------------------
-namespace _MapObj {
-enum T {
-  kBalk,
-  kWall,
-  kGrass,
-  kTeleportGate,
-  kQuarantineZone,
-  kDragonEggGst,
-  kMax,
-};
-};
-typedef _MapObj::T MapObj;
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-namespace _SpoilObj {
-enum T {
-  kDragonEggMystic,
-  kDragonEggAttack,
-  kDragonEggDelay,
-  kDragonEggSpeed,
-  kMax,
-};
-};
-typedef _SpoilObj::T SpoilObj;
-// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 namespace _PlayerDir {
@@ -89,27 +69,36 @@ class AssetManager {
   AssetManager(SDLState &sdl_state);
   virtual ~AssetManager();
 
-  void load(SDL_Renderer *renderer);
-  void unload();
+  static AssetManager& Instance() { return *instance_; }
 
-  AssetTexture MapTexture(MapObj object) { return map_textures[object]; }
-  AssetTexture SpoilTexture(SpoilObj object) { return map_textures[object]; }
+  bool Initialize();
 
-  Animation PlayerAnimation() { return player_animation; }
-  SDL_Texture* PlayerTexture(PlayerNo no) { return player_textures[no]; }
+  void Load();
+
+  float SpriteSize() { return sprite_size_; }
+
+  AssetTexture MapTexture(MapTileType object) { return map_textures_[object]; }
+  AssetTexture SpoilTexture(SpoilType object) { return map_textures_[object]; }
+
+  Animation PlayerAnimation() { return player_animation_; }
+  SDL_Texture* PlayerTexture(PlayerNo no) { return player_textures_[no]; }
 
  private:
+  void Unload();
   SDL_Texture *loadTexture(SDL_Renderer *renderer, const std::string &filepath);
 
  private:
   SDLState &sdl_state_;
-  float sprite_size;
 
-  std::vector<AssetTexture> map_textures;
-  std::vector<AssetTexture> spoil_textures;
+  float sprite_size_;
 
-  Animation player_animation;
-  std::vector<SDL_Texture *> player_textures;
+  std::vector<AssetTexture> map_textures_;
+  std::vector<AssetTexture> spoil_textures_;
+
+  Animation player_animation_;
+  std::vector<SDL_Texture *> player_textures_;
+
+  static AssetManager* instance_;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(AssetManager);

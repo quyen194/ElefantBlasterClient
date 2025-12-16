@@ -20,30 +20,33 @@
 
 
 // -----------------------------------------------------------------------------
+ SDLState* SDLState::instance_ = nullptr;
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 
 SDLState::SDLState()
-    : width_(800),
-      height_(600),
-      logW_(640),
-      logH_(320),
+    : inited_(false),
+      width_(1200),
+      height_(900),
+      logW_(1032),
+      logH_(648),
       window_(nullptr),
       renderer_(nullptr),
-      keys_(SDL_GetKeyboardState(nullptr)) {
-  inited = initialize();
-}
+      keys_(SDL_GetKeyboardState(nullptr)) {}
 // -----------------------------------------------------------------------------
 
 SDLState::~SDLState() {
-  cleanup();
+  Cleanup();
 }
 // -----------------------------------------------------------------------------
 
-bool SDLState::isInited() {
-  return inited;
+bool SDLState::IsInited() {
+  return inited_;
 }
 // -----------------------------------------------------------------------------
 
-bool SDLState::initialize() {
+bool SDLState::Initialize() {
   bool result = true;
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -56,7 +59,7 @@ bool SDLState::initialize() {
     window_ = SDL_CreateWindow("BomberMan", width_, height_, SDL_WINDOW_RESIZABLE);
     if (!window_) {
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window", nullptr);
-      cleanup();
+      Cleanup();
       result = false;
     }
   }
@@ -66,7 +69,7 @@ bool SDLState::initialize() {
     renderer_ = SDL_CreateRenderer(window_, nullptr);
     if (!renderer_) {
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating renderer", nullptr);
-      cleanup();
+      Cleanup();
       result = false;
     }
   }
@@ -79,13 +82,19 @@ bool SDLState::initialize() {
                                      SDL_LOGICAL_PRESENTATION_LETTERBOX);
   }
 
+  inited_ = result;
+
   return result;
 }
 // -----------------------------------------------------------------------------
 
-void SDLState::cleanup() {
-  SDL_DestroyRenderer(renderer_);
-  SDL_DestroyWindow(window_);
+void SDLState::Cleanup() {
+  if (renderer_) {
+    SDL_DestroyRenderer(renderer_);
+  }
+  if (window_) {
+    SDL_DestroyWindow(window_);
+  }
   SDL_Quit();
 }
 // -----------------------------------------------------------------------------

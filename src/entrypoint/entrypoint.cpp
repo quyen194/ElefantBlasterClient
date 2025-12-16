@@ -15,7 +15,7 @@
 // -----------------------------------------------------------------------------
 #include <SDL3/SDL.h>
 
-#include "states/sdl_state.hpp"
+#include "states/game_state.hpp"
 // -----------------------------------------------------------------------------
 
 
@@ -29,11 +29,9 @@
 
 int main(int argc, char *argv[]) {
   // init game window
-  SDLState sdl_state;
+  GameState game_state;
 
-  if (!sdl_state.isInited()) {
-    return 1;
-  }
+  game_state.Loop();
 
   return 0;
 }

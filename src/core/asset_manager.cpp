@@ -23,69 +23,87 @@
 
 #include "states/sdl_state.hpp"
 
+#include "entities/map_tile.hpp"
+#include "entities/spoil.hpp"
+
 #include "effects/animation.hpp"
 #include "core/asset_manager.hpp"
 // -----------------------------------------------------------------------------
 
 
 // -----------------------------------------------------------------------------
+ AssetManager* AssetManager::instance_ = nullptr;
+// -----------------------------------------------------------------------------
 
-AssetManager::AssetManager(SDLState& sdl_state)
-    : sdl_state_(sdl_state), sprite_size(32.0f) {
-  load(sdl_state_.Renderer());
+// -----------------------------------------------------------------------------
+
+AssetManager::AssetManager(SDLState &sdl_state)
+     : sdl_state_(sdl_state), sprite_size_(32.0f) {
+  instance_ = this;
 }
 // -----------------------------------------------------------------------------
 
 AssetManager::~AssetManager() {
-  unload();
+  Unload();
 }
 // -----------------------------------------------------------------------------
 
-void AssetManager::load(SDL_Renderer *renderer) {
+bool AssetManager::Initialize() {
+  Load();
+
+  return true;
+}
+// -----------------------------------------------------------------------------
+
+void AssetManager::Load() {
+  SDL_Renderer *renderer = sdl_state_.Renderer();
+
   SDL_Texture *map_texture = loadTexture(renderer, "assets/graphics/tilesets/map.png");
 
-  map_textures.resize(MapObj::kMax);
-  map_textures[MapObj::kBalk].sdl_texture = map_texture;
-  map_textures[MapObj::kBalk].rect = { MapObj::kBalk * sprite_size, 0, sprite_size, sprite_size };
-  map_textures[MapObj::kWall].sdl_texture = map_texture;
-  map_textures[MapObj::kWall].rect = { MapObj::kWall * sprite_size, 0, sprite_size, sprite_size };
-  map_textures[MapObj::kGrass].sdl_texture = map_texture;
-  map_textures[MapObj::kGrass].rect = { MapObj::kGrass * sprite_size, sprite_size, sprite_size };
-  map_textures[MapObj::kTeleportGate].sdl_texture = map_texture;
-  map_textures[MapObj::kTeleportGate].rect = { MapObj::kTeleportGate * sprite_size, 0, sprite_size, sprite_size };
-  map_textures[MapObj::kQuarantineZone].sdl_texture = map_texture;
-  map_textures[MapObj::kQuarantineZone].rect = { MapObj::kQuarantineZone * sprite_size, 0, sprite_size, sprite_size };
-  map_textures[MapObj::kDragonEggGst].sdl_texture = map_texture;
-  map_textures[MapObj::kDragonEggGst].rect = { MapObj::kDragonEggGst * sprite_size, 0, sprite_size, sprite_size };
+  sprite_size_ = static_cast<float>(map_texture->h);
+
+  map_textures_.resize(MapTileType::kMax);
+  map_textures_[MapTileType::kGrass].sdl_texture = map_texture;
+  map_textures_[MapTileType::kGrass].rect = { AssetTileType::kGrass * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[MapTileType::kWall].sdl_texture = map_texture;
+  map_textures_[MapTileType::kWall].rect = { AssetTileType::kWall * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[MapTileType::kBalk].sdl_texture = map_texture;
+  map_textures_[MapTileType::kBalk].rect = { AssetTileType::kBalk * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[MapTileType::kTeleportGate].sdl_texture = map_texture;
+  map_textures_[MapTileType::kTeleportGate].rect = { AssetTileType::kTeleportGate * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[MapTileType::kQuarantineZone].sdl_texture = map_texture;
+  map_textures_[MapTileType::kQuarantineZone].rect = { AssetTileType::kQuarantineZone * sprite_size_, 0, sprite_size_, sprite_size_ };
+  map_textures_[MapTileType::kDragonEggGst].sdl_texture = map_texture;
+  map_textures_[MapTileType::kDragonEggGst].rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
 
   SDL_Texture *spoil_texture = loadTexture(renderer, "assets/graphics/tilesets/spoils.png");
 
-  spoil_textures.resize(SpoilObj::kMax);
-  spoil_textures[SpoilObj::kDragonEggMystic].sdl_texture = map_texture;
-  spoil_textures[SpoilObj::kDragonEggMystic].rect = { SpoilObj::kDragonEggMystic * sprite_size, 0, sprite_size, sprite_size };
-  spoil_textures[SpoilObj::kDragonEggAttack].sdl_texture = map_texture;
-  spoil_textures[SpoilObj::kDragonEggAttack].rect = { SpoilObj::kDragonEggAttack * sprite_size, 0, sprite_size, sprite_size };
-  spoil_textures[SpoilObj::kDragonEggDelay].sdl_texture = map_texture;
-  spoil_textures[SpoilObj::kDragonEggDelay].rect = { SpoilObj::kDragonEggDelay * sprite_size, 0, sprite_size, sprite_size };
-  spoil_textures[SpoilObj::kDragonEggSpeed].sdl_texture = map_texture;
-  spoil_textures[SpoilObj::kDragonEggSpeed].rect = { SpoilObj::kDragonEggSpeed * sprite_size, 0, sprite_size, sprite_size };
+  spoil_textures_.resize(SpoilType::kMax);
+  spoil_textures_[SpoilType::kDragonEggMystic].sdl_texture = map_texture;
+  spoil_textures_[SpoilType::kDragonEggMystic].rect = { SpoilType::kDragonEggMystic * sprite_size_, 0, sprite_size_, sprite_size_ };
+  spoil_textures_[SpoilType::kDragonEggAttack].sdl_texture = map_texture;
+  spoil_textures_[SpoilType::kDragonEggAttack].rect = { SpoilType::kDragonEggAttack * sprite_size_, 0, sprite_size_, sprite_size_ };
+  spoil_textures_[SpoilType::kDragonEggDelay].sdl_texture = map_texture;
+  spoil_textures_[SpoilType::kDragonEggDelay].rect = { SpoilType::kDragonEggDelay * sprite_size_, 0, sprite_size_, sprite_size_ };
+  spoil_textures_[SpoilType::kDragonEggSpeed].sdl_texture = map_texture;
+  spoil_textures_[SpoilType::kDragonEggSpeed].rect = { SpoilType::kDragonEggSpeed * sprite_size_, 0, sprite_size_, sprite_size_ };
 
-  player_animation = Animation(4, 1.6f);
+  player_animation_ = Animation(4, 1.6f);
 
-  player_textures.resize(PlayerNo::kMax);
-  player_textures[PlayerNo::k1] = loadTexture(renderer, "assets/graphics/animations/player1.png");
-  player_textures[PlayerNo::k2] = loadTexture(renderer, "assets/graphics/animations/player2.png");
+  player_textures_.resize(PlayerNo::kMax);
+  player_textures_[PlayerNo::k1] = loadTexture(renderer, "assets/graphics/animations/player1.png");
+  player_textures_[PlayerNo::k2] = loadTexture(renderer, "assets/graphics/animations/player2.png");
 }
 // -----------------------------------------------------------------------------
 
-void AssetManager::unload() {
-  for (AssetTexture tex : map_textures) {
+void AssetManager::Unload() {
+  for (AssetTexture tex : map_textures_) {
     SDL_DestroyTexture(tex.sdl_texture);
   }
-  for (AssetTexture tex : spoil_textures) {
+  for (AssetTexture tex : spoil_textures_) {
     SDL_DestroyTexture(tex.sdl_texture);
   }
-  for (SDL_Texture *tex : player_textures) {
+  for (SDL_Texture *tex : player_textures_) {
     SDL_DestroyTexture(tex);
   }
 }
