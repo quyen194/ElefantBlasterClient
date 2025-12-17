@@ -142,6 +142,52 @@ if(NOT EMSCRIPTEN)
     target_link_libraries(${EXECUTABLE_NAME} PRIVATE websocketpp::websocketpp)
 endif()
 
+# imgui (Dear ImGui - Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies)
+set(IMGUI_IMPL_SDL ON)
+FetchContent_Declare(
+    imgui
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/imgui
+)
+FetchContent_MakeAvailable(imgui)
+
+# Create a static library for Dear ImGui + required backends
+add_library(imgui STATIC
+    # Core ImGui sources
+    ${imgui_SOURCE_DIR}/imgui.cpp
+    ${imgui_SOURCE_DIR}/imgui_draw.cpp
+    ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+    ${imgui_SOURCE_DIR}/imgui_tables.cpp          # Required if using tables / advanced layouts
+
+    # Optional: uncomment if you want the full demo window
+    # ${imgui_SOURCE_DIR}/imgui_demo.cpp
+
+    # SDL3 backends (recommended for your project using SDL_Renderer)
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_sdl3.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
+
+    # Alternative OpenGL backend (uncomment if switching to raw OpenGL instead of SDL_Renderer)
+    # ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+)
+
+# Public include directories so your code can #include <imgui.h> etc.
+target_include_directories(imgui PUBLIC
+    ${imgui_SOURCE_DIR}
+    ${imgui_SOURCE_DIR}/backends
+)
+
+# Link SDL3 (required by the SDL3 backends)
+target_link_libraries(imgui PUBLIC SDL3::SDL3)
+
+# If using OpenGL backend instead, uncomment these:
+# find_package(OpenGL REQUIRED)
+# target_link_libraries(imgui PUBLIC OpenGL::GL)
+# target_compile_definitions(imgui PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLAD)  # or GL3W, glew, etc.
+
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC imgui)
+
+# Optional: define IMGUI_USER_CONFIG if you have a custom config header
+# target_compile_definitions(imgui PUBLIC IMGUI_USER_CONFIG="my_imgui_config.h")
+
 # Configure SDL by calling its CMake file.
 # we use EXCLUDE_FROM_ALL so that its install targets and configs don't
 # pollute upwards into our configuration.
