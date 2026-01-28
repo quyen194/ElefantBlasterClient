@@ -97,6 +97,9 @@ if (MSVC)
         "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
+# Build all libraries as static
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+
 include(FetchContent)
 
 # glm (C++ mathematics library for graphics software)
