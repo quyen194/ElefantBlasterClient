@@ -8,7 +8,7 @@
   created:   2025/11/04 20:28
   filename:  ElefantBlaster/ElefantBlasterClient/effects/animation.hpp
 
-  purpose:
+  purpose:   Define Animation class for handling frame-based animations.
 *********************************************************************/
 
 

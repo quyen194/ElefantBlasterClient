@@ -8,7 +8,7 @@
   created:   2025/11/06 6:10
   filename:  ElefantBlaster/ElefantBlasterClient/states/game_state.cpp
 
-  purpose:
+  purpose:   Define GameState class for managing the main game state.
 *********************************************************************/
 
 

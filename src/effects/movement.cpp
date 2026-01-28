@@ -8,7 +8,7 @@
   created:   2025/11/09 11:15
   filename:  ElefantBlaster/ElefantBlasterClient/effects/movement.cpp
 
-  purpose:
+  purpose:   Define Movement struct for handling entity movement.
 *********************************************************************/
 
 

@@ -8,7 +8,7 @@
   created:   2025/11/05 4:52
   filename:  ElefantBlaster/ElefantBlasterClient/entities/map_tile.hpp
 
-  purpose:
+  purpose:   Define MapTile structures for static and dynamic map tiles.
 *********************************************************************/
 
 

@@ -8,7 +8,7 @@
   created:   2025/11/02 21:41
   filename:  ElefantBlaster/ElefantBlasterClient/core/asset_manager.cpp
 
-  purpose:
+  purpose:   Manage game assets including textures and animations.
 *********************************************************************/
 
 

@@ -8,7 +8,7 @@
   created:   2025/11/05 17:14
   filename:  ElefantBlaster/ElefantBlasterClient/map/map_manager.cpp
 
-  purpose:
+  purpose:   Manage the game map including tiles and entities.
 *********************************************************************/
 
 
@@ -275,7 +275,7 @@ void MapManager::Load() {
 // -----------------------------------------------------------------------------
 
 void MapManager::UpdatePlayers(json &obj) {
-  
+
 }
 // -----------------------------------------------------------------------------
 

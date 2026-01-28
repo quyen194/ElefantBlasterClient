@@ -8,7 +8,7 @@
   created:   2025/11/08 6:09
   filename:  ElefantBlaster/ElefantBlasterClient/entities/player.hpp
 
-  purpose:
+  purpose:   Define Player structure for player entities.
 *********************************************************************/
 
 

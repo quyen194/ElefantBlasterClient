@@ -8,7 +8,7 @@
   created:   2025/11/09 8:57
   filename:  ElefantBlaster/ElefantBlasterClient/map/map_updater.hpp
 
-  purpose:
+  purpose:   Define MapUpdater class for updating map entities from server messages.
 *********************************************************************/
 
 

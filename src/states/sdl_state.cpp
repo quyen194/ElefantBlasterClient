@@ -8,7 +8,7 @@
   created:   2025/11/02 16:16
   filename:  ElefantBlaster/ElefantBlasterClient/states/sdl_state.cpp
 
-  purpose:
+  purpose:   Define SDLState class for managing SDL initialization and state.
 *********************************************************************/
 
 

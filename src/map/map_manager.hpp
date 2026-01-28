@@ -8,7 +8,7 @@
   created:   2025/11/04 21:46
   filename:  ElefantBlaster/ElefantBlasterClient/map/map_manager.hpp
 
-  purpose:
+  purpose:   Manage the game map including tiles and entities.
 *********************************************************************/
 
 

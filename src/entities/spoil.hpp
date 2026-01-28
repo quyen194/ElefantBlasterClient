@@ -8,7 +8,7 @@
   created:   2025/11/05 16:18
   filename:  ElefantBlaster/ElefantBlasterClient/entities/spoil.h
 
-  purpose:
+  purpose:   Define Spoil structure for spoil entities.
 *********************************************************************/
 
 

@@ -8,7 +8,7 @@
   created:   2025/11/02 15:52
   filename:  ElefantBlaster/ElefantBlasterClient/entrypoint/entrypoint.cpp
 
-  purpose:
+  purpose:   Define the entry point for the Elefant Blaster client application.
 *********************************************************************/
 
 

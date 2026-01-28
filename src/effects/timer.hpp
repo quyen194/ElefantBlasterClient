@@ -8,7 +8,7 @@
   created:   2025/11/04 20:25
   filename:  ElefantBlaster/ElefantBlasterClient/effects/timer.hpp
 
-  purpose:
+  purpose:   Define Timer class for managing time intervals.
 *********************************************************************/
 
 
