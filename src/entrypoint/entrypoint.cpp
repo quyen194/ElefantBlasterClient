@@ -18,7 +18,7 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_init.h>
 
-#include "states/game_state.hpp"
+#include "states/app_state.hpp"
 // -----------------------------------------------------------------------------
 
 
@@ -37,10 +37,10 @@ SDL_AppResult SDL_Fail(){
 // -----------------------------------------------------------------------------
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
-  GameState* game_state = GameState::CreateInstance();
-  *appstate = game_state;
+  AppState* app_state = AppState::CreateInstance();
+  *appstate = app_state;
 
-  if (!game_state->Initialize()) {
+  if (!app_state->Initialize()) {
     return SDL_APP_FAILURE;
   }
 
@@ -49,25 +49,25 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
 // -----------------------------------------------------------------------------
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event* event) {
-  GameState* game_state = reinterpret_cast<GameState*>(appstate);
+  AppState* app_state = reinterpret_cast<AppState*>(appstate);
 
-  game_state->OnEvent(*event);
+  app_state->OnEvent(*event);
 
   return SDL_APP_CONTINUE;
 }
 // -----------------------------------------------------------------------------
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
-  GameState* game_state = reinterpret_cast<GameState*>(appstate);
+  AppState* app_state = reinterpret_cast<AppState*>(appstate);
 
-  game_state->OnLoop();
+  app_state->OnLoop();
 
-  return game_state->AppQuit();
+  return app_state->AppQuit();
 }
 // -----------------------------------------------------------------------------
 
 void SDL_AppQuit(void* appstate, SDL_AppResult result) {
-  GameState* gamestate = reinterpret_cast<GameState*>(appstate);
-  delete gamestate;
+  AppState* app_state = reinterpret_cast<AppState*>(appstate);
+  delete app_state;
 }
 // -----------------------------------------------------------------------------

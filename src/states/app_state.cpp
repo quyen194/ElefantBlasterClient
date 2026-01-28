@@ -6,9 +6,9 @@
   email:     quyen19492@gmail.com
 
   created:   2025/11/06 6:10
-  filename:  ElefantBlaster/ElefantBlasterClient/states/game_state.cpp
+  filename:  ElefantBlaster/ElefantBlasterClient/states/app_state.cpp
 
-  purpose:   Define GameState class for managing the main game state.
+  purpose:   Define AppState class for managing the application state.
 *********************************************************************/
 
 
@@ -18,17 +18,17 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL.h>
 
-#include "states/game_state.hpp"
+#include "states/app_state.hpp"
 // -----------------------------------------------------------------------------
 
 
 // -----------------------------------------------------------------------------
- GameState* GameState::instance_ = nullptr;
+ AppState* AppState::instance_ = nullptr;
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 
-GameState::GameState()
+AppState::AppState()
     : sdl_state_(),
       asset_manager_(sdl_state_),
       MapManager(sdl_state_, asset_manager_),
@@ -36,18 +36,18 @@ GameState::GameState()
 }
 // -----------------------------------------------------------------------------
 
-GameState::~GameState() {
+AppState::~AppState() {
   instance_ = nullptr;
 }
 // -----------------------------------------------------------------------------
 
-GameState* GameState::CreateInstance() {
-  instance_ = new GameState();
+AppState* AppState::CreateInstance() {
+  instance_ = new AppState();
   return instance_;
 }
 // -----------------------------------------------------------------------------
 
-bool GameState::Initialize() {
+bool AppState::Initialize() {
   if (!sdl_state_.Initialize()) {
     return false;
   }
@@ -70,7 +70,7 @@ bool GameState::Initialize() {
 }
 // -----------------------------------------------------------------------------
 
-void GameState::OnLoop() {
+void AppState::OnLoop() {
   uint64_t now_time = SDL_GetTicks();
   float delta_time = (now_time - app_time_) / 1000.0f;
   // delta_time = 0.0001f;
@@ -99,17 +99,17 @@ void GameState::OnLoop() {
 }
 // -----------------------------------------------------------------------------
 
-void GameState::Update(float delta_time) {
+void AppState::Update(float delta_time) {
   MapManager::Update(delta_time);
 }
 // -----------------------------------------------------------------------------
 
-void GameState::Draw() {
+void AppState::Draw() {
   MapManager::Draw();
 }
 // -----------------------------------------------------------------------------
 
-void GameState::OnEvent(SDL_Event &event) {
+void AppState::OnEvent(SDL_Event &event) {
   switch (event.type) {
     case SDL_EVENT_QUIT: {
       app_quit_ = SDL_APP_SUCCESS;
@@ -127,7 +127,7 @@ void GameState::OnEvent(SDL_Event &event) {
 }
 // -----------------------------------------------------------------------------
 
-void GameState::HandleKeyInput(Player *player, SDL_Event &event) {
+void AppState::HandleKeyInput(Player *player, SDL_Event &event) {
   switch (event.key.scancode) {
     case SDL_SCANCODE_LEFT: {
       if (!player->is_moving) {
@@ -153,7 +153,7 @@ void GameState::HandleKeyInput(Player *player, SDL_Event &event) {
 }
 // -----------------------------------------------------------------------------
 
-void GameState::TestParsePlayers() {
+void AppState::TestParsePlayers() {
   std::string strPlayer1 = R"(
       {
         "id": "player1-xxx",

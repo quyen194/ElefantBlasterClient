@@ -6,15 +6,15 @@
   email:     quyen19492@gmail.com
 
   created:   2025/11/06 6:09
-  filename:  ElefantBlaster/ElefantBlasterClient/states/game_state.hpp
+  filename:  ElefantBlaster/ElefantBlasterClient/states/app_state.hpp
 
-  purpose:   Define GameState class for managing the main game state.
+  purpose:   Define AppState class for managing the application state.
 *********************************************************************/
 
 
 // -----------------------------------------------------------------------------
-#ifndef ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
-#define ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
+#ifndef ELEFANT_BLASTER_CLIENT_STATES_APP_STATE_HPP
+#define ELEFANT_BLASTER_CLIENT_STATES_APP_STATE_HPP
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -28,12 +28,12 @@
 
 // -----------------------------------------------------------------------------
 
-class GameState : public MapManager {
+class AppState : public MapManager {
  public:
-  GameState();
-  virtual ~GameState();
+  AppState();
+  virtual ~AppState();
 
-  static GameState* CreateInstance();
+  static AppState* CreateInstance();
 
   SDL_AppResult AppQuit() { return app_quit_; }
 
@@ -57,13 +57,13 @@ class GameState : public MapManager {
 
   uint64_t app_time_;
 
-  static GameState *instance_;
+  static AppState *instance_;
 
  private:
-  DISALLOW_COPY_AND_ASSIGN(GameState);
+  DISALLOW_COPY_AND_ASSIGN(AppState);
 };
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-#endif  // ELEFANT_BLASTER_CLIENT_STATES_GAME_STATE_HPP
+#endif  // ELEFANT_BLASTER_CLIENT_STATES_APP_STATE_HPP
 // -----------------------------------------------------------------------------
