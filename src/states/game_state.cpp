@@ -154,12 +154,12 @@ void GameState::HandleKeyInput(Player *player, SDL_Event &event) {
 // -----------------------------------------------------------------------------
 
 void GameState::TestParsePlayers() {
-  /*
-    {
+  std::string strPlayer1 = R"(
+      {
         "id": "player1-xxx",
         "currentPosition": {
-            "col": 1,
-            "row": 3
+          "col": 1,
+          "row": 3
         },
         "speed": 230,
         "power": 1,
@@ -176,81 +176,35 @@ void GameState::TestParsePlayers() {
         "dragonEggMysticIsolateGate": 0,
         "gstEggBeingAttacked": 0,
         "quarantine": 0
-    }
-  */
-  std::string strPlayer1 =
-    "{\n                                                  \
-         \"id\": \"player1-xxx\",\n                       \
-         \"currentPosition\": {\n                         \
-           \"col\": 1,\n                                  \
-           \"row\": 3\n                                   \
-         },\n                                             \
-         \"speed\": 230,\n                                \
-         \"power\": 1,\n                                  \
-         \"delay\": 2000,\n                               \
-         \"lives\": 1000,\n                               \
-         \"score\": 0,\n                                  \
-         \"box\": 0,\n                                    \
-         \"dragonEggSpeed\": 0,\n                         \
-         \"dragonEggAttack\": 0,\n                        \
-         \"dragonEggDelay\": 0,\n                         \
-         \"dragonEggMystic\": 0,\n                        \
-         \"dragonEggMysticAddEgg\": 0,\n                  \
-         \"dragonEggMysticMinusEgg\": 0,\n                \
-         \"dragonEggMysticIsolateGate\": 0,\n             \
-         \"gstEggBeingAttacked\": 0,\n                    \
-         \"quarantine\": 0\n                              \
-     }";
+      }
+  )";
   json jPlayer1 = json::parse(strPlayer1);
   UpdatePlayer(jPlayer1);
 
-  /*
-    {
-        "id": "player2-xxx",
-        "currentPosition": {
-            "col": 1,
-            "row": 10
-        },
-        "speed": 230,
-        "power": 1,
-        "delay": 2000,
-        "lives": 1000,
-        "score": 0,
-        "box": 0,
-        "dragonEggSpeed": 0,
-        "dragonEggAttack": 0,
-        "dragonEggDelay": 0,
-        "dragonEggMystic": 0,
-        "dragonEggMysticAddEgg": 0,
-        "dragonEggMysticMinusEgg": 0,
-        "dragonEggMysticIsolateGate": 0,
-        "gstEggBeingAttacked": 0,
-        "quarantine": 0
-    }
-  */
-  std::string strPlayer2 =
-    "{\n                                                  \
-         \"id\": \"player2-xxx\",\n                       \
-         \"currentPosition\": {\n                         \
-           \"col\": 1,\n                                  \
-           \"row\": 10\n                                  \
-         },\n                                             \
-         \"speed\": 230,\n                                \
-         \"power\": 1,\n                                  \
-         \"delay\": 2000,\n                               \
-         \"lives\": 1000,\n                               \
-         \"score\": 0,\n                                  \
-         \"box\": 0,\n                                    \
-         \"dragonEggSpeed\": 0,\n                         \
-         \"dragonEggAttack\": 0,\n                        \
-         \"dragonEggDelay\": 0,\n                         \
-         \"dragonEggMystic\": 0,\n                        \
-         \"dragonEggMysticAddEgg\": 0,\n                  \
-         \"dragonEggMysticMinusEgg\": 0,\n                \
-         \"dragonEggMysticIsolateGate\": 0,\n             \
-         \"gstEggBeingAttacked\": 0,\n                    \
-         \"quarantine\": 0\n                              \
-     }";
+  std::string strPlayer2 = R"(
+      {
+         "id": "player2-xxx",
+         "currentPosition": {
+           "col": 1,
+           "row": 10
+         },
+         "speed": 230,
+         "power": 1,
+         "delay": 2000,
+         "lives": 1000,
+         "score": 0,
+         "box": 0,
+         "dragonEggSpeed": 0,
+         "dragonEggAttack": 0,
+         "dragonEggDelay": 0,
+         "dragonEggMystic": 0,
+         "dragonEggMysticAddEgg": 0,
+         "dragonEggMysticMinusEgg": 0,
+         "dragonEggMysticIsolateGate": 0,
+         "gstEggBeingAttacked": 0,
+         "quarantine": 0
+      }
+  )";
   json jPlayer2 = json::parse(strPlayer2);
   UpdatePlayer(jPlayer2);
 }
