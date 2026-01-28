@@ -87,7 +87,7 @@ void GameState::OnLoop() {
 
   // display some debug info
   SDL_SetRenderDrawColor(sdl_state_.Renderer(), 255, 255, 255, 255);
-  SDL_RenderDebugTextFormat(sdl_state_.Renderer(), 5, 5, "Pos: [%.02f:%.02f] Frame: %lu",
+  SDL_RenderDebugTextFormat(sdl_state_.Renderer(), 5, 5, "Pos: [%.02f:%.02f] Frame: %d",
       player1_->movement.screen_pos_current.x,
       player1_->movement.screen_pos_current.y,
       player1_->movement.animation.CurrentFrame());
