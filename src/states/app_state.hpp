@@ -40,11 +40,11 @@ class AppState : public MapManager {
   bool Initialize();
 
   void OnLoop();
-  void Update(float delta_time);
-  void Draw();
+  void OnUpdate(float delta_time);
+  void OnDraw();
 
   void OnEvent(SDL_Event &event);
-  void HandleKeyInput(Player *player, SDL_Event &event);
+  void OnHandleKeyInput(Player *player, SDL_KeyboardEvent &event);
 
   void TestParsePlayers();
 

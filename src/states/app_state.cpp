@@ -76,14 +76,14 @@ void AppState::OnLoop() {
   // delta_time = 0.0001f;
 
   // update all objects
-  Update(delta_time);
+  OnUpdate(delta_time);
 
   // perform drawing commands
   SDL_SetRenderDrawColor(sdl_state_.Renderer(), 20, 10, 30, 255);
   SDL_RenderClear(sdl_state_.Renderer());
 
   // draw all objects
-  Draw();
+  OnDraw();
 
   // display some debug info
   SDL_SetRenderDrawColor(sdl_state_.Renderer(), 255, 255, 255, 255);
@@ -99,12 +99,12 @@ void AppState::OnLoop() {
 }
 // -----------------------------------------------------------------------------
 
-void AppState::Update(float delta_time) {
+void AppState::OnUpdate(float delta_time) {
   MapManager::Update(delta_time);
 }
 // -----------------------------------------------------------------------------
 
-void AppState::Draw() {
+void AppState::OnDraw() {
   MapManager::Draw();
 }
 // -----------------------------------------------------------------------------
@@ -121,14 +121,14 @@ void AppState::OnEvent(SDL_Event &event) {
     } break;
 
     case SDL_EVENT_KEY_DOWN: {
-      HandleKeyInput(player1_, event);
+      OnHandleKeyInput(player1_, event.key);
     } break;
   }
 }
 // -----------------------------------------------------------------------------
 
-void AppState::HandleKeyInput(Player *player, SDL_Event &event) {
-  switch (event.key.scancode) {
+void AppState::OnHandleKeyInput(Player *player, SDL_KeyboardEvent &key_event) {
+  switch (key_event.scancode) {
     case SDL_SCANCODE_LEFT: {
       if (!player->is_moving) {
         MapManager::MovePlayer(player, MoveDir::kLeft);
