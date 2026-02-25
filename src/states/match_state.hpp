@@ -6,21 +6,23 @@
   email:     quyen19492@gmail.com
 
   created:   2025/11/04 21:46
-  filename:  ElefantBlaster/ElefantBlasterClient/map/map_manager.hpp
+  filename:  ElefantBlaster/ElefantBlasterClient/map/match_state.hpp
 
-  purpose:   Manage the game map including tiles and entities.
+  purpose:   Define MatchState class for managing the game map including tiles and entities.
 *********************************************************************/
 
 
 // -----------------------------------------------------------------------------
-#ifndef ELEFANT_BLASTER_CLIENT_MAP_MAP_MANAGER_HPP
-#define ELEFANT_BLASTER_CLIENT_MAP_MAP_MANAGER_HPP
+#ifndef ELEFANT_BLASTER_CLIENT_STATES_MATCH_STATE_HPP
+#define ELEFANT_BLASTER_CLIENT_STATES_MATCH_STATE_HPP
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 #include <vector>
 
 #include "definitions/macro.hpp"
+
+#include "core/asset_manager.hpp"
 
 #include "entities/map_tile.hpp"
 #include "entities/player.hpp"
@@ -34,15 +36,19 @@
 
 // -----------------------------------------------------------------------------
 
-class MapManager : public MapUpdater {
+class MatchState : public MapUpdater {
  public:
-  MapManager(SDLState &sdl_state, AssetManager &asset_manager);
-  virtual ~MapManager();
+  MatchState(SDLState &sdl_state, AssetManager &asset_manager);
+  virtual ~MatchState();
 
   bool Initialize();
 
-  void Update(float delta_time);
-  void Draw();
+  void OnUpdate(float delta_time);
+  void OnDraw();
+  void OnHandleKeyInput(SDL_KeyboardEvent &event);
+
+ private:
+  void OnHandleKeyInput(Player *player, SDL_KeyboardEvent &event);
 
   void UpdatePlayers(json &obj);
   void UpdatePlayer(json &obj);
@@ -52,6 +58,7 @@ class MapManager : public MapUpdater {
 
  private:
   void Load();
+  void TestParsePlayers();
 
  private:
   SDLState &sdl_state_;
@@ -68,10 +75,10 @@ class MapManager : public MapUpdater {
   Player *player1_;
 
  private:
-  DISALLOW_COPY_AND_ASSIGN(MapManager);
+  DISALLOW_COPY_AND_ASSIGN(MatchState);
 };
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-#endif  // ELEFANT_BLASTER_CLIENT_MAP_MAP_MANAGER_HPP
+#endif  // ELEFANT_BLASTER_CLIENT_STATES_MATCH_STATE_HPP
 // -----------------------------------------------------------------------------

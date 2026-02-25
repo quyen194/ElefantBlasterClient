@@ -22,13 +22,13 @@
 
 #include "states/sdl_state.hpp"
 #include "core/asset_manager.hpp"
-#include "map/map_manager.hpp"
+#include "states/match_state.hpp"
 // -----------------------------------------------------------------------------
 
 
 // -----------------------------------------------------------------------------
 
-class AppState : public MapManager {
+class AppState {
  public:
   AppState();
   virtual ~AppState();
@@ -44,13 +44,12 @@ class AppState : public MapManager {
   void OnDraw();
 
   void OnEvent(SDL_Event &event);
-  void OnHandleKeyInput(Player *player, SDL_KeyboardEvent &event);
-
-  void TestParsePlayers();
+  void OnHandleKeyInput(SDL_KeyboardEvent &event);
 
  private:
   SDLState sdl_state_;
   AssetManager asset_manager_;
+  MatchState match_state_;
 
  private:
   SDL_AppResult app_quit_;

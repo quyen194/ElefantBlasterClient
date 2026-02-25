@@ -6,9 +6,9 @@
   email:     quyen19492@gmail.com
 
   created:   2025/11/05 17:14
-  filename:  ElefantBlaster/ElefantBlasterClient/map/map_manager.cpp
+  filename:  ElefantBlaster/ElefantBlasterClient/states/match_state.cpp
 
-  purpose:   Manage the game map including tiles and entities.
+  purpose:   Define MatchState class for managing the game map including tiles and entities.
 *********************************************************************/
 
 
@@ -18,13 +18,13 @@
 #include <SDL3/SDL.h>
 
 #include "core/asset_manager.hpp"
-#include "map/map_manager.hpp"
+#include "states/match_state.hpp"
 // -----------------------------------------------------------------------------
 
 
 // -----------------------------------------------------------------------------
 
-MapManager::MapManager(SDLState &sdl_state, AssetManager &asset_manager)
+MatchState::MatchState(SDLState &sdl_state, AssetManager &asset_manager)
     : sdl_state_(sdl_state),
       asset_manager_(asset_manager),
       sprite_size_(35.0f),
@@ -32,20 +32,22 @@ MapManager::MapManager(SDLState &sdl_state, AssetManager &asset_manager)
       player1_(nullptr) {}
 // -----------------------------------------------------------------------------
 
-MapManager::~MapManager() {
+MatchState::~MatchState() {
 }
 // -----------------------------------------------------------------------------
 
-bool MapManager::Initialize() {
+bool MatchState::Initialize() {
   sprite_size_ = asset_manager_.SpriteSize();
 
   Load();
+
+  TestParsePlayers();
 
   return true;
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::Update(float delta_time) {
+void MatchState::OnUpdate(float delta_time) {
   for (DynamicMapTile *tile : dynamic_tiles_) {
     tile->animation.Step(delta_time);
   }
@@ -80,7 +82,7 @@ void MapManager::Update(float delta_time) {
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::Draw() {
+void MatchState::OnDraw() {
   SDL_Renderer *renderer = sdl_state_.Renderer();
   float sprite_size = asset_manager_.SpriteSize();
 
@@ -170,10 +172,48 @@ void MapManager::Draw() {
       SDL_RenderTexture(renderer, player->texture, &src, &dst);
     }
   }
+
+  // display some debug info
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_RenderDebugTextFormat(renderer, 5, 5, "Pos: [%.02f:%.02f] Frame: %d",
+      player1_->movement.screen_pos_current.x,
+      player1_->movement.screen_pos_current.y,
+      player1_->movement.animation.CurrentFrame());
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::Load() {
+void MatchState::OnHandleKeyInput(SDL_KeyboardEvent &key_event) {
+  OnHandleKeyInput(player1_, key_event);
+}
+// -----------------------------------------------------------------------------
+
+void MatchState::OnHandleKeyInput(Player *player, SDL_KeyboardEvent &key_event) {
+  switch (key_event.scancode) {
+    case SDL_SCANCODE_LEFT: {
+      if (!player->is_moving) {
+        MovePlayer(player, MoveDir::kLeft);
+      }
+    } break;
+    case SDL_SCANCODE_RIGHT: {
+      if (!player->is_moving) {
+        MovePlayer(player, MoveDir::kRight);
+      }
+    } break;
+    case SDL_SCANCODE_UP: {
+      if (!player->is_moving) {
+        MovePlayer(player, MoveDir::kUp);
+      }
+    } break;
+    case SDL_SCANCODE_DOWN: {
+      if (!player->is_moving) {
+        MovePlayer(player, MoveDir::kDown);
+      }
+    } break;
+  }
+}
+// -----------------------------------------------------------------------------
+
+void MatchState::Load() {
   const int rows = 14;
   const int cols = 26;
 
@@ -274,12 +314,12 @@ void MapManager::Load() {
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::UpdatePlayers(json &obj) {
+void MatchState::UpdatePlayers(json &obj) {
 
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::UpdatePlayer(json &obj) {
+void MatchState::UpdatePlayer(json &obj) {
   std::string player_id = obj["id"];
 
   Player *player = nullptr;
@@ -353,12 +393,12 @@ void MapManager::UpdatePlayer(json &obj) {
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::MovePlayer(Player *player, MoveDir dir) {
+void MatchState::MovePlayer(Player *player, MoveDir dir) {
   MovePlayer(player, player->map_pos, Movement::DirToPos(player->map_pos, dir));
 }
 // -----------------------------------------------------------------------------
 
-void MapManager::MovePlayer(Player *player, glm::vec2 pos_start, glm::vec2 pos_end) {
+void MatchState::MovePlayer(Player *player, glm::vec2 pos_start, glm::vec2 pos_end) {
   Movement &movement = player->movement;
 
   movement.map_pos_start = pos_start;
@@ -372,5 +412,62 @@ void MapManager::MovePlayer(Player *player, glm::vec2 pos_start, glm::vec2 pos_e
   movement.rect = asset_manager_.PlayerAnimationRect(movement.dir);
 
   player->is_moving = true;
+}
+// -----------------------------------------------------------------------------
+
+void MatchState::TestParsePlayers() {
+  std::string strPlayer1 = R"(
+      {
+        "id": "player1-xxx",
+        "currentPosition": {
+          "col": 1,
+          "row": 3
+        },
+        "speed": 230,
+        "power": 1,
+        "delay": 2000,
+        "lives": 1000,
+        "score": 0,
+        "box": 0,
+        "dragonEggSpeed": 0,
+        "dragonEggAttack": 0,
+        "dragonEggDelay": 0,
+        "dragonEggMystic": 0,
+        "dragonEggMysticAddEgg": 0,
+        "dragonEggMysticMinusEgg": 0,
+        "dragonEggMysticIsolateGate": 0,
+        "gstEggBeingAttacked": 0,
+        "quarantine": 0
+      }
+  )";
+  json jPlayer1 = json::parse(strPlayer1);
+  UpdatePlayer(jPlayer1);
+
+  std::string strPlayer2 = R"(
+      {
+         "id": "player2-xxx",
+         "currentPosition": {
+           "col": 1,
+           "row": 10
+         },
+         "speed": 230,
+         "power": 1,
+         "delay": 2000,
+         "lives": 1000,
+         "score": 0,
+         "box": 0,
+         "dragonEggSpeed": 0,
+         "dragonEggAttack": 0,
+         "dragonEggDelay": 0,
+         "dragonEggMystic": 0,
+         "dragonEggMysticAddEgg": 0,
+         "dragonEggMysticMinusEgg": 0,
+         "dragonEggMysticIsolateGate": 0,
+         "gstEggBeingAttacked": 0,
+         "quarantine": 0
+      }
+  )";
+  json jPlayer2 = json::parse(strPlayer2);
+  UpdatePlayer(jPlayer2);
 }
 // -----------------------------------------------------------------------------

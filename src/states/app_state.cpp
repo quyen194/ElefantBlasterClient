@@ -16,7 +16,6 @@
 #include <glm/glm.hpp>
 
 #include <SDL3/SDL.h>
-#include <SDL3/SDL.h>
 
 #include "states/app_state.hpp"
 // -----------------------------------------------------------------------------
@@ -31,7 +30,7 @@
 AppState::AppState()
     : sdl_state_(),
       asset_manager_(sdl_state_),
-      MapManager(sdl_state_, asset_manager_),
+      match_state_(sdl_state_, asset_manager_),
       app_quit_(SDL_APP_CONTINUE) {
 }
 // -----------------------------------------------------------------------------
@@ -56,13 +55,11 @@ bool AppState::Initialize() {
     return false;
   }
 
-  if (!MapManager::Initialize()) {
+  if (!match_state_.Initialize()) {
     return false;
   }
 
   sdl_state_.ShowWindow();
-
-  TestParsePlayers();
 
   app_time_ = SDL_GetTicks();
 
@@ -85,13 +82,6 @@ void AppState::OnLoop() {
   // draw all objects
   OnDraw();
 
-  // display some debug info
-  SDL_SetRenderDrawColor(sdl_state_.Renderer(), 255, 255, 255, 255);
-  SDL_RenderDebugTextFormat(sdl_state_.Renderer(), 5, 5, "Pos: [%.02f:%.02f] Frame: %d",
-      player1_->movement.screen_pos_current.x,
-      player1_->movement.screen_pos_current.y,
-      player1_->movement.animation.CurrentFrame());
-
   // swap buffers and present
   SDL_RenderPresent(sdl_state_.Renderer());
 
@@ -100,12 +90,12 @@ void AppState::OnLoop() {
 // -----------------------------------------------------------------------------
 
 void AppState::OnUpdate(float delta_time) {
-  MapManager::Update(delta_time);
+  match_state_.OnUpdate(delta_time);
 }
 // -----------------------------------------------------------------------------
 
 void AppState::OnDraw() {
-  MapManager::Draw();
+  match_state_.OnDraw();
 }
 // -----------------------------------------------------------------------------
 
@@ -121,91 +111,13 @@ void AppState::OnEvent(SDL_Event &event) {
     } break;
 
     case SDL_EVENT_KEY_DOWN: {
-      OnHandleKeyInput(player1_, event.key);
+      OnHandleKeyInput(event.key);
     } break;
   }
 }
 // -----------------------------------------------------------------------------
 
-void AppState::OnHandleKeyInput(Player *player, SDL_KeyboardEvent &key_event) {
-  switch (key_event.scancode) {
-    case SDL_SCANCODE_LEFT: {
-      if (!player->is_moving) {
-        MapManager::MovePlayer(player, MoveDir::kLeft);
-      }
-    } break;
-    case SDL_SCANCODE_RIGHT: {
-      if (!player->is_moving) {
-        MapManager::MovePlayer(player, MoveDir::kRight);
-      }
-    } break;
-    case SDL_SCANCODE_UP: {
-      if (!player->is_moving) {
-        MapManager::MovePlayer(player, MoveDir::kUp);
-      }
-    } break;
-    case SDL_SCANCODE_DOWN: {
-      if (!player->is_moving) {
-        MapManager::MovePlayer(player, MoveDir::kDown);
-      }
-    } break;
-  }
-}
-// -----------------------------------------------------------------------------
-
-void AppState::TestParsePlayers() {
-  std::string strPlayer1 = R"(
-      {
-        "id": "player1-xxx",
-        "currentPosition": {
-          "col": 1,
-          "row": 3
-        },
-        "speed": 230,
-        "power": 1,
-        "delay": 2000,
-        "lives": 1000,
-        "score": 0,
-        "box": 0,
-        "dragonEggSpeed": 0,
-        "dragonEggAttack": 0,
-        "dragonEggDelay": 0,
-        "dragonEggMystic": 0,
-        "dragonEggMysticAddEgg": 0,
-        "dragonEggMysticMinusEgg": 0,
-        "dragonEggMysticIsolateGate": 0,
-        "gstEggBeingAttacked": 0,
-        "quarantine": 0
-      }
-  )";
-  json jPlayer1 = json::parse(strPlayer1);
-  UpdatePlayer(jPlayer1);
-
-  std::string strPlayer2 = R"(
-      {
-         "id": "player2-xxx",
-         "currentPosition": {
-           "col": 1,
-           "row": 10
-         },
-         "speed": 230,
-         "power": 1,
-         "delay": 2000,
-         "lives": 1000,
-         "score": 0,
-         "box": 0,
-         "dragonEggSpeed": 0,
-         "dragonEggAttack": 0,
-         "dragonEggDelay": 0,
-         "dragonEggMystic": 0,
-         "dragonEggMysticAddEgg": 0,
-         "dragonEggMysticMinusEgg": 0,
-         "dragonEggMysticIsolateGate": 0,
-         "gstEggBeingAttacked": 0,
-         "quarantine": 0
-      }
-  )";
-  json jPlayer2 = json::parse(strPlayer2);
-  UpdatePlayer(jPlayer2);
+void AppState::OnHandleKeyInput(SDL_KeyboardEvent &key_event) {
+  match_state_.OnHandleKeyInput(key_event);
 }
 // -----------------------------------------------------------------------------
