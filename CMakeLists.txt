@@ -23,10 +23,12 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}" CACHE INTERNAL "")
 # Declare the project
 project ("ElefantBlasterClient" LANGUAGES C CXX)
 
-# set the output directory for built objects.
-# This makes sure that the dynamic library goes into the build directory automatically.
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out/dist/${BUILD_CONFIGURATION_NAME}/${PROJECT_NAME}")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out/dist/${BUILD_CONFIGURATION_NAME}/${PROJECT_NAME}")
+if(NOT ANDROID)
+    # set the output directory for built objects.
+    # This makes sure that the dynamic library goes into the build directory automatically.
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out/dist/${BUILD_CONFIGURATION_NAME}/${PROJECT_NAME}")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/out/dist/${BUILD_CONFIGURATION_NAME}/${PROJECT_NAME}")
+endif()
 
 if ((APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Darwin") OR EMSCRIPTEN)
     set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "")    # Disable shared builds on platforms where it does not make sense to use them
@@ -42,13 +44,29 @@ if(MSVC)
 endif()
 
 # Set the name of the executable
-set(EXECUTABLE_NAME ${PROJECT_NAME})
+if (ANDROID)
+    set(EXECUTABLE_NAME ${PROJECT_NAME}Lib)
+else()
+    set(EXECUTABLE_NAME ${PROJECT_NAME})
+endif()
 
 # Create an executable or a shared library based on the platform and add our sources to it
 if (ANDROID)
-    # The SDL java code is hardcoded to load libmain.so on android, so we need to change EXECUTABLE_NAME
+    if (CMAKE_HOST_WIN32)
+        set(GRADLEW gradlew.bat)
+    else()
+        set(GRADLEW gradlew)
+    endif()
+
     add_library(${EXECUTABLE_NAME} SHARED)
-    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "main")
+    # The SDL java code is hardcoded to load libmain.so on android, so we need to change EXECUTABLE_NAME
+    set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME "main")
+    add_custom_target(${PROJECT_NAME}Apk
+        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_SOURCE_DIR}/android
+            ${GRADLEW} assemble${CMAKE_BUILD_TYPE} -PBUILD_TYPE=${CMAKE_BUILD_TYPE}
+        DEPENDS ${EXECUTABLE_NAME}
+        USES_TERMINAL
+    )
 else()
     add_executable(${EXECUTABLE_NAME})
 endif()
@@ -60,17 +78,17 @@ target_include_directories(${EXECUTABLE_NAME} PUBLIC
 
 # Add your headers to the target
 file(GLOB_RECURSE HEADER_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/*.h"
-    "${CMAKE_CURRENT_LIST_DIR}/*.hh"
-    "${CMAKE_CURRENT_LIST_DIR}/*.hpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.h"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.hh"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.hpp"
 )
 target_sources(${EXECUTABLE_NAME} PRIVATE ${HEADER_FILES})
 
 # Add your sources to the target
 file(GLOB_RECURSE SOURCE_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/*.c"
-    "${CMAKE_CURRENT_LIST_DIR}/*.cc"
-    "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.cc"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
 )
 target_sources(${EXECUTABLE_NAME} PRIVATE ${SOURCE_FILES})
 
@@ -327,15 +345,15 @@ elseif(EMSCRIPTEN)
 # ===================================================================
 # ANDROID + DESKTOP (Windows/Linux): Copy both trees next to the executable
 # ===================================================================
-else()
-    if(ANDROID)
-        # If the user didn't pass MOBILE_ASSETS_DIR, default to a build-local folder (can be overridden with -DMOBILE_ASSETS_DIR=...)
-        if(NOT DEFINED MOBILE_ASSETS_DIR OR MOBILE_ASSETS_DIR STREQUAL "")
-            set(MOBILE_ASSETS_DIR "${ASSETS_DIR}" CACHE PATH "Directory to copy Android assets into")
-            message(STATUS "MOBILE_ASSETS_DIR not set — defaulting to ${MOBILE_ASSETS_DIR}")
-        endif()
-        file(MAKE_DIRECTORY "${MOBILE_ASSETS_DIR}")
-    endif()
+elseif(NOT ANDROID)
+    # if(ANDROID)
+    #     # If the user didn't pass MOBILE_ASSETS_DIR, default to a build-local folder (can be overridden with -DMOBILE_ASSETS_DIR=...)
+    #     if(NOT DEFINED MOBILE_ASSETS_DIR OR MOBILE_ASSETS_DIR STREQUAL "")
+    #         set(MOBILE_ASSETS_DIR "${ASSETS_DIR}" CACHE PATH "Directory to copy Android assets into")
+    #         message(STATUS "MOBILE_ASSETS_DIR not set — defaulting to ${MOBILE_ASSETS_DIR}")
+    #     endif()
+    #     file(MAKE_DIRECTORY "${MOBILE_ASSETS_DIR}")
+    # endif()
 
     macro(copy_tree file_list base_dir prefix)
         foreach(file ${file_list})
