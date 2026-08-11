@@ -47,8 +47,8 @@ set(EXECUTABLE_NAME ${PROJECT_NAME})
 # Create an executable or a shared library based on the platform and add our sources to it
 if (ANDROID)
     # The SDL java code is hardcoded to load libmain.so on android, so we need to change EXECUTABLE_NAME
-    set(EXECUTABLE_NAME main)
     add_library(${EXECUTABLE_NAME} SHARED)
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "main")
 else()
     add_executable(${EXECUTABLE_NAME})
 endif()
@@ -140,7 +140,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(protobuf)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE protobuf::libprotobuf)
 
-if(NOT EMSCRIPTEN)
+if(NOT EMSCRIPTEN AND NOT ANDROID)
     # Link websocketpp
     target_link_libraries(${EXECUTABLE_NAME} PRIVATE websocketpp::websocketpp)
 endif()
@@ -329,8 +329,10 @@ elseif(EMSCRIPTEN)
 # ===================================================================
 else()
     if(ANDROID)
-        if(NOT MOBILE_ASSETS_DIR)
-            message(FATAL_ERROR "Building for Android, but MOBILE_ASSETS_DIR is not set")
+        # If the user didn't pass MOBILE_ASSETS_DIR, default to a build-local folder (can be overridden with -DMOBILE_ASSETS_DIR=...)
+        if(NOT DEFINED MOBILE_ASSETS_DIR OR MOBILE_ASSETS_DIR STREQUAL "")
+            set(MOBILE_ASSETS_DIR "${ASSETS_DIR}" CACHE PATH "Directory to copy Android assets into")
+            message(STATUS "MOBILE_ASSETS_DIR not set — defaulting to ${MOBILE_ASSETS_DIR}")
         endif()
         file(MAKE_DIRECTORY "${MOBILE_ASSETS_DIR}")
     endif()
