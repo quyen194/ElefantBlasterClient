@@ -218,7 +218,9 @@ SDL_FRect AssetManager::PlayerAnimationRect(MoveDir dir) {
 std::filesystem::path AssetManager::R(std::filesystem::path path) {
 #ifdef __EMSCRIPTEN__
     std::string base_path = "/assets";
-#elif defined(_WIN32) || defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
+#elif defined(__ANDROID__)
+  std::string base_path = "";
+#elif defined(_WIN32) || defined(__linux__) || defined(__APPLE__)
     std::string base_path = "assets";
 #endif
 

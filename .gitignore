@@ -356,3 +356,11 @@ MigrationBackup/
 AriesBase
 *.enc
 third_party
+
+# Android (Gradle / Android Studio)
+android/.gradle/
+android/.idea/
+android/local.properties
+android/**/build/
+android/**/.cxx/
+*.iml

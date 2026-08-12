@@ -3,6 +3,8 @@ ElefantBlasterClient
 
 BombermanGame/
 │
+├── android/                # Chứa android project, có thể open bằng Android Studio để build và debug
+│
 ├── assets/                 # Chứa tất cả tài nguyên của game
 │   ├── audio/
 │   │   ├── sfx/            # Sound effects (tiếng nổ, đặt bom, bước chân)

@@ -10,11 +10,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake")
 
-# options
-set_option(ENABLE_SDL_TTF "Enable SDL_ttf support" OFF)
-set_option(ENABLE_SDL_MIXER "Enable SDL_mixer support" OFF)
-set_option(ENABLE_SDL_NET "Enable SDL_net support" OFF)
-
 ElefantBlasterClient_PrintSummary()
 
 # prevent installing to system directories.
@@ -46,11 +41,11 @@ set(EXECUTABLE_NAME ${PROJECT_NAME})
 
 # Create an executable or a shared library based on the platform and add our sources to it
 if (ANDROID)
-    # The SDL java code is hardcoded to load libmain.so on android, so we need to change EXECUTABLE_NAME
-    set(EXECUTABLE_NAME main)
-    add_library(${EXECUTABLE_NAME} SHARED)
+	# The SDL java code is hardcoded to load libmain.so on android, so we need to change EXECUTABLE_NAME
+	set(EXECUTABLE_NAME main)
+	add_library(${EXECUTABLE_NAME} SHARED)
 else()
-    add_executable(${EXECUTABLE_NAME})
+	add_executable(${EXECUTABLE_NAME})
 endif()
 
 # Include the source directory for header files
@@ -60,17 +55,17 @@ target_include_directories(${EXECUTABLE_NAME} PUBLIC
 
 # Add your headers to the target
 file(GLOB_RECURSE HEADER_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/*.h"
-    "${CMAKE_CURRENT_LIST_DIR}/*.hh"
-    "${CMAKE_CURRENT_LIST_DIR}/*.hpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.h"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.hh"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.hpp"
 )
 target_sources(${EXECUTABLE_NAME} PRIVATE ${HEADER_FILES})
 
 # Add your sources to the target
 file(GLOB_RECURSE SOURCE_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/*.c"
-    "${CMAKE_CURRENT_LIST_DIR}/*.cc"
-    "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.cc"
+    "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
 )
 target_sources(${EXECUTABLE_NAME} PRIVATE ${SOURCE_FILES})
 
@@ -83,12 +78,15 @@ target_sources(${EXECUTABLE_NAME} PRIVATE ${SOURCE_FILES})
 # To get an app icon on Apple platforms, add it to your executable.
 # Afterward, the image file in Info.plist.in.
 if(APPLE)
-    target_sources("${EXECUTABLE_NAME}" PRIVATE "resources/logo.png")
+    target_sources("${EXECUTABLE_NAME}" PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/iosLaunchScreen.storyboard"
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/logo.png"
+    )
 endif()
 
 # on Web targets, we need CMake to generate a HTML webpage.
 if(EMSCRIPTEN)
-    set(CMAKE_EXECUTABLE_SUFFIX ".html" CACHE INTERNAL "")
+	set(CMAKE_EXECUTABLE_SUFFIX ".html" CACHE INTERNAL "")
 endif()
 
 # Set the runtime library to be dynamic on MSVC builds
@@ -140,7 +138,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(protobuf)
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE protobuf::libprotobuf)
 
-if(NOT EMSCRIPTEN)
+if(NOT EMSCRIPTEN AND NOT ANDROID)
     # Link websocketpp
     target_link_libraries(${EXECUTABLE_NAME} PRIVATE websocketpp::websocketpp)
 endif()
@@ -199,38 +197,34 @@ FetchContent_Declare(
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL
 )
 FetchContent_MakeAvailable(sdl)
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC SDL3::SDL3)
 
 # SDL_ttf (used for rendering fonts)
-if(ENABLE_SDL_TTF)
-    set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
-    FetchContent_Declare(
-        sdl_ttf
-        SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
-    )
-    FetchContent_MakeAvailable(sdl_ttf)
-    target_link_libraries(${EXECUTABLE_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
-endif()
+set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
+FetchContent_Declare(
+    sdl_ttf
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
+)
+FetchContent_MakeAvailable(sdl_ttf)
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC SDL3_ttf::SDL3_ttf)
 
 # SDL_mixer (used for playing audio)
-if(ENABLE_SDL_MIXER)
-    set(SDLMIXER_MIDI_NATIVE OFF)     # disable formats we don't use to make the build faster and smaller. Also some of these don't work on all platforms so you'll need to do some experimentation.
-    set(SDLMIXER_GME OFF)
-    set(SDLMIXER_WAVPACK OFF)
-    set(SDLMIXER_MOD OFF)
-    set(SDLMIXER_MOD_XMP OFF)
-    set(SDLMIXER_OPUS OFF)
-    set(SDLMIXER_MP3_MPG123 OFF)
-    set(SDLMIXER_VORBIS_VORBISFILE OFF)
-    set(SDLMIXER_FLAC_LIBFLAC OFF)
-    set(SDLMIXER_VENDORED ON)   # tell SDL_mixer to build its own dependencies
-    FetchContent_Declare(
-        sdl_mixer
-        SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_mixer
-    )
-    FetchContent_MakeAvailable(sdl_mixer)
-    target_link_libraries(${EXECUTABLE_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
-endif()
+set(SDLMIXER_MIDI_NATIVE OFF)     # disable formats we don't use to make the build faster and smaller. Also some of these don't work on all platforms so you'll need to do some experimentation.
+set(SDLMIXER_GME OFF)
+set(SDLMIXER_WAVPACK OFF)
+set(SDLMIXER_MOD OFF)
+set(SDLMIXER_MOD_XMP OFF)
+set(SDLMIXER_OPUS OFF)
+set(SDLMIXER_MP3_MPG123 OFF)
+set(SDLMIXER_VORBIS_VORBISFILE OFF)
+set(SDLMIXER_FLAC_LIBFLAC OFF)
+set(SDLMIXER_VENDORED ON)   # tell SDL_mixer to build its own dependencies
+FetchContent_Declare(
+    sdl_mixer
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_mixer
+)
+FetchContent_MakeAvailable(sdl_mixer)
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC SDL3_mixer::SDL3_mixer)
 
 # SDL_image (used for loading various image formats)
 set(SDLIMAGE_VENDORED ON)
@@ -238,12 +232,13 @@ set(SDLIMAGE_AVIF OFF)    # disable formats we don't use to make the build faste
 set(SDLIMAGE_BMP OFF)
 set(SDLIMAGE_JPEG OFF)
 set(SDLIMAGE_WEBP OFF)
+set(SDLIMAGE_PNG_LIBPNG OFF)    # SDL3 includes built-in support for loading PNGs. If you need more than what that supports, enable this option.
 FetchContent_Declare(
     sdl_image
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_image
 )
 FetchContent_MakeAvailable(sdl_image)
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE SDL3_image::SDL3_image)
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC SDL3_image::SDL3_image)
 
 # SDL_net (used for networking)
 if(ENABLE_SDL_NET)
@@ -330,7 +325,10 @@ elseif(EMSCRIPTEN)
 else()
     if(ANDROID)
         if(NOT MOBILE_ASSETS_DIR)
-            message(FATAL_ERROR "Building for Android, but MOBILE_ASSETS_DIR is not set")
+            set(MOBILE_ASSETS_DIR "${CMAKE_BINARY_DIR}/android-assets")
+            message(STATUS "[Android] MOBILE_ASSETS_DIR not set, defaulting to: ${MOBILE_ASSETS_DIR}")
+        else()
+            message(STATUS "[Android] Using MOBILE_ASSETS_DIR from Gradle: ${MOBILE_ASSETS_DIR}")
         endif()
         file(MAKE_DIRECTORY "${MOBILE_ASSETS_DIR}")
     endif()
@@ -361,6 +359,12 @@ else()
         # Copy bundle resources (logo, storyboard, etc.)
         copy_tree("${RESOURCE_FILES}" "${RESOURCES_DIR}" "resources")
     endif()
+endif()
+
+# set some extra configs for each platform
+set(RESOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/resources/logo.png")
+if(IOS)
+    set(RESOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/resources/iosLaunchScreen.storyboard;${CMAKE_CURRENT_SOURCE_DIR}/resources/logo.png") # make the splash screen show up on iOS
 endif()
 
 # ===================================================================
