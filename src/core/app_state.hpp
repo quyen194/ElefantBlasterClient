@@ -6,7 +6,7 @@
   email:     quyen19492@gmail.com
 
   created:   2025/11/06 6:09
-  filename:  ElefantBlaster/ElefantBlasterClient/states/app_state.hpp
+  filename:  ElefantBlaster/ElefantBlasterClient/core/app_state.hpp
 
   purpose:   Define AppState class for managing the application state.
 *********************************************************************/
@@ -20,7 +20,7 @@
 // -----------------------------------------------------------------------------
 #include "definitions/macro.hpp"
 
-#include "states/sdl_state.hpp"
+#include "core/sdl_state.hpp"
 #include "core/asset_manager.hpp"
 #include "states/match_state.hpp"
 // -----------------------------------------------------------------------------

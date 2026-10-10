@@ -25,7 +25,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
-#include "states/sdl_state.hpp"
+#include "core/sdl_state.hpp"
 
 #include "entities/map_tile.hpp"
 #include "entities/player.hpp"

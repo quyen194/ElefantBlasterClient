@@ -18,7 +18,7 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_init.h>
 
-#include "states/app_state.hpp"
+#include "core/app_state.hpp"
 // -----------------------------------------------------------------------------
 
 

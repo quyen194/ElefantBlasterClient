@@ -6,7 +6,7 @@
   email:     quyen19492@gmail.com
 
   created:   2025/11/02 16:17
-  filename:  ElefantBlaster/ElefantBlasterClient/states/sdl_state.hpp
+  filename:  ElefantBlaster/ElefantBlasterClient/core/sdl_state.hpp
 
   purpose:   Define SDLState class for managing SDL initialization and state.
 *********************************************************************/

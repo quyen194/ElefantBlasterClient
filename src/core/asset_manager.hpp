@@ -31,7 +31,7 @@
 #include "entities/player.hpp"
 #include "entities/spoil.hpp"
 
-#include "states/sdl_state.hpp"
+#include "core/sdl_state.hpp"
 // -----------------------------------------------------------------------------
 
 
