@@ -56,7 +56,7 @@ bool SDLState::Initialize() {
 
   if (result) {
     // create the window
-    window_ = SDL_CreateWindow("BomberMan", width_, height_, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_HIDDEN);
+    window_ = SDL_CreateWindow("Elefant Blaster", width_, height_, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_HIDDEN);
     if (!window_) {
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window", nullptr);
       Cleanup();

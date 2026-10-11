@@ -1,7 +1,7 @@
 ElefantBlasterClient
 ===============
 
-BombermanGame/
+ElefantBlasterGame/
 │
 ├── android/                # Chứa android project, có thể open bằng Android Studio để build và debug
 │

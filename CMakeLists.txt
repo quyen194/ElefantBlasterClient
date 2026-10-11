@@ -262,7 +262,7 @@ if (APPLE AND NOT BUILD_SHARED_LIBS)
 endif()
 
 # ===================================================================
-# ASSET & RESOURCE HANDLING – FULLY AUTOMATIC FOR YOUR BOMBERMAN PROJECT
+# ASSET & RESOURCE HANDLING – FULLY AUTOMATIC FOR YOUR ELEFANT BLASTER PROJECT
 # Supports: Windows | Linux | macOS | iOS | Android | Web (Emscripten)
 # Automatically copies:
 #   - assets/      → all game data (audio, graphics, levels, etc.)
