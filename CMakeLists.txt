@@ -100,6 +100,9 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
 include(FetchContent)
 
+# aries_base (Common base library)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE aries_base)
+
 # glm (C++ mathematics library for graphics software)
 FetchContent_Declare(
     glm
