@@ -241,8 +241,8 @@ std::filesystem::path AssetManager::R(std::filesystem::path path) {
 // -----------------------------------------------------------------------------
 
 SDL_Texture *AssetManager::loadTexture(SDL_Renderer *renderer,
-                                       const std::string &filepath) {
-  SDL_Texture *tex = IMG_LoadTexture(renderer, filepath.c_str());
+                                       const std::filesystem::path &filepath) {
+  SDL_Texture *tex = IMG_LoadTexture(renderer, filepath.string().c_str());
   SDL_SetTextureScaleMode(tex, SDL_SCALEMODE_NEAREST);
   return tex;
 }
