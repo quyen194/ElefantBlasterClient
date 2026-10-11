@@ -46,6 +46,7 @@ class SDLState {
   inline int Height() const { return height_; }
   inline int LogW() const { return logW_; }
   inline int LogH() const { return logH_; }
+  inline SDL_RendererLogicalPresentation PresentationMode() const { return presentation_mode_; }
 
   SDL_Window *Window() const { return window_; }
   SDL_Renderer *Renderer() const { return renderer_; }
@@ -59,6 +60,8 @@ class SDLState {
   int height_;
   int logW_;
   int logH_;
+
+  SDL_RendererLogicalPresentation presentation_mode_;
 
   SDL_Window *window_;
   SDL_Renderer *renderer_;

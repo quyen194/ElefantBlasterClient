@@ -20,7 +20,7 @@
 
 
 // -----------------------------------------------------------------------------
- SDLState* SDLState::instance_ = nullptr;
+SDLState* SDLState::instance_ = nullptr;
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -31,13 +31,17 @@ SDLState::SDLState()
       height_(1000),
       logW_(1500),
       logH_(948),
+      presentation_mode_(SDL_LOGICAL_PRESENTATION_LETTERBOX),
       window_(nullptr),
       renderer_(nullptr),
-      keys_(SDL_GetKeyboardState(nullptr)) {}
+      keys_(SDL_GetKeyboardState(nullptr)) {
+  instance_ = this;
+}
 // -----------------------------------------------------------------------------
 
 SDLState::~SDLState() {
   Cleanup();
+  instance_ = nullptr;
 }
 // -----------------------------------------------------------------------------
 
@@ -48,6 +52,7 @@ bool SDLState::IsInited() {
 
 bool SDLState::Initialize() {
   bool result = true;
+  bool res;
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error initializing SDL3", nullptr);
@@ -59,8 +64,15 @@ bool SDLState::Initialize() {
     window_ = SDL_CreateWindow("Elefant Blaster", width_, height_, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WINDOW_HIDDEN);
     if (!window_) {
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window", nullptr);
-      Cleanup();
+      SDL_Quit();
       result = false;
+    }
+  }
+
+  if (result) {
+    res = SDL_SetWindowMinimumSize(window_, logW_ * 0.5f, logH_ * 0.5f);
+    if (!res) {
+      SDL_Log("Can't set window minimum size. %s", SDL_GetError());
     }
   }
 
@@ -69,35 +81,60 @@ bool SDLState::Initialize() {
     renderer_ = SDL_CreateRenderer(window_, nullptr);
     if (!renderer_) {
       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating renderer", nullptr);
-      Cleanup();
+      SDL_DestroyWindow(window_);
+      window_ = nullptr;
+      SDL_Quit();
       result = false;
     }
   }
 
   if (result) {
     // configure presentation
-    SDL_SetRenderLogicalPresentation(renderer_,
-                                     logW_,
-                                     logH_,
-                                     SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    result = SDL_SetRenderLogicalPresentation(
+        renderer_, logW_, logH_, presentation_mode_);
+    if (!result) {
+      SDL_DestroyRenderer(renderer_);
+      renderer_ = nullptr;
+      SDL_DestroyWindow(window_);
+      window_ = nullptr;
+      SDL_Quit();
+    }
   }
 
-  SDL_SetRenderVSync(renderer_, -1);   // enable vysnc
+  if (result) {
+    // enable vsync
+    res = SDL_SetRenderVSync(renderer_, -1);
+    if (!res) {
+      SDL_Log("Can't enable VSync with param -1. %s. Try again with param 1", SDL_GetError());
+      res = SDL_SetRenderVSync(renderer_, 1);
+      if (!res) {
+        SDL_Log("Can't enable VSync with param 1. %s", SDL_GetError());
+      }
+    }
+  }
 
   inited_ = result;
 
-  return result;
+  return inited_;
 }
 // -----------------------------------------------------------------------------
 
 void SDLState::Cleanup() {
+  if (!inited_) {
+    return;
+  }
+
   if (renderer_) {
     SDL_DestroyRenderer(renderer_);
+    renderer_ = nullptr;
   }
   if (window_) {
     SDL_DestroyWindow(window_);
+    window_ = nullptr;
   }
   SDL_Quit();
+
+  inited_ = false;
 }
 // -----------------------------------------------------------------------------
 
