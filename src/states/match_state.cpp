@@ -182,34 +182,42 @@ void MatchState::OnDraw() {
 }
 // -----------------------------------------------------------------------------
 
-void MatchState::OnHandleKeyInput(SDL_KeyboardEvent &key_event) {
-  OnHandleKeyInput(player1_, key_event);
+bool MatchState::OnHandleKeyInput(SDL_KeyboardEvent &key_event) {
+  return OnHandleKeyInput(player1_, key_event);
 }
 // -----------------------------------------------------------------------------
 
-void MatchState::OnHandleKeyInput(Player *player, SDL_KeyboardEvent &key_event) {
+bool MatchState::OnHandleKeyInput(Player *player, SDL_KeyboardEvent &key_event) {
+  bool processed = false;
+
   switch (key_event.scancode) {
     case SDL_SCANCODE_LEFT: {
       if (!player->is_moving) {
         MovePlayer(player, MoveDir::kLeft);
       }
+      processed = true;
     } break;
     case SDL_SCANCODE_RIGHT: {
       if (!player->is_moving) {
         MovePlayer(player, MoveDir::kRight);
       }
+      processed = true;
     } break;
     case SDL_SCANCODE_UP: {
       if (!player->is_moving) {
         MovePlayer(player, MoveDir::kUp);
       }
+      processed = true;
     } break;
     case SDL_SCANCODE_DOWN: {
       if (!player->is_moving) {
         MovePlayer(player, MoveDir::kDown);
       }
+      processed = true;
     } break;
   }
+
+  return processed;
 }
 // -----------------------------------------------------------------------------
 

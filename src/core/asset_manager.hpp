@@ -23,6 +23,8 @@
 #include <string>
 #include <vector>
 
+#include <imgui.h>
+
 #include "definitions/macro.hpp"
 
 #include "effects/animation.hpp"
@@ -55,6 +57,11 @@ class AssetManager {
 
   void Load();
 
+  bool LoadImFonts();
+  ImFont* ImFontRegular() { return font_regular_; }
+  ImFont* ImFontMedium() { return font_medium_; }
+  ImFont* ImFontBold() { return font_bold_; }
+
   float SpriteSize() { return sprite_size_; }
 
   AssetTexture MapTexture(MapTileType type);
@@ -75,6 +82,10 @@ class AssetManager {
  private:
   SDLState &sdl_state_;
 
+  ImFont* font_regular_;
+  ImFont* font_medium_;
+  ImFont* font_bold_;
+
   float sprite_size_;
 
   std::vector<AssetTexture> map_textures_;
@@ -87,6 +98,7 @@ class AssetManager {
   std::vector<Animation> player_animations_;
   std::vector<SDL_FRect> player_animation_rects_;
 
+ private:
   static AssetManager* instance_;
 
  private:

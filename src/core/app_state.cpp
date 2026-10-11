@@ -30,8 +30,11 @@
 AppState::AppState()
     : sdl_state_(),
       asset_manager_(sdl_state_),
+      imgui_state_(sdl_state_, asset_manager_),
+      login_state_(sdl_state_, asset_manager_, imgui_state_),
       match_state_(sdl_state_, asset_manager_),
-      app_quit_(SDL_APP_CONTINUE) {
+      app_quit_(SDL_APP_CONTINUE),
+      state_(State::kLogin) {
 }
 // -----------------------------------------------------------------------------
 
@@ -51,7 +54,15 @@ bool AppState::Initialize() {
     return false;
   }
 
+  if (!imgui_state_.Initialize()) {
+    return false;
+  }
+
   if (!asset_manager_.Initialize()) {
+    return false;
+  }
+
+  if (!login_state_.Initialize()) {
     return false;
   }
 
@@ -79,8 +90,12 @@ void AppState::OnLoop() {
   SDL_SetRenderDrawColor(sdl_state_.Renderer(), 20, 10, 30, 255);
   SDL_RenderClear(sdl_state_.Renderer());
 
+  imgui_state_.BeginFrame();
+
   // draw all objects
   OnDraw();
+
+  imgui_state_.EndFrame();
 
   // swap buffers and present
   SDL_RenderPresent(sdl_state_.Renderer());
@@ -90,16 +105,32 @@ void AppState::OnLoop() {
 // -----------------------------------------------------------------------------
 
 void AppState::OnUpdate(float delta_time) {
-  match_state_.OnUpdate(delta_time);
+  switch (state_) {
+    case State::kLogin: {
+    } break;
+
+    case State::kMatch: {
+      match_state_.OnUpdate(delta_time);
+    } break;
+  }
 }
 // -----------------------------------------------------------------------------
 
 void AppState::OnDraw() {
-  match_state_.OnDraw();
+  switch (state_) {
+    case State::kLogin: {
+      login_state_.OnDraw();
+    } break;
+
+    case State::kMatch: {
+      match_state_.OnDraw();
+    } break;
+  }
 }
 // -----------------------------------------------------------------------------
 
 void AppState::OnEvent(SDL_Event &event) {
+  // system events
   switch (event.type) {
     case SDL_EVENT_QUIT: {
       app_quit_ = SDL_APP_SUCCESS;
@@ -109,15 +140,34 @@ void AppState::OnEvent(SDL_Event &event) {
       sdl_state_.SetWidth(event.window.data1);
       sdl_state_.SetHeight(event.window.data2);
     } break;
+  }
 
+  // dear imgui events
+  imgui_state_.OnEvent(event);
+
+  // app input events
+  switch (event.type) {
     case SDL_EVENT_KEY_DOWN: {
-      OnHandleKeyInput(event.key);
+      if (!imgui_state_.WantKeyboard()) {
+        OnHandleKeyInput(event.key);
+      }
     } break;
   }
 }
 // -----------------------------------------------------------------------------
 
-void AppState::OnHandleKeyInput(SDL_KeyboardEvent &key_event) {
-  match_state_.OnHandleKeyInput(key_event);
+bool AppState::OnHandleKeyInput(SDL_KeyboardEvent &key_event) {
+  bool processed = false;
+
+  switch (state_) {
+    case State::kLogin: {
+    } break;
+
+    case State::kMatch: {
+      processed = match_state_.OnHandleKeyInput(key_event);
+    } break;
+  }
+
+  return processed;
 }
 // -----------------------------------------------------------------------------

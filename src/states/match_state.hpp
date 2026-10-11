@@ -45,10 +45,10 @@ class MatchState : public MapUpdater {
 
   void OnUpdate(float delta_time);
   void OnDraw();
-  void OnHandleKeyInput(SDL_KeyboardEvent &event);
+  bool OnHandleKeyInput(SDL_KeyboardEvent &event);
 
  private:
-  void OnHandleKeyInput(Player *player, SDL_KeyboardEvent &event);
+  bool OnHandleKeyInput(Player *player, SDL_KeyboardEvent &event);
 
   void UpdatePlayers(json &obj);
   void UpdatePlayer(json &obj);

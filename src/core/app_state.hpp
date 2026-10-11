@@ -19,9 +19,12 @@
 
 // -----------------------------------------------------------------------------
 #include "definitions/macro.hpp"
+#include "definitions/states.hpp"
 
 #include "core/sdl_state.hpp"
+#include "core/imgui_state.hpp"
 #include "core/asset_manager.hpp"
+#include "states/login_state.hpp"
 #include "states/match_state.hpp"
 // -----------------------------------------------------------------------------
 
@@ -44,16 +47,19 @@ class AppState {
   void OnDraw();
 
   void OnEvent(SDL_Event &event);
-  void OnHandleKeyInput(SDL_KeyboardEvent &event);
+  bool OnHandleKeyInput(SDL_KeyboardEvent &event);
 
  private:
   SDLState sdl_state_;
   AssetManager asset_manager_;
+  ImguiState imgui_state_;
+  LoginState login_state_;
   MatchState match_state_;
 
  private:
   SDL_AppResult app_quit_;
 
+  State state_;
   uint64_t app_time_;
 
   static AppState *instance_;

@@ -131,6 +131,36 @@ void AssetManager::Unload() {
 }
 // -----------------------------------------------------------------------------
 
+bool AssetManager::LoadImFonts() {
+  ImGuiIO& io = ImGui::GetIO();
+  font_regular_ = io.Fonts->AddFontFromFileTTF(
+      R("fonts/Roboto-Regular.ttf").string().c_str(),
+      24.0f,
+      nullptr,
+      io.Fonts->GetGlyphRangesVietnamese());
+  IM_ASSERT(font_regular_ != nullptr && "Failed to load Roboto Regular");
+
+  font_bold_ = io.Fonts->AddFontFromFileTTF(
+      R("fonts/Roboto-Bold.ttf").string().c_str(),
+      32.0f,
+      nullptr,
+      io.Fonts->GetGlyphRangesVietnamese());
+  IM_ASSERT(font_bold_ != nullptr && "Failed to load Roboto Bold");
+
+  font_medium_ = io.Fonts->AddFontFromFileTTF(
+      R("fonts/Roboto-Medium.ttf").string().c_str(),
+      28.0f,
+      nullptr,
+      io.Fonts->GetGlyphRangesVietnamese());
+  IM_ASSERT(font_medium_ != nullptr && "Failed to load Roboto Medium");
+
+  // Optional: Set default font for all ImGui
+  io.FontDefault = font_regular_;
+
+  return true;
+}
+// -----------------------------------------------------------------------------
+
 AssetTexture AssetManager::MapTexture(MapTileType type) {
   switch (type) {
     case MapTileType::kGrass:
