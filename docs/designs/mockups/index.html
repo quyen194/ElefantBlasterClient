@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elefant Blaster Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;700;800;900&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+:root{
+  /* Viewer: a dark studio desk so the bright game art pops. Layout: screen index on the left, device stage + notes on the right. */
+  --desk:#0d1330; --desk-2:#151d44; --line:#2a3970; --text:#e9eeff; --muted:#9ba7d3; --accent:#ffc83a;
+  --display:"Lilita One","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  /* Game UI tokens, taken from the art: navy outline, cloud panels, wood signs, sun-yellow buttons */
+  --navy:#1b2f6e; --sky:#2f8cf0; --sun:#ffcf2e; --wood-d:#6e3b15; --leaf:#3fa33a; --berry:#e8473f; --gtext:#1b2a55;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--desk);color:var(--text);font-family:var(--body);font-weight:700}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* ---------- viewer chrome ---------- */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--desk-2);position:sticky;top:0;z-index:20}
+.top h1{margin:0;font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:.5px;color:var(--accent)}
+.top h1 small{font-family:var(--body);font-weight:700;font-size:13px;color:var(--muted);margin-left:8px;letter-spacing:0}
+.seg{display:flex;flex-wrap:wrap;gap:4px;background:#0b1029;border:1px solid var(--line);border-radius:12px;padding:4px;margin-left:auto}
+.seg button{font:800 14px var(--body);color:var(--muted);background:none;border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#2a1d00}
+.wrap{display:grid;grid-template-columns:230px 1fr;min-height:calc(100% - 62px)}
+.idx{border-right:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column;gap:14px;background:var(--desk)}
+.idx h2{margin:0 0 4px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
+.idx a{display:block;text-decoration:none;padding:7px 10px;border-radius:8px;font-size:14px;color:var(--text)}
+.idx a:hover{background:var(--desk-2)}
+.idx a[aria-current="page"]{background:#24306a;color:var(--accent)}
+main{padding:18px 22px 40px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.stage-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.stage-h h2{margin:0;font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:.4px}
+.stage-h span{color:var(--muted);font-size:14px}
+.stage{display:flex;flex-direction:column;gap:22px}
+.row2{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.4fr);gap:22px;align-items:start}
+.row2.rev{grid-template-columns:minmax(0,1.9fr) minmax(0,.6fr)}
+.holder{position:relative;width:100%}
+.cap{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.note{background:var(--desk-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.note h3{margin:0 0 8px;font-size:15px;color:var(--accent)}
+.note.doc h3{color:#ff9d8a}
+.note ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:14px;line-height:1.45;color:#d7def7}
+.note b{color:#fff}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  .idx{border-right:0;border-bottom:1px solid var(--line);flex-direction:row;overflow-x:auto;padding:10px 16px}
+  .idx section{flex:none;display:flex;gap:4px;align-items:center}
+  .idx h2{display:none}
+  .idx a{white-space:nowrap}
+  .row2,.row2.rev{grid-template-columns:1fr}
+  main{padding:14px 16px 32px}
+  .seg{margin-left:0}
+}
+
+/* ---------- devices ---------- */
+.device{position:absolute;top:0;left:0;transform-origin:0 0}
+.device.desktop{width:1280px;border-radius:12px;overflow:hidden;background:#0b0f24;box-shadow:0 0 0 1px #34407a,0 20px 50px rgba(0,0,0,.5)}
+.wbar{height:34px;display:flex;align-items:center;gap:8px;padding:0 14px;background:#1d2340;color:#aab3d6;font:700 13px var(--body)}
+.wbar i{width:12px;height:12px;border-radius:50%;background:#ff5f57}.wbar i:nth-child(2){background:#febc2e}.wbar i:nth-child(3){background:#28c840}
+.wbar span{margin-left:12px}
+.device.portrait{width:414px;height:868px;padding:12px;border-radius:58px;background:#05070f;box-shadow:0 0 0 2px #3a4466,0 20px 50px rgba(0,0,0,.5)}
+.device.landscape{width:868px;height:414px;padding:12px;border-radius:58px;background:#05070f;box-shadow:0 0 0 2px #3a4466,0 20px 50px rgba(0,0,0,.5)}
+.scr{position:relative;overflow:hidden;font-family:var(--body);color:var(--gtext);background:#2f8cf0;font-weight:700}
+.desktop .scr{width:1280px;height:800px}
+.portrait .scr{width:390px;height:844px;border-radius:46px}
+.landscape .scr{width:844px;height:390px;border-radius:46px}
+.sbar{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;color:#fff;font-size:15px;z-index:9}
+.isl{position:absolute;left:50%;top:11px;width:118px;height:32px;background:#000;border-radius:20px;transform:translateX(-50%)}
+.sig{display:flex;align-items:flex-end;gap:2px}.sig i{width:3px;background:#fff;border-radius:1px}.sig i:nth-child(1){height:5px}.sig i:nth-child(2){height:7px}.sig i:nth-child(3){height:9px}.sig i:nth-child(4){height:11px;margin-right:6px}
+.bat{width:24px;height:12px;border:2px solid #fff;border-radius:4px;position:relative}.bat::after{content:"";position:absolute;inset:1px 5px 1px 1px;background:#fff;border-radius:1px}
+.home{position:absolute;bottom:7px;left:50%;width:134px;height:5px;border-radius:3px;background:rgba(255,255,255,.85);transform:translateX(-50%);z-index:9}
+.lisl{position:absolute;left:9px;top:50%;width:32px;height:118px;background:#000;border-radius:20px;transform:translateY(-50%);z-index:9}
+
+/* ---------- game UI kit ---------- */
+.bg{position:absolute;inset:0;background:url(../../../assets/graphics/home/background_h.png) center/cover no-repeat}
+/* phones in portrait use the portrait art, anchored to the bottom so the elephants stay in view */
+.portrait .bg{background-image:url(../../../assets/graphics/home/background_v.png);background-position:center bottom}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,40,110,.62),rgba(8,18,58,.86))}
+.layer{position:absolute;inset:0;display:flex;flex-direction:column}
+.portrait .layer{padding:46px 0 22px}
+.landscape .layer{padding:0 44px 14px 50px}
+.body{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:16px;padding:18px 26px}
+.portrait .body{padding:12px 14px;gap:12px}
+.landscape .body{padding:10px 8px;gap:10px}
+.tb{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:8px 20px;background:linear-gradient(#21409a,#162c70);border-bottom:4px solid #0d1b4a;position:relative;z-index:2}
+.tb .l,.tb .r{display:flex;align-items:center;gap:12px;min-width:0}
+.tb .r{justify-content:flex-end}
+.tb.portrait{grid-template-columns:48px 1fr 48px;padding:6px 12px;background:none;border:0}
+.tb.portrait .sign{justify-self:center}
+.tb.landscape{padding:6px 10px;background:none;border:0}
+.tb-logo{height:58px;margin:-8px 0;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+.sign{font-family:var(--display);color:var(--sun);font-size:26px;letter-spacing:1px;line-height:1.1;padding:6px 26px;background:linear-gradient(#c87d3a,#97521f);border:3px solid var(--wood-d);border-radius:12px;box-shadow:inset 0 2px 0 rgba(255,255,255,.28),0 4px 0 var(--wood-d);text-shadow:0 2px 0 #6a2f08;white-space:nowrap;text-align:center}
+.tb.portrait .sign,.tb.landscape .sign{padding:4px 16px;border-radius:10px}
+.uchip{display:flex;align-items:center;gap:8px;color:#fff;line-height:1.1}
+.uchip b{display:block;font-size:15px}.uchip small{font-size:12px;color:#bcd0ff}
+.btn{font-family:var(--display);font-weight:400;font-size:20px;color:var(--gtext);background:linear-gradient(#ffe36b,#ffbd1c);border:3px solid var(--navy);border-radius:14px;padding:9px 20px;box-shadow:0 5px 0 var(--navy);letter-spacing:.5px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;cursor:pointer;text-decoration:none;line-height:1.1}
+.btn.blue{background:linear-gradient(#72c8ff,#2f8cf0);color:#fff;text-shadow:0 2px 0 #1b4fa8}
+.btn.red{background:linear-gradient(#ff8f80,#e0443b);color:#fff;text-shadow:0 2px 0 #8e1e18}
+.btn.green{background:linear-gradient(#93e870,#3aa135);color:#fff;text-shadow:0 2px 0 #1d6219}
+.btn.ghost{background:linear-gradient(#ffffff,#dbe9ff)}
+.btn.sm{font-size:15px;padding:5px 12px;border-radius:10px;box-shadow:0 3px 0 var(--navy);border-width:2px}
+.btn.xs{font-size:13px;padding:3px 9px;border-radius:8px;box-shadow:0 2px 0 var(--navy);border-width:2px}
+.btn.lg{font-size:26px;padding:12px 26px}
+.btn.xl{font-size:30px;padding:14px 28px;border-radius:18px;box-shadow:0 6px 0 var(--navy)}
+.btn.icon{width:42px;height:42px;padding:0;border-radius:12px}
+.btn.block{width:100%}
+.btn.dis{filter:grayscale(.9);opacity:.65}
+.cloud{background:linear-gradient(#f8fcff,#d9eeff);border:4px solid var(--navy);border-radius:22px;box-shadow:0 0 0 3px rgba(255,255,255,.85),0 8px 0 rgba(5,15,50,.35);padding:16px;display:flex;flex-direction:column;gap:12px;min-height:0;position:relative}
+.portrait .cloud,.landscape .cloud{border-width:3px;border-radius:18px;padding:12px;gap:10px;box-shadow:0 0 0 2px rgba(255,255,255,.85),0 5px 0 rgba(5,15,50,.35)}
+.h{font-family:var(--display);font-weight:400;color:var(--navy);font-size:21px;letter-spacing:.4px;margin:0;display:flex;align-items:center;gap:8px}
+.portrait .h,.landscape .h{font-size:17px}
+.h .sp{margin-left:auto}
+.lbl{font-size:12px;font-weight:900;color:#4a5a8c;letter-spacing:.6px;text-transform:uppercase}
+.in{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;background:#fff;border:3px solid var(--navy);border-radius:10px;color:#8a96b8;font-weight:800;font-size:15px;min-width:0}
+.in span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.in.v{color:var(--gtext)}
+.in.sel b{margin-left:auto;color:var(--navy)}
+.portrait .in,.landscape .in{height:36px;border-width:2px;font-size:14px}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld.inl{flex-direction:row;align-items:center;gap:10px}
+.fld.inl>.lbl{width:120px;flex:none}
+.chk{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:15px;white-space:nowrap}
+.chk i{width:22px;height:22px;border:3px solid var(--navy);border-radius:6px;background:#fff;display:grid;place-items:center;flex:none}
+.chk.on i{background:var(--leaf)}
+.chk.on i::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 3px 3px 0;transform:translateY(-1px) rotate(45deg)}
+.tog{width:44px;height:26px;border-radius:13px;background:#c6cfe4;border:2px solid var(--navy);position:relative;flex:none}
+.tog::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--navy)}
+.tog.on{background:var(--leaf)}.tog.on::after{left:20px}
+.row{display:flex;align-items:center;gap:10px;min-width:0}
+.row.sb{justify-content:space-between}
+.row.wrapr{flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.lnk{color:#1f5fd1;font-weight:900;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.lnk.c{align-self:center}
+.muted{color:#5b6a99;font-weight:700}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;border:3px solid var(--navy);border-radius:14px;overflow:hidden;background:#fff;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.tbl th{background:var(--navy);color:#fff;font-family:var(--display);font-weight:400;text-align:left;padding:8px 10px;font-size:15px;letter-spacing:.4px;white-space:nowrap}
+.tbl td{padding:7px 10px;border-top:2px solid #e3ecfa;white-space:nowrap}
+.tbl tr:nth-child(even) td{background:#f3f8ff}
+.tbl tr.me td{background:#fff1b8}
+.tbl tr.sel td{background:#dff0ff;box-shadow:inset 0 0 0 0 transparent}
+.tbl td.n,.tbl th.n{text-align:right}
+.portrait .tbl,.landscape .tbl{font-size:13px;border-width:2px;border-radius:12px}
+.portrait .tbl th,.landscape .tbl th{font-size:13px;padding:6px 8px}
+.portrait .tbl td,.landscape .tbl td{padding:5px 8px}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:900;border:2px solid currentColor;white-space:nowrap;line-height:1.3}
+.pill.wait,.pill.ready,.pill.live{color:#24801f;background:#e2f7dc}
+.pill.ingame{color:#b85f00;background:#fff0d6}
+.pill.lock,.pill.nready,.pill.off{color:#55607d;background:#e7ebf4}
+.pill.official{color:#b07800;background:#fff3c4}
+.pill.public{color:#1f63c9;background:#e0edff}
+.pill.private{color:#7a3fbf;background:#f0e4ff}
+.pill.training{color:#9b4d00;background:#ffe2b8}
+.pill.host{color:#9a5a00;background:#ffe9a8}
+.dot{width:9px;height:9px;border-radius:50%;background:#3fd35a;display:inline-block;box-shadow:0 0 0 3px rgba(63,211,90,.25)}
+.bar{height:10px;border-radius:6px;background:#d3def5;border:2px solid var(--navy);overflow:hidden;min-width:40px}
+.bar i{display:block;height:100%;background:linear-gradient(#8fe86c,#3aa135)}
+.bar.sun i{background:linear-gradient(#ffe36b,#ffb000)}
+.bar.sky i{background:linear-gradient(#80d0ff,#2f8cf0)}
+.av{width:var(--s);height:var(--s);flex:none;border-radius:50%;border:3px solid var(--navy);background:#bfe3ff url(../../../assets/graphics/animations/player1.png) 33.333% var(--dy,0%)/400% 400% no-repeat;display:inline-block}
+.av.p2{background-color:#ffdcbf;background-image:url(../../../assets/graphics/animations/player2.png)}
+.av.bot,.av.guest{background:#dfe4f0;display:inline-grid;place-items:center}
+.av.bot::after{content:"BOT";font:900 calc(var(--s)*.27) var(--body);color:var(--navy)}
+.av.guest::after{content:"?";font:900 calc(var(--s)*.5) var(--body);color:var(--navy)}
+.spo{width:var(--s,28px);height:var(--s,28px);flex:none;display:inline-block;background:url(../../../assets/graphics/tilesets/spoils.png) 0 0/100% 400% no-repeat}
+.spo.attack{background-position:0 33.333%}.spo.delay{background-position:0 66.667%}.spo.speed{background-position:0 100%}
+.bombi{width:var(--s,32px);height:var(--s,32px);flex:none;display:inline-block;background:url(../../../assets/graphics/animations/bombs.png) 0 0/100% 1200% no-repeat}
+.tile{width:var(--s,28px);height:var(--s,28px);flex:none;display:inline-block;background:url(../../../assets/graphics/tilesets/map.png) 0 0/600% 100% no-repeat;border-radius:4px}
+.thumb{display:block;width:100%;aspect-ratio:26/14;border-radius:8px;border:3px solid var(--navy);background:#1a2650;image-rendering:pixelated}
+.card{background:#fff;border:3px solid var(--navy);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:6px;box-shadow:0 4px 0 rgba(5,15,50,.3);min-width:0}
+.card.off{opacity:.5;filter:grayscale(.8)}
+.card.on{border-color:#f0a400;box-shadow:0 0 0 3px var(--sun),0 4px 0 rgba(5,15,50,.3)}
+.card .nm{font-family:var(--display);font-weight:400;color:var(--navy);font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.portrait .card,.landscape .card{border-width:2px;border-radius:12px;padding:7px}
+.portrait .card .nm,.landscape .card .nm{font-size:15px}
+.grid{display:grid;gap:14px;min-height:0}
+.foot{display:flex;align-items:center;gap:12px;padding:12px 26px;background:linear-gradient(rgba(13,27,74,.0),rgba(13,27,74,.9) 30%);position:relative;z-index:2}
+.portrait .foot{padding:10px 14px 8px}
+.landscape .foot{padding:6px 8px}
+.tabbar{display:grid;grid-template-columns:repeat(5,1fr);background:#13265f;border-top:3px solid #0d1b4a;margin-bottom:-22px;padding:6px 6px 26px}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;color:#9fb4ee;text-decoration:none;font-size:11px;font-weight:900}
+.tabbar a.on{color:var(--sun)}
+.pager{display:flex;gap:6px;justify-content:flex-end;align-items:center;color:#fff;font-weight:900;font-size:14px}
+.pager span{min-width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.12)}
+.pager span.on{background:var(--sun);color:var(--gtext)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:#fff;border:2px solid var(--navy);font-weight:900;font-size:13px;white-space:nowrap}
+.chip.on{background:var(--navy);color:#fff}
+.tiles{display:grid;gap:10px}
+.stat{background:#fff;border:3px solid var(--navy);border-radius:14px;padding:8px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-family:var(--display);font-weight:400;font-size:26px;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1.1}
+.stat small{font-size:12px;color:#5b6a99;font-weight:800}
+.portrait .stat,.landscape .stat{border-width:2px;padding:6px 10px}
+.portrait .stat b,.landscape .stat b{font-size:20px}
+.prop{font-size:11px;font-weight:900;color:#9b4d00;background:#ffe2b8;border-radius:6px;padding:1px 6px;letter-spacing:.3px}
+.hint{margin:0;font-size:13px;color:#4a5a8c;font-weight:800;text-align:center}
+.keys{display:flex;gap:16px;justify-content:center;color:#cfe0ff;font-size:13px;font-weight:800}
+.keys kbd{font:900 12px var(--body);background:#fff;color:var(--navy);border:2px solid var(--navy);border-radius:6px;padding:1px 6px;margin-right:4px}
+.mono{font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-weight:700}
+
+/* login */
+.dlg{position:relative;aspect-ratio:1024/1536;flex:none}
+.dlg>img{width:100%;height:100%;display:block}
+.dlg-in{position:absolute;left:14%;right:14%;top:35.5%;bottom:17%;display:flex;flex-direction:column;justify-content:center;gap:var(--g,10px)}
+.lbx{position:relative;width:100%;aspect-ratio:389/104;background:url(../../../assets/graphics/home/label_input_box.png) center/100% 100% no-repeat;flex:none}
+.lbx b{position:absolute;left:3%;width:31%;top:50%;transform:translateY(-55%);text-align:center;color:#fff;font-family:var(--display);font-weight:400;font-size:var(--lf);text-shadow:0 2px 0 #1d3aa8;white-space:nowrap}
+.lbx span{position:absolute;left:40%;right:9%;top:50%;transform:translateY(-55%);color:#9aa5c6;font-weight:900;font-size:var(--lf);white-space:nowrap;overflow:hidden}
+.lbx span.v{color:var(--gtext)}
+.conn{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:900;font-size:14px;background:rgba(10,24,70,.72);border:2px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:999px}
+.peek{position:absolute;top:-30px}
+
+/* game map */
+.gm{display:grid;grid-template-columns:repeat(var(--cols),var(--ts));position:relative;border:4px solid #0d1b4a;border-radius:8px;box-shadow:0 0 0 3px rgba(255,255,255,.5),0 10px 30px rgba(0,0,0,.45);flex:none;background:#0d1b4a}
+.gm .t{width:var(--ts);height:var(--ts);background:url(../../../assets/graphics/tilesets/map.png) 0 0/600% 100% no-repeat}
+.t0,.t5{background-position:40% 0!important}.t1{background-position:20% 0!important}.t2{background-position:0 0!important}.t3{background-position:60% 0!important}.t4{background-position:80% 0!important}
+.gm .o{position:absolute;width:var(--ts);height:var(--ts);background-repeat:no-repeat}
+.o.p1{background-image:url(../../../assets/graphics/animations/player1.png);background-size:400% 400%;background-position:33.333% 0}
+.o.p2{background-image:url(../../../assets/graphics/animations/player2.png);background-size:400% 400%;background-position:33.333% 66.667%}
+.o.bomb{background-image:url(../../../assets/graphics/animations/bombs.png);background-size:100% 1200%;background-position:0 18.18%}
+.o.egg{background-image:url(../../../assets/graphics/animations/dragon_egg_gst.png);background-size:100% 2000%}
+.o.xc{background-image:url(../../../assets/graphics/animations/explosion_center.png);background-size:500% 100%;background-position:50% 0}
+.o.xv{background-image:url(../../../assets/graphics/animations/explosion_vertical.png);background-size:500% 100%;background-position:50% 0}
+.o.xu{background-image:url(../../../assets/graphics/animations/explosion_up.png);background-size:500% 100%;background-position:50% 0}
+.o.xd{background-image:url(../../../assets/graphics/animations/explosion_down.png);background-size:500% 100%;background-position:50% 0}
+.o.s{background-image:url(../../../assets/graphics/tilesets/spoils.png);background-size:100% 400%}
+.o.s3{background-position:0 100%}.o.s4{background-position:0 33.333%}.o.s5{background-position:0 66.667%}.o.s6{background-position:0 0}
+.o.own{border-radius:50%;box-shadow:0 0 0 3px var(--c),0 0 10px var(--c)}
+.o.gone{border:2px dashed var(--c);border-radius:50%;display:grid;place-items:center}
+.o.gone b,.o.tag b{font-family:var(--display);font-weight:400;font-size:calc(var(--ts)*.42);color:#fff;text-shadow:0 1px 0 #000,0 0 3px #000}
+.o.qz{border:3px dashed var(--c);border-radius:4px}
+.o.tag{display:grid;place-items:center}
+.o.tag b{width:72%;height:72%;display:grid;place-items:center;background:rgba(10,22,66,.85);border:2px solid #fff;border-radius:50%;transform:translateY(-55%)}
+.o.shield{border-radius:50%;box-shadow:0 0 0 3px #7fe3ff,0 0 14px 4px rgba(127,227,255,.8);background:radial-gradient(circle,transparent 55%,rgba(127,227,255,.4))}
+.o.pop{display:grid;place-items:center;overflow:visible;z-index:3}
+.o.pop b{font-family:var(--display);font-weight:400;font-size:calc(var(--ts)*.62);color:#ffe36b;-webkit-text-stroke:1.5px #6a2f08;transform:translateY(-35%)}
+.o.pop.neg b{color:#ff6b5e;-webkit-text-stroke-color:#5a0d0d}
+.o.set{border:3px solid var(--c);border-radius:4px}
+.o.set b{position:absolute;left:-3px;top:-3px;background:var(--c);color:#fff;font:900 calc(var(--ts)*.34) var(--body);padding:0 3px;border-radius:3px;line-height:1.2}
+.o.cur{border:3px solid var(--sun);border-radius:4px;box-shadow:0 0 0 2px #000}
+.gm.gridlines::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);background-size:var(--ts) var(--ts);pointer-events:none}
+.hudbg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#2b4fa8,#0e1b4d 70%)}
+.hchip{display:flex;align-items:center;gap:8px;background:rgba(10,22,66,.82);border:2px solid rgba(255,255,255,.3);border-radius:14px;padding:5px 10px;color:#fff;font-weight:900;font-size:14px;white-space:nowrap}
+.hchip small{display:block;font-size:11px;color:#a9bdf2;font-weight:800}
+.hchip.dead{opacity:.5}
+.timer{font-family:var(--display);font-size:30px;color:var(--sun);text-shadow:0 2px 0 #6a2f08;letter-spacing:1px}
+.feed{display:flex;flex-direction:column;gap:5px}
+.feed div{background:rgba(10,22,66,.8);color:#fff;border-radius:10px;padding:5px 10px;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.feed em{font-style:normal;color:var(--sun)}
+.pad{position:relative;width:132px;height:132px;flex:none}
+.pad b{position:absolute;width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.88);border:3px solid var(--navy);display:grid;place-items:center;color:var(--navy);box-shadow:0 4px 0 var(--navy)}
+.pad b::after{content:"";border:9px solid transparent;border-bottom:12px solid var(--navy);transform:translateY(-5px)}
+.pad .u{left:43px;top:0}.pad .d{left:43px;bottom:0;transform:rotate(180deg)}.pad .lf{left:0;top:43px;transform:rotate(-90deg)}.pad .rt{right:0;top:43px;transform:rotate(90deg)}
+.joy{width:128px;height:128px;border-radius:50%;background:rgba(255,255,255,.18);border:3px solid rgba(255,255,255,.55);position:relative;flex:none}
+.joy::after{content:"";position:absolute;left:34px;top:30px;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.85);border:3px solid var(--navy)}
+.bombbtn{width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#ff9a8c,#e0443b 70%);border:4px solid var(--navy);box-shadow:0 6px 0 var(--navy);display:grid;place-items:center;flex:none}
+.bombbtn .bombi{--s:58px}
+.seg2{display:flex;color:var(--gtext);background:#fff;border:2px solid var(--navy);border-radius:10px;overflow:hidden}
+.seg2 span{padding:5px 12px;font-weight:900;font-size:13px;border-right:2px solid var(--navy)}
+.seg2 span:last-child{border-right:0}
+.seg2 span.on{background:var(--navy);color:#fff}
+.notice{display:flex;gap:10px;align-items:center;background:#fff4c9;border:3px solid #c98a00;border-radius:12px;padding:8px 12px;font-size:13px;font-weight:800;color:#6b4700}
+.code{display:flex;gap:8px}
+.code b{flex:1;max-width:48px;height:54px;border:3px solid var(--navy);border-radius:10px;background:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:400;font-size:26px;color:var(--navy)}
+.code b.on{border-color:#f0a400;box-shadow:0 0 0 3px var(--sun)}
+.tl{display:flex;align-items:center;gap:12px;background:rgba(10,22,66,.88);border:2px solid rgba(255,255,255,.3);border-radius:14px;padding:8px 14px;color:#fff;font-weight:900}
+.track{position:relative;flex:1;min-width:80px;height:10px;background:#3a4a85;border-radius:5px}
+.track .fill{position:absolute;left:0;top:0;bottom:0;width:55%;background:var(--sun);border-radius:5px}
+.track b{position:absolute;top:-5px;width:5px;height:20px;border-radius:3px;background:#ff6b5e;z-index:1}
+.track b.r{background:#ffe36b}
+.track .knob{position:absolute;left:55%;top:50%;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--navy);transform:translate(-50%,-50%);z-index:2}
+.hearts{display:inline-flex;gap:1px;vertical-align:middle;line-height:1}
+.hearts i{font-style:normal;color:rgba(255,255,255,.25)}
+.hearts i.on{color:#ff5a6e;text-shadow:0 1px 0 #7a0f1d}
+.btn.st-hover{filter:brightness(1.08)}
+.btn.st-pressed{transform:translateY(4px);box-shadow:0 1px 0 var(--navy)}
+.kit{display:flex;flex-direction:column;gap:22px}
+.kintro{margin:0;color:var(--muted);font-weight:700}
+.kintro code,.ktok code{color:var(--accent)}
+.ksec h3{margin:0 0 10px;font-size:15px;color:var(--accent)}
+.ksec h3 small{color:var(--muted);font-weight:700}
+.kgrid{display:flex;flex-wrap:wrap;gap:14px}
+.kfig{margin:0;display:flex;flex-direction:column;gap:6px;max-width:260px}
+.kbox{background:repeating-conic-gradient(#2a3366 0 25%,#1f264f 0 50%) 0 0/16px 16px;border-radius:8px;border:1px solid var(--line);align-self:flex-start;font-family:var(--body);color:var(--gtext)}
+.kx{display:inline-flex;align-items:center;line-height:0}
+.kfig figcaption{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted)}
+.kfig figcaption b{color:var(--text);font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.kfig figcaption em{font-style:normal;color:#c9d2f5}
+.ktok{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.ktok div{display:grid;grid-template-columns:32px 1fr;column-gap:10px;align-items:center;font-size:13px}
+.ktok i{grid-row:span 3;width:32px;height:32px;border-radius:8px;border:1px solid var(--line)}
+.ktok span{color:var(--muted);font-weight:600}
+.ktype{border-collapse:collapse;font-size:13px}
+.ktype th,.ktype td{text-align:left;padding:6px 14px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ktype td{color:var(--muted);font-weight:600}
+.ovl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:8;background:rgba(6,12,40,.62)}
+.cnt{font-family:var(--display);color:var(--sun);line-height:.95;text-shadow:0 6px 0 #6a2f08,0 0 40px rgba(255,200,40,.55);-webkit-text-stroke:3px #6a2f08;letter-spacing:2px}
+.toast{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(#5fd35a,#2f9a2b);color:#fff;border:3px solid var(--navy);border-radius:12px;padding:8px 16px;font-weight:900;font-size:15px;box-shadow:0 4px 0 var(--navy)}
+.sheet{position:absolute;left:0;right:0;bottom:0;border-radius:24px 24px 0 0!important;padding:18px 18px 34px!important;border-bottom:0!important}
+.sheet::before{content:"";position:absolute;top:8px;left:50%;width:44px;height:5px;border-radius:3px;background:#9fb0d8;transform:translateX(-50%)}
+.rot{width:150px;height:150px;display:grid;place-items:center;position:relative}
+.rot::before{content:"";position:absolute;inset:0;border-radius:50%;border:4px dashed rgba(255,255,255,.35)}
+.rot .ph{width:62px;height:112px;border:6px solid #fff;border-radius:16px;background:linear-gradient(#2f8cf0,#1b4fa8);box-shadow:0 0 0 3px var(--navy);transform:rotate(-90deg)}
+@media (prefers-reduced-motion:no-preference){
+  .seg button,.idx a{transition:background .15s,color .15s}
+  .rot .ph{animation:turn 2.4s ease-in-out infinite}
+  @keyframes turn{0%,25%{transform:rotate(0)}55%,100%{transform:rotate(-90deg)}}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Elefant Blaster <small>UI mockups · desktop &amp; mobile</small></h1>
+  <div class="seg" role="group" aria-label="Chọn bản thiết kế">
+    <button type="button" data-mode="desktop">Web / Desktop</button>
+    <button type="button" data-mode="mobile">Mobile</button>
+    <button type="button" data-mode="all">So sánh</button>
+  </div>
+</header>
+<div class="wrap">
+  <nav class="idx" id="idx" aria-label="Màn hình"></nav>
+  <main>
+    <div class="stage-h"><h2 id="sname"></h2><span id="ssrc"></span></div>
+    <div class="stage" id="stage"></div>
+    <div class="notes" id="notes"></div>
+  </main>
+</div>
+<script>
+// ---------------------------------------------------------------- icons
+const ICON={
+  back:['M15 5l-7 7 7 7'],
+  home:['M3 11l9-7 9 7','M5 10v10h5v-6h4v6h5V10'],
+  trophy:['M7 4h10v5a5 5 0 0 1-10 0z','M7 6H4v1a3 3 0 0 0 3 3','M17 6h3v1a3 3 0 0 1-3 3','M12 14v4','M8 21h8'],
+  user:['c12,8,4','M4 21c1.2-4 4.2-6 8-6s6.8 2 8 6'],
+  users:['c9,8,3.5','M2.5 20c.8-3.4 3.2-5 6.5-5s5.7 1.6 6.5 5','c17,9,2.8','M16 14.2c2.8 0 4.8 1.6 5.5 4.8'],
+  gear:['c12,12,3.2','M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1'],
+  search:['c11,11,6.5','M16 16l5 5'],
+  play:['M8 5v14l11-7z'],
+  map:['M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z','M9 3v15','M15 6v15'],
+  plus:['M12 5v14','M5 12h14'],
+  lock:['r5,11,14,10,2','M8 11V7a4 4 0 0 1 8 0v4'],
+  heart:['M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z'],
+  copy:['r9,9,11,11,2','M5 15V5h10'],
+  logout:['M10 4H5v16h5','M14 8l4 4-4 4','M18 12H9'],
+  pause:['M8 5v14','M16 5v14'],
+  chat:['M4 5h16v10H9l-5 4z'],
+  eye:['M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z','c12,12,3'],
+  code:['M8 7l-5 5 5 5','M16 7l5 5-5 5'],
+  film:['r3,5,18,14,2','M3 9h18','M3 15h18','M8 5v4','M16 5v4','M8 15v4','M16 15v4'],
+  filter:['M3 5h18l-7 8v6l-4-2v-4z'],
+  crown:['M3 8l4 4 5-7 5 7 4-4-2 11H5z'],
+  x:['M6 6l12 12','M18 6L6 18'],
+  check:['M5 12l5 5 9-10'],
+  brush:['M14 4l6 6-9 9H5v-6z'],
+  eraser:['M4 15l9-9 7 7-7 7H8z','M10 20h10'],
+  pin:['M12 21s-6-6.5-6-11a6 6 0 0 1 12 0c0 4.5-6 11-6 11z','c12,10,2.2'],
+  grid:['r3,3,18,18,2','M3 9h18M3 15h18M9 3v18M15 3v18'],
+  more:['c5,12,1.3','c12,12,1.3','c19,12,1.3'],
+  globe:['c12,12,9','M3 12h18','M12 3c3 3 3 15 0 18','M12 3c-3 3-3 15 0 18'],
+  zoom:['c11,11,6.5','M16 16l5 5','M8 11h6','M11 8v6'],
+  undo:['M9 14L4 9l5-5','M4 9h11a5 5 0 0 1 0 10h-3'],
+  layers:['M12 3l9 5-9 5-9-5z','M3 13l9 5 9-5'],
+  chevron:['M9 6l6 6-6 6'],
+  refresh:['M20 11a8 8 0 1 0-2 6','M20 4v7h-7'],
+};
+function ic(n,s=20){
+  const p=ICON[n].map(d=>{
+    if(d[0]==='c'){const [x,y,r]=d.slice(1).split(',');return `<circle cx="${x}" cy="${y}" r="${r}"/>`}
+    if(d[0]==='r'){const [x,y,w,h,rx]=d.slice(1).split(',');return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}"/>`}
+    return `<path d="${d}"/>`;
+  }).join('');
+  return `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+}
+
+// ---------------------------------------------------------------- data
+const ME='Player#8888';
+// The 26x14 map hard-coded in MatchState::Load() (0 grass, 1 wall, 2 balk, 3 teleport, 4 quarantine, 5 dragon egg)
+const BASE=[
+ [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+ [1,0,0,0,2,2,2,2,0,0,2,2,3,2,2,2,2,2,2,2,2,1,3,5,2,1],
+ [1,0,0,3,3,3,3,1,1,1,3,2,3,2,2,2,2,3,2,2,2,1,3,2,2,1],
+ [1,0,0,3,2,2,2,0,3,0,2,2,3,2,2,2,0,2,3,2,2,1,3,2,2,1],
+ [1,1,0,3,2,0,0,0,0,0,0,2,3,2,2,0,0,2,2,3,2,2,1,3,2,1],
+ [1,4,1,3,2,0,3,1,1,1,1,1,3,2,0,0,2,2,2,3,2,0,2,3,2,1],
+ [1,1,1,3,2,0,0,3,2,2,2,2,2,2,0,2,2,2,2,3,2,0,0,2,2,1],
+ [1,1,1,3,2,0,0,2,2,2,3,2,2,2,0,2,2,2,2,3,2,0,0,2,2,1],
+ [1,4,1,3,2,0,3,1,1,1,1,1,3,2,0,0,2,2,2,3,2,0,2,3,2,1],
+ [1,1,0,3,2,0,0,0,0,0,0,2,3,2,2,0,0,2,2,3,2,2,1,3,2,1],
+ [1,0,0,3,2,2,2,0,3,0,2,2,3,2,2,2,0,2,3,2,2,1,3,2,2,1],
+ [1,0,0,3,3,3,3,1,1,1,3,2,3,2,2,2,2,3,2,2,2,1,3,2,2,1],
+ [1,0,0,0,2,2,2,2,0,0,2,2,3,2,2,2,2,2,2,2,2,1,3,5,2,1],
+ [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+];
+const SPOILS=[[1,1,3],[1,2,4],[2,1,5],[2,2,6]];
+const ROOMS=[
+ ['00001','Bot Deathmatch','Island',7,8,4,'ingame'],
+ ['00002','Classic 4p','Classic',3,4,0,'wait'],
+ ['00003','8P Chaos','Canyon',8,8,0,'lock'],
+ ['00004','My Private Test','Random',1,8,0,'private'],
+ ['00005','Newbie Arena','Classic',2,4,1,'training'],
+ ['00006','Egg Hunt','Island',5,6,2,'ingame'],
+ ['00007','Speed Run','Canyon',4,8,0,'wait'],
+ ['00008','Night Owls','Classic',6,6,0,'lock'],
+];
+const MAPS=[
+ ['Bot Deathmatch','official',true,0,'Elefant Team'],
+ ['Classic 4p','official',true,1,'Elefant Team'],
+ ['8P Chaos','public',false,2,'GodOfWar'],
+ ['My Private Test','private',true,3,ME],
+ ['Island Chaos','official',false,4,'Elefant Team'],
+ ['Canyon Run','public',false,5,'Big Daddy'],
+];
+const SCORE=[
+ ['1st','God Of War',96,15,6,3],['2nd',ME,88,12,7,5],['3rd','BabyBot_v2',81,13,8,2],['4th','Big Daddy',70,10,9,4],
+ ['5th','TestBot_001',64,9,10,3],['6th','NoobPlayer',51,7,12,1],['7th','AFK_Guy',30,4,14,0],['8th','BadBot_v1',22,3,15,1],
+];
+const SPECS=['Player#1234','Guest#1234','God Of Guy','Big Mommy','Big Mommy #1','Big Mommy #2','Big Mommy #3','Big Mommy #4'];
+const LBL={training:'Training',wait:'Waiting',ingame:'In Game',lock:'Locked',official:'Official',public:'Public',private:'Private',ready:'Ready',nready:'Not ready',live:'Live',off:'Off',host:'Host'};
+
+// ---------------------------------------------------------------- tiny components
+const kindOf=n=>n===ME?'p1':/bot/i.test(n)?'bot':/guest/i.test(n)?'guest':([...n].reduce((a,c)=>a+c.charCodeAt(0),0)%2?'p2':'p1');
+const av=(k,s=40)=>`<span class="av ${k}" style="--s:${s}px"></span>`;
+const avn=(n,s=40)=>av(kindOf(n),s);
+const joinBtn=(st,sz)=>st==='wait'||st==='training'?`<a class="btn ${sz} green" href="#lobby">Join</a>`:st==='private'?`<a class="btn ${sz} ghost" href="#joincode">${ic('lock',13)} Join</a>`:st==='ingame'?`<a class="btn ${sz} ghost" href="#spectator">${ic('eye',13)} Watch</a>`:'';
+const pill=(k,t)=>`<span class="pill ${k}">${t||LBL[k]}</span>`;
+const sign=(t,sz)=>`<div class="sign" style="font-size:${sz}px">${t}</div>`;
+const inp=(v,ph,icn)=>`<div class="in ${v?'v':''}">${icn?ic(icn,16):''}<span>${v||ph}</span></div>`;
+const sel=v=>`<div class="in v sel"><span>${v}</span><b>▾</b></div>`;
+const chk=(l,on=true)=>`<span class="chk ${on?'on':''}"><i></i>${l}</span>`;
+const fld=(l,c,cls='')=>`<div class="fld ${cls}"><span class="lbl">${l}</span>${c}</div>`;
+const bar=(p,c='')=>`<div class="bar ${c}"><i style="width:${p}%"></i></div>`;
+const spo=(k,s=28)=>`<span class="spo ${k}" style="--s:${s}px"></span>`;
+const bombi=s=>`<span class="bombi" style="--s:${s}px"></span>`;
+const tile=(i,s=28)=>`<span class="tile" style="--s:${s}px;background-position:${i*20}% 0"></span>`;
+const prop=()=>`<span class="prop">đề xuất</span>`;
+const pager=()=>`<div class="pager"><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>42</span></div>`;
+const tbl=(h,rows,o={})=>`<table class="tbl"><thead><tr>${h.map(x=>{const n=x[0]==='#';return `<th class="${n?'n':''}">${n?x.slice(1):x}</th>`}).join('')}</tr></thead><tbody>${rows.map((r,i)=>`<tr class="${o.me===i?'me':''}${o.sel===i?' sel':''}">${r.map((x,j)=>`<td class="${h[j]&&h[j][0]==='#'?'n':''}">${x}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+const nameCell=(n,s=26)=>`<span class="row" style="gap:8px">${avn(n,s)}${n}</span>`;
+const seat=(p,m)=>`<span class="row" style="gap:6px">${p}/${m}${bar(p/m*100,p===m?'sun':'sky')}</span>`;
+
+// seeded variants of the real map for thumbnails
+function rng(s){return()=>(s=(s*16807)%2147483647)/2147483647}
+function variant(v){
+  let m=BASE.map(r=>r.slice());const R=rng(v*97+13);
+  if(v%2) m=m.map(r=>r.reverse());
+  if(v>=2) m=m.map(r=>r.map(x=>x===2&&R()<.4?0:x));
+  if(v>=3) m=m.map(r=>r.map(x=>x===3&&R()<.6?2:x));
+  if(v===5) m.reverse();
+  return m;
+}
+const TC={0:'#7cc242',1:'#34415f',2:'#c27a3c',3:'#a35bd6',4:'#9aa3b5',5:'#ffd34d'};
+const thumbCache={};
+function thumbSrc(v){
+  if(thumbCache[v]) return thumbCache[v];
+  const m=variant(v),k=6,c=document.createElement('canvas');c.width=26*k;c.height=14*k;
+  const g=c.getContext('2d');
+  m.forEach((r,y)=>r.forEach((x,i)=>{g.fillStyle=TC[x];g.fillRect(i*k,y*k,k,k);if(x===2){g.fillStyle='rgba(0,0,0,.18)';g.fillRect(i*k,y*k+k-2,k,2)}}));
+  g.fillStyle='#2f8cf0';g.beginPath();g.arc(1.5*k+k*1,3.5*k,k*.45,0,7);g.fill();
+  g.fillStyle='#ff8a1f';g.beginPath();g.arc(9.5*k,9.5*k,k*.45,0,7);g.fill();
+  return thumbCache[v]=c.toDataURL();
+}
+const thumb=v=>`<img class="thumb" src="${thumbSrc(v)}" alt="">`;
+
+// full map with real sprites; rot=true draws it rotated 90° clockwise (14 wide x 26 tall) for portrait phones
+function gameMap(ts,o={}){
+  const R=14,C=26,rot=!!o.rot,rows=rot?C:R,cols=rot?R:C;
+  const at=(r,c)=>rot?[c,R-1-r]:[r,c];
+  let t='';
+  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const [r,c]=rot?[R-1-x,y]:[y,x];t+=`<i class="t t${BASE[r][c]}"></i>`}
+  const ov=(r,c,cls,inner='',st='')=>{const [y,x]=at(r,c);return `<i class="o ${cls}" style="left:${x*ts}px;top:${y*ts}px;${st}">${inner}</i>`};
+  const C1='--c:#ff9f1a',C2='--c:#3aa8ff';
+  let o2='';
+  // P1 owns quarantine (5,1) + GST egg (1,23); P2 owns quarantine (8,1) + GST egg (12,23)
+  if(o.play!==false) o2+=ov(1,23,'egg own','',C1)+ov(12,23,'gone','<b>2s</b>',C2)+ov(5,1,'qz','',C1)+ov(8,1,'qz','',C2);
+  else o2+=ov(1,23,'egg')+ov(12,23,'egg');
+  if(o.sets) o2+=[[3,1,'P1',C1],[5,1,'P1',C1],[1,23,'P1',C1],[10,1,'P2',C2],[8,1,'P2',C2],[12,23,'P2',C2]].map(([r,c,l,k])=>ov(r,c,'set',`<b>${l}</b>`,k)).join('');
+  if(o.spoils!==false) SPOILS.forEach(([r,c,k])=>o2+=ov(r,c,'s s'+k));
+  if(o.play!==false){
+    o2+=ov(4,6,'bomb')+ov(7,14,'xc')+ov(6,14,'xv')+ov(5,14,'xu')+ov(8,14,'xd');
+    o2+=ov(3,2,'p1')+ov(3,2,'shield')+ov(9,9,'p2')+ov(10,16,'p2');
+    o2+=ov(8,1,'p2')+ov(8,1,'tag','<b>7</b>');
+    o2+=ov(3,11,'pop','<b>+1</b>')+ov(9,16,'pop','<b>+3</b>')+ov(1,22,'pop neg','<b>−1</b>');
+  }
+  if(o.cursor) o2+=ov(6,9,'cur');
+  return `<div class="gm ${o.grid?'gridlines':''}" style="--ts:${ts}px;--cols:${cols}">${t}${o2}</div>`;
+}
+
+// ---------------------------------------------------------------- page scaffolding
+function chromeBits(ff){
+  if(ff==='portrait') return `<div class="sbar"><b>9:41</b><span class="isl"></span><span class="sig"><i></i><i></i><i></i><i></i><span class="bat"></span></span></div><div class="home"></div>`;
+  if(ff==='landscape') return `<div class="lisl"></div><div class="home"></div>`;
+  return '';
+}
+const bgv=(v=1)=>`<div class="bg"></div><div class="veil" style="opacity:${v}"></div>`;
+function topbar(ff,o){
+  const d=ff==='desktop';
+  const name=o.user||ME;
+  const user=o.user===null?'':`<div class="uchip">${d?`<div style="text-align:right"><b>${name}</b><small>${o.guest?'Guest · spectator':'Lv 42 · 12,450 EXP'}</small></div>`:''}${avn(name,d?42:34)}</div>`;
+  const back=o.back===null?'<span></span>':d?`<a class="btn sm ghost" href="#${o.backTo||'menu'}">${ic(o.backIcon||'back',16)} ${o.back||'Back'}</a>`:`<a class="btn icon ghost" href="#${o.backTo||'menu'}" aria-label="${o.back||'Back'}">${ic(o.backIcon||'back',20)}</a>`;
+  const logo=d?'<img class="tb-logo" src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster">':'';
+  return `<div class="tb ${ff}"><div class="l">${logo}${back}</div>${sign(o.title,d?26:ff==='portrait'?19:17)}<div class="r">${o.right||''}${user}</div></div>`;
+}
+function tabbar(on){
+  const it=[['menu','home','Home'],['friends','users','Friends'],['leaderboard','trophy','Ranks'],['profile','user','Profile'],['settings','gear','Settings']];
+  return `<nav class="tabbar">${it.map(([h,i,l])=>`<a href="#${h}" class="${h===on?'on':''}">${ic(i,22)}${l}</a>`).join('')}</nav>`;
+}
+function page(ff,o){
+  return `${bgv(o.veil??1)}${chromeBits(ff)}<div class="layer">${o.top!==undefined?o.top:topbar(ff,o)}<div class="body" style="${o.bs||''}">${o.body}</div>${o.foot?`<div class="foot" style="${o.fs||''}">${o.foot}</div>`:''}${ff==='portrait'&&o.tab?tabbar(o.tab):''}</div>`;
+}
+
+// ---------------------------------------------------------------- screens
+const S=[];
+const def=(id,name,group,src,render,notes)=>S.push({id,name,group,src,render,notes});
+
+// ---- Login
+function lbx(l,v,fs){return `<div class="lbx" style="--lf:${fs}px"><b>${l}</b><span class="${v&&v!=='Your nickname'?'v':''}">${v}</span></div>`}
+function loginForm(ff,guest,fs){
+  const f=guest?lbx('Nick','Guest#1234',fs):lbx('Account','quyen19492',fs)+lbx('Password','••••••••',fs);
+  const mid=guest?`<p class="hint">Guests can watch matches. Create an account to play.</p>`:`<div class="row sb">${chk('Remember me')}<a class="lnk" href="#forgot">Forgot password?</a></div>`;
+  const b=`<a class="btn ${ff==='desktop'?'lg':''} block" href="#menu">${guest?'Watch as Guest':'Login'}</a>`;
+  return f+mid+b+(guest?`<a class="lnk c" href="#login">Back to account login</a>`:'');
+}
+const conn=`<div class="conn"><span class="dot"></span>Connected · asia-1 · 42 ms</div>`;
+function loginScreen(ff,guest){
+  if(ff==='desktop') return `${bgv(0)}
+   <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,18,58,.55),rgba(8,18,58,0) 45%)"></div>
+   <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;padding:20px 40px">
+     <div style="display:flex;flex-direction:column;align-items:center;gap:18px"><img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:560px">${conn}<div class="row" style="gap:10px"><a class="btn ghost" href="#register">${ic('user',18)} Create account</a><a class="btn ghost" href="#guest">${ic('eye',18)} Watch as guest</a></div></div>
+     <div class="dlg" style="height:730px"><img src="../../../assets/graphics/home/dlg_login_back.png" alt=""><div class="dlg-in" style="--g:14px">${loginForm(ff,guest,22)}</div></div>
+   </div>
+   <div style="position:absolute;right:18px;bottom:12px;color:#fff;font-size:12px;opacity:.8">v0.3.0-dev</div>`;
+  if(ff==='portrait') return `${bgv(0)}${chromeBits(ff)}
+   <div style="position:absolute;inset:0;background:linear-gradient(rgba(8,18,58,.1),rgba(8,18,58,.55))"></div>
+   <div style="position:absolute;inset:46px 0 24px;display:flex;flex-direction:column;align-items:center;justify-content:space-between">
+     <img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:300px;margin:-14px 0 -30px">
+     <div class="dlg" style="height:540px"><img src="../../../assets/graphics/home/dlg_login_back.png" alt=""><div class="dlg-in" style="--g:10px;left:13%;right:13%">${loginForm(ff,guest,16)}</div></div>
+     <div class="row" style="gap:8px"><span class="conn" style="padding:6px 10px"><span class="dot"></span>42 ms</span><a class="btn sm ghost" href="#register">Create account</a><a class="btn sm ghost" href="#guest">Guest</a></div>
+   </div>`;
+  return `${bgv(0)}${chromeBits(ff)}
+   <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,18,58,.5),rgba(8,18,58,.1))"></div>
+   <div style="position:absolute;inset:0 44px 14px 50px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+     <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:330px;margin:-30px 0">${conn}</div>
+     <div class="cloud" style="width:330px;padding:30px 18px 16px;gap:9px;margin-top:14px">
+       <div style="position:absolute;top:-22px;left:50%;transform:translateX(-50%)">${sign(guest?'GUEST':'LOGIN',20)}</div>
+       <span class="peek" style="left:-14px">${av('p1',40)}</span><span class="peek" style="right:-14px">${av('p2',40)}</span>
+       ${loginForm(ff,guest,15)}
+     </div>
+   </div>`;
+}
+def('login','Login','Vào game','login_as_player.screen.md',ff=>loginScreen(ff,false),{
+  desktop:['Logo bên trái, <b>dlg_login_back</b> bên phải, nền vẽ cover, không bị letterbox.','Hai ô input dùng đúng ảnh <b>label_input_box</b>: chữ label nằm trong phần xanh, giá trị nhập nằm trong phần trắng.','Chip "Connected" đặt dưới logo vì flow ghi là auto-connect central server. Người chơi cần biết đã kết nối được chưa trước khi bấm Login.'],
+  portrait:['Dialog 2:3 vừa khít màn dọc, scale theo chiều rộng nên các hàng input cao khoảng 9mm.','Nền dùng <b>background_v.png</b> (1024×1536), vẽ kiểu cover và neo đáy để hai chú voi luôn hiện. Trên phone 9:20, mỗi bên bị cắt khoảng 16%.','Bàn phím ảo sẽ che phần dưới, nên cần đẩy dialog lên khi focus vào Password.'],
+  landscape:['Ảnh dialog dọc ở đây sẽ quá nhỏ, nên mình thay bằng panel mây vẽ bằng code (CSS). Phần này cần artist làm bản <b>dialog ngang</b> hoặc tách lớp.','Hai sprite nhân vật "ló đầu" thay cho hai chú voi có sẵn trong ảnh dialog.','Bàn phím ảo ngang che khoảng 60% chiều cao, nên khi gõ phải cuộn panel lên.'],
+  doc:['Bỏ nút <b>[← Back]</b> vì đây là màn đầu tiên.','Thêm <b>Remember me</b> và đổi "Login as Guest" thành link chữ để nút Login là nút chính duy nhất.','Thêm chip trạng thái kết nối server.'],
+});
+def('guest','Login as Guest','Vào game','login_as_guest.screen.md',ff=>loginScreen(ff,true),{
+  desktop:['Dùng lại cùng dialog, chỉ đổi nội dung bên trong, nên chỉ cần một hàm vẽ có tham số <b>guest</b>.','Dòng hint nói rõ guest chỉ được xem trận (theo _ui_flows), để người chơi không bất ngờ khi vào Main Lobby.'],
+  portrait:['Chỉ có một ô input nên còn dư chỗ. Có thể gợi ý sẵn nickname ngẫu nhiên để người chơi bấm vào ngay.'],
+  landscape:['Biển gỗ đổi thành "GUEST" để người chơi biết đang ở chế độ nào.'],
+  doc:['Nút đổi thành <b>Watch as Guest</b> vì guest chỉ được xem trận.','Bỏ [← Back] ở header, thay bằng link "Back to account login" trong dialog.'],
+});
+
+// ---- Main menu
+function menuButtons(ff,big){
+  const c=big?'xl':'lg';
+  return `<a class="btn ${c} block" href="#create">${bombi(big?34:28)} Create Match</a>
+   <a class="btn ${c} blue block" href="#join">${ic('users',big?28:24)} Join Match</a>
+   <a class="btn ${c} blue block" href="#replay">${ic('film',big?28:24)} Match Replay</a>
+   <a class="btn ${c} blue block" href="#browse">${ic('map',big?28:24)} Browse Maps</a>`;
+}
+const online=`<div class="conn"><span class="dot"></span>1,284 online · 96 rooms</div>`;
+def('menu','Main Menu','Menu','main_menu.screen.md',ff=>{
+  if(ff==='desktop') return page(ff,{title:'MAIN MENU',back:'Logout',backIcon:'logout',backTo:'login',veil:.35,
+    bs:'align-items:center;justify-content:center;gap:22px',
+    body:`<div style="width:430px;display:flex;flex-direction:column;gap:18px">${menuButtons(ff,true)}</div>
+      <div class="row" style="gap:10px;flex-wrap:wrap;justify-content:center">
+        <a class="btn sm ghost" href="#leaderboard">${ic('trophy',16)} Leaderboard</a><a class="btn sm ghost" href="#profile">${ic('user',16)} Profile</a>
+        <a class="btn sm ghost" href="#friends">${ic('users',16)} Friends</a><a class="btn sm ghost" href="#tutorial">${ic('play',16)} How to Play</a>
+        <a class="btn sm ghost" href="#settings">${ic('gear',16)} Settings</a><a class="btn sm ghost" href="#developer">${ic('code',16)} Developer</a>
+      </div>${online}`});
+  if(ff==='portrait') return page(ff,{veil:.45,tab:'menu',
+    top:`<div class="row sb" style="padding:6px 14px"><div class="uchip">${av('p1',38)}<div><b>${ME}</b><small>Lv 42 · ${bar(83,'sun')}</small></div></div><a class="btn icon ghost" href="#login" aria-label="Logout">${ic('logout',20)}</a></div>`,
+    bs:'align-items:center;justify-content:space-between;padding:0 22px 14px',
+    body:`<img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:300px;margin:-26px 0 -40px">
+      <div style="width:100%;display:flex;flex-direction:column;gap:16px">${menuButtons(ff,false)}</div>${online}`});
+  return page(ff,{veil:.4,
+    top:`<div class="row sb" style="padding:8px 10px 0"><div class="uchip">${av('p1',34)}<div><b>${ME}</b><small>Lv 42</small></div></div>
+      <div class="row" style="gap:8px"><a class="btn icon ghost" href="#leaderboard" aria-label="Leaderboard">${ic('trophy',20)}</a><a class="btn icon ghost" href="#profile" aria-label="Profile">${ic('user',20)}</a><a class="btn icon ghost" href="#settings" aria-label="Settings">${ic('gear',20)}</a><a class="btn icon ghost" href="#login" aria-label="Logout">${ic('logout',20)}</a></div></div>`,
+    bs:'flex-direction:row;align-items:center;justify-content:space-between',
+    body:`<div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:300px;margin:-40px 0 -36px">${online}</div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;width:420px;gap:16px">${menuButtons(ff,false).replace(/btn lg/g,'btn')}</div>`});
+},{
+  desktop:['Cột 4 nút lớn ở giữa, để lộ hai nhóm voi trong background ở hai bên. Veil chỉ phủ nhẹ.','Hàng nút nhỏ (Leaderboard, Profile, Settings, Developer) là <b>đề xuất</b>: hiện chưa màn nào dẫn tới 4 màn này.'],
+  portrait:['Thêm <b>tab bar</b> dưới cùng (Home / Ranks / Profile / Settings), là mẫu điều hướng quen thuộc trên mobile, ngón cái với tới được.','Các nút chính rộng full chiều ngang và cao 56pt trở lên, dễ bấm khi cầm một tay.'],
+  landscape:['Logo bên trái, lưới 2×2 nút bên phải để tận dụng chiều ngang. Các mục phụ thu thành icon ở góc phải trên.'],
+  doc:['Thêm lối vào <b>Leaderboard, Profile, Settings, Developer</b> (desktop là hàng nút nhỏ, mobile là tab bar).','Thống nhất tên: "Main Menu" (trong _ui_flows gọi là "Main Lobby").','Với guest: ẩn Create Match, đổi Join Match thành "Watch Matches".'],
+});
+
+// ---- Create match
+// max players a map supports = number of Quarantine zones in it; the room asks for 8 here
+const MAP_MAXP=[8,4,8,2,6,8],ROOM_P=8;
+function mapCards(n,cols,selIdx,cls=''){
+  return MAPS.slice(0,n).map((m,i)=>`<div class="card ${i===selIdx?'on':''} ${MAP_MAXP[i]<ROOM_P?'off':''} ${cls}">${thumb(m[3])}<div class="row sb"><span class="nm">${m[0]}</span>${i===selIdx?`<span style="color:#c98a00">${ic('check',18)}</span>`:''}</div><div class="row sb">${pill(m[1])}<span class="muted" style="font-size:12px">${ic('users',13)} up to ${MAP_MAXP[i]}</span></div>${MAP_MAXP[i]<ROOM_P?`<small style="font-size:11px;font-weight:900;color:#b0352c">Too small for ${ROOM_P} players</small>`:''}</div>`).join('');
+}
+def('create','Create Match','Trận đấu','create_match.screen.md',ff=>{
+  const settings=(c)=>`${fld('Room name',inp('Friday Night Blast'))}
+    <div class="row" style="gap:10px">${fld('Max players',sel('8'),'grow')}${fld('Max bots',sel('4'),'grow')}</div>
+    ${chk('Allow bots')}${fld('Mode',`<div class="seg2" style="align-self:flex-start"><span class="on">Ranked</span><span>Training</span></div>`)}
+    <div class="row" style="gap:10px">${chk('Private room')}<div class="grow">${inp('••••••','Password')}</div></div>${c||''}`;
+  const filters=`<div class="row wrapr" style="gap:8px">${inp('','Search maps…','search')}<div class="chips"><span class="chip on">Official</span><span class="chip on">Public</span><span class="chip on">Private</span></div></div>`;
+  if(ff==='desktop') return page(ff,{title:'CREATE MATCH',
+    bs:'display:grid;grid-template-columns:360px 1fr;align-items:start',
+    body:`<div class="cloud"><h3 class="h">Match settings</h3>${settings()}<div style="flex:1"></div>
+        <div class="card" style="flex-direction:row;align-items:center;gap:10px">${thumb(0).replace('class="thumb"','class="thumb" style="width:110px"')}<div><div class="lbl">Selected map</div><div class="nm">Bot Deathmatch</div></div></div>
+        <a class="btn lg block" href="#lobby">Create Match</a></div>
+      <div class="cloud"><h3 class="h">Pick a map <span class="sp">${pager()}</span></h3>${filters}
+        <div class="grid" style="grid-template-columns:repeat(3,1fr)">${mapCards(6,3,0)}</div></div>`});
+  if(ff==='portrait') return page(ff,{title:'CREATE',
+    body:`<div class="cloud">${settings()}</div>
+      <div class="row sb"><h3 class="h" style="color:#fff">Pick a map</h3><span class="chip">${ic('filter',14)} Filter</span></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${mapCards(2,2,0)}</div>`,
+    foot:`<a class="btn lg block" href="#lobby">Create Match</a>`});
+  return page(ff,{title:'CREATE MATCH',
+    bs:'display:grid;grid-template-columns:270px 1fr;align-items:stretch',
+    body:`<div class="cloud">${settings(`<div style="flex:1"></div><a class="btn block" href="#lobby">Create Match</a>`)}</div>
+      <div class="cloud"><div class="row sb"><h3 class="h">Pick a map</h3><div class="chips"><span class="chip on">Official</span><span class="chip on">Public</span><span class="chip">Private</span></div></div>
+        <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:10px">${mapCards(3,3,0)}</div><p class="hint">Swipe for more maps →</p></div>`});
+},{
+  desktop:['Settings bên trái, map picker dạng lưới card có preview bên phải. Preview card dễ chọn hơn bảng với cột "Preview" như trong doc.','Nút <b>Create Match</b> đặt ở cuối cột settings, ngay dưới "Selected map": người chơi kiểm tra lại map rồi bấm.'],
+  portrait:['Settings gọn trong một card, map là lưới 2 cột, nút Create dính dưới đáy (sticky) để lúc nào cũng thấy.','Filter thu vào chip "Filter" để mở bottom sheet, vì dòng search và 3 checkbox không đủ chỗ trên một hàng.'],
+  landscape:['Chiều cao chỉ khoảng 330pt, nên map chỉ hiện 1 hàng card và vuốt ngang để xem tiếp.'],
+  doc:['Chuyển nút <b>Create</b> xuống cuối form.','Map picker đổi từ bảng thành lưới card có preview.','Max Bots bị disable khi bỏ chọn Allow Bots.'],
+});
+
+// ---- Join match
+def('join','Join Match','Trận đấu','join_match.screen.md',ff=>{
+  const rows=ROOMS.map(r=>[`<span class="mono">${r[0]}</span>`,r[1],r[2],seat(r[3],r[4]),r[5],pill(r[6]),joinBtn(r[6],'xs')]);
+  if(ff==='desktop') return page(ff,{title:'JOIN MATCH',
+    body:`<div class="cloud"><div class="row" style="gap:12px"><a class="btn green" href="#lobby">${ic('play',18)} Quick Join</a><a class="btn ghost" href="#joincode">${ic('lock',18)} Enter code</a>
+        <div class="grow">${inp('','Search room name or ID…','search')}</div><div style="width:170px">${sel('Maps: All')}</div>${chk('Allow bots')}<a class="btn icon ghost" href="#join" aria-label="Refresh">${ic('refresh',18)}</a></div>
+      ${tbl(['ID','Name','Map','Players','#Bots','Status',''],rows)}${pager()}</div>`});
+  if(ff==='portrait') return page(ff,{title:'JOIN',
+    body:`<div class="row">${inp('','Search rooms…','search')}<span class="chip">${ic('filter',14)}</span></div>
+      <div class="chips"><span class="chip on">All</span><span class="chip">Waiting</span><span class="chip">With bots</span><span class="chip">Island</span></div>
+      ${ROOMS.slice(0,5).map(r=>`<div class="card" style="flex-direction:row;align-items:center;gap:10px"><div class="grow"><div class="row sb"><span class="nm">${r[1]}</span>${pill(r[6])}</div>
+        <div class="row muted" style="font-size:13px;gap:8px">#${r[0]} · ${r[2]} · ${r[5]} bots</div><div class="row" style="font-size:13px">${seat(r[3],r[4])}</div></div>
+        ${joinBtn(r[6],'sm')||`<span style="color:#8a93ad">${ic('lock',22)}</span>`}</div>`).join('')}`,
+    foot:`<a class="btn icon ghost" href="#joincode" aria-label="Enter room code">${ic('lock',20)}</a><a class="btn lg green grow" href="#lobby">${ic('play',22)} Quick Join</a>`});
+  return page(ff,{title:'JOIN MATCH',right:`<a class="btn sm green" href="#lobby">${ic('play',14)} Quick Join</a>`,user:null,
+    body:`<div class="row"><div class="grow">${inp('','Search rooms…','search')}</div><div style="width:150px">${sel('Maps: All')}</div><div class="chips"><span class="chip on">Waiting</span><span class="chip">Bots</span></div></div>
+      ${tbl(['Room','Map','Players','Status',''],ROOMS.slice(0,5).map(r=>[`${r[1]} <span class="muted">#${r[0]}</span>`,r[2],seat(r[3],r[4]),pill(r[6]),joinBtn(r[6],'xs')]))}`});
+},{
+  desktop:['Bảng giữ đủ cột như doc. Cột "Players" có thêm thanh đầy/trống để nhìn là biết phòng còn chỗ hay không.','Cột cuối đổi nút theo trạng thái: <b>Join</b> khi Waiting, <b>Watch</b> khi In Game, không có nút khi Locked.'],
+  portrait:['Bảng 6 cột không vừa 390pt, nên mỗi phòng thành một card: tên và trạng thái ở trên, ID, map, bots ở dòng phụ.','Quick Join là nút chính, dính dưới đáy, gần ngón cái.'],
+  landscape:['Gộp ID vào cột tên và bỏ cột Bots để bảng vừa màn hình. Quick Join đưa lên topbar.'],
+  doc:['Thêm nút <b>Join / Watch</b> theo trạng thái phòng, và thanh hiển thị số chỗ.','Desktop dùng phân trang; mobile dùng infinite scroll (đúng như _ui_flows).','"Allow bots" hiểu là "hiện cả phòng có bot".'],
+});
+
+// ---- Match lobby
+const SLOTS=[[ME,'Human','ready',true],['BabyKiller_Bot','Bot','ready'],['God Of War','Human','nready'],['Big Daddy','Human','ready'],null,null,null,null];
+def('lobby','Match Lobby','Trận đấu','match_lobby.screen.md',ff=>{
+  const info=(c)=>`<div class="cloud" style="flex-direction:row;align-items:center;gap:14px;${c||''}">${thumb(0).replace('class="thumb"',`class="thumb" style="width:${ff==='desktop'?120:70}px;flex:none"`)}
+     <div class="grow"><div class="nm" style="font-family:var(--display);font-size:${ff==='desktop'?22:16}px;color:var(--navy)">Friday Night Blast <span class="muted" style="font-family:var(--body);font-size:13px">#00123</span></div>
+     <div class="row muted" style="font-size:13px">Map: Bot Deathmatch · 4/8 players · 8 spectators</div></div>
+     ${ff==='portrait'?`<span style="color:var(--navy)">${ic('lock',20)}</span>`:`<div style="width:200px">${sel('Bot Deathmatch')}</div>${chk('Locked',false)}`}</div>`;
+  const slot=(s,i,compact)=>s?`<div class="card" style="flex-direction:row;align-items:center;gap:10px"><span class="lbl">#${i+1}</span>${avn(s[0],compact?30:38)}
+      <div class="grow"><div class="row" style="gap:6px;font-weight:900">${s[0]}${s[3]?`<span style="color:#d99a00">${ic('crown',16)}</span>`:''}</div><div class="row" style="gap:6px;font-size:12px"><span class="muted">${s[1]}</span>${pill(s[2])}</div></div>
+      ${s[3]||compact?'':`<a class="btn xs ghost" href="#lobby">Host</a><a class="btn xs red" href="#lobby">Kick</a>`}</div>`
+    :`<div class="card" style="flex-direction:row;align-items:center;gap:10px;border-style:dashed;background:rgba(255,255,255,.55)"><span class="lbl">#${i+1}</span><span class="muted">Empty · tap to take slot</span></div>`;
+  const specs=n=>SPECS.slice(0,n).map(s=>`<div class="row sb" style="padding:4px 0;border-bottom:2px solid #e3ecfa"><span class="row" style="gap:8px">${avn(s,26)}${s}</span><a class="btn xs ghost" href="#lobby">Host</a></div>`).join('');
+  if(ff==='desktop') return page(ff,{title:'MATCH LOBBY',
+    body:`${info()}<div style="display:grid;grid-template-columns:1fr 300px;gap:16px;min-height:0;flex:1">
+      <div class="cloud"><h3 class="h">Players <span class="muted" style="font-family:var(--body);font-size:14px">4 / 8 · 3 ready</span></h3><div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${SLOTS.map((s,i)=>slot(s,i)).join('')}</div></div>
+      <div class="cloud"><h3 class="h">Spectators <span class="muted" style="font-family:var(--body);font-size:14px">8</span></h3><div>${specs(8)}</div></div></div>`,
+    foot:`<a class="btn red" href="#menu">Leave</a><a class="btn green" href="#lobby">${ic('check',18)} Ready</a><a class="btn blue" href="#friends">${ic('users',18)} Invite</a><div class="grow"></div><span style="color:#cfe0ff;font-weight:800">Code <b class="mono" style="color:#fff">B7K2Q9</b></span><a class="btn ghost" href="#lobby">${ic('lock',18)} Lock Room</a><a class="btn lg" href="#countdown">${ic('play',22)} Start Game</a>`});
+  if(ff==='portrait') return page(ff,{title:'LOBBY',
+    body:`${info()}<div class="row sb"><h3 class="h" style="color:#fff">Players 4/8</h3><span class="pill ready">3 ready</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px">${SLOTS.slice(0,6).map((s,i)=>slot(s,i,true)).join('')}</div>
+      <div class="card" style="flex-direction:row;align-items:center;justify-content:space-between"><span class="row" style="gap:8px;font-weight:900">${ic('eye',18)} Spectators (8)</span>${ic('chevron',18)}</div>`,
+    foot:`<a class="btn icon red" href="#menu" aria-label="Leave">${ic('logout',20)}</a><a class="btn icon blue" href="#friends" aria-label="Invite friends">${ic('users',20)}</a><a class="btn green grow" href="#lobby">Ready</a><a class="btn grow" href="#rotate">Start</a>`});
+  return page(ff,{title:'MATCH LOBBY',
+    body:`<div style="display:grid;grid-template-columns:1fr 210px;gap:10px;min-height:0;flex:1">
+      <div style="display:flex;flex-direction:column;gap:8px;min-height:0">${info('padding:8px 12px')}<div class="grid" style="grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">${SLOTS.map((s,i)=>s?`<div class="card" style="align-items:center;gap:3px;padding:6px">${avn(s[0],34)}<b style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%">${s[0]}</b>${pill(s[2])}</div>`:`<div class="card muted" style="align-items:center;justify-content:center;border-style:dashed;background:rgba(255,255,255,.5);font-size:12px">#${i+1} empty</div>`).join('')}</div></div>
+      <div class="cloud" style="padding:8px 10px;gap:4px"><h3 class="h">Spectators</h3><div style="font-size:13px">${specs(5)}</div></div></div>`,
+    foot:`<a class="btn sm red" href="#menu">Leave</a><a class="btn sm green" href="#lobby">Ready</a><div class="grow"></div><a class="btn sm ghost" href="#lobby">${ic('lock',14)}</a><a class="btn sm" href="#hud">${ic('play',16)} Start Game</a>`});
+},{
+  desktop:['Thêm thanh hành động dưới đáy: <b>Leave / Ready</b> cho mọi người, <b>Lock / Start Game</b> chỉ host thấy (theo _ui_flows).','Slot trống in nét đứt "tap to take slot", vì flow nói mọi người vào phòng đều là spectator trước rồi mới tự chọn slot.','Host có icon vương miện. Nút Kick/Host chỉ hiện ở các slot không phải host.'],
+  portrait:['Slot thành list dọc. Kick/Host gom vào menu khi bấm vào slot, vì không đủ chỗ cho 2 nút trên mỗi dòng.','Danh sách spectator thu gọn thành một dòng mở được.'],
+  landscape:['8 slot xếp lưới 4×2 thành ô nhỏ. Spectator nằm ở cột phải hẹp.'],
+  doc:['Thêm <b>Ready / Leave / Lock / Start Game</b> theo _ui_flows.','Thêm trạng thái Ready cho từng slot, và vương miện cho host.','Không có nút Kick trên slot của chính host. Slot trống cho phép bấm vào để chiếm.'],
+});
+
+// ---- Browse maps
+def('browse','Browse Maps','Map','browse_maps.screen.md',ff=>{
+  const card=(m,act=true)=>`<div class="card">${thumb(m[3])}<div class="row sb"><span class="nm">${m[0]}</span><span style="color:${m[2]?'#e0443b':'#9aa5c6'}">${ic('heart',20)}</span></div>
+     <div class="row sb">${pill(m[1])}<span class="muted" style="font-size:12px">by ${m[4]}</span></div>${act?`<div class="row" style="gap:6px"><a class="btn xs ghost" href="#editor">Clone</a><a class="btn xs blue" href="#create">Play</a></div>`:''}</div>`;
+  if(ff==='desktop') return page(ff,{title:'BROWSE MAPS',bs:'display:grid;grid-template-columns:260px 1fr;align-items:start',
+    body:`<div class="cloud"><a class="btn block" href="#editor">${ic('plus',20)} Create Map</a>${fld('Name',inp('','Search…','search'))}
+        <div class="fld"><span class="lbl">Visibility</span>${chk('Official')}${chk('Public')}${chk('Private')}</div>${fld('Sort by',sel('Most liked'))}${chk('Only my favourites',false)}</div>
+      <div style="display:flex;flex-direction:column;gap:12px"><div class="grid" style="grid-template-columns:repeat(3,1fr)">${MAPS.map(m=>card(m)).join('')}</div>${pager()}</div>`});
+  if(ff==='portrait') return page(ff,{title:'MAPS',right:`<a class="btn icon" href="#editor" aria-label="Create map">${ic('plus',20)}</a>`,user:null,
+    body:`${inp('','Search maps…','search')}<div class="chips"><span class="chip on">Official</span><span class="chip on">Public</span><span class="chip on">Private</span><span class="chip">${ic('heart',13)} Liked</span></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${MAPS.map(m=>card(m,false)).join('')}</div>`});
+  return page(ff,{title:'BROWSE MAPS',right:`<a class="btn sm" href="#editor">${ic('plus',14)} Create</a>`,user:null,
+    body:`<div class="row"><div style="width:240px">${inp('','Search maps…','search')}</div><div class="chips"><span class="chip on">Official</span><span class="chip on">Public</span><span class="chip on">Private</span></div></div>
+      <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:10px">${MAPS.slice(0,4).map(m=>card(m)).join('')}</div>`});
+},{
+  desktop:['Đổi bảng thành lưới card vì preview là thông tin quan trọng nhất khi chọn map, cần to và rõ.','Thumbnail vẽ từ <b>chính map 26×14</b> trong MatchState::Load(), có thêm vài biến thể.','Thêm nút "Play" (tạo trận với map này) và tên tác giả, đều là đề xuất.'],
+  portrait:['Lưới 2 cột. Clone/Play chuyển vào màn chi tiết khi bấm vào card để card gọn hơn.'],
+  landscape:['Lưới 4 cột, một hàng. Filter nằm trên một dòng.'],
+  doc:['Đổi bảng thành lưới card. Thêm tên tác giả và nút <b>Play</b>.','Trái tim tô đỏ nghĩa là đã thích, màu xám là chưa.'],
+});
+
+// ---- Map editor
+def('editor','Map Editor','Map','map_editor.screen.md',ff=>{
+  const tools=[['brush','Brush'],['eraser','Eraser'],['pin','Spawn point'],['grid','Fill area'],['eye','View']];
+  const pal=[[2,'Grass'],[1,'Wall'],[0,'Balk'],[3,'Teleport'],[4,'Quarantine'],[5,'Dragon egg']];
+  if(ff==='desktop') return page(ff,{title:'MAP EDITOR',
+    right:`<a class="btn sm ghost" href="#editor">Save</a><a class="btn sm blue" href="#hud">${ic('play',14)} Test Play</a><a class="btn sm" href="#browse">Publish</a>`,user:null,
+    bs:'display:grid;grid-template-columns:190px 1fr 250px;gap:14px;padding:14px 18px',
+    body:`<div class="cloud" style="padding:12px;gap:8px"><h3 class="h">Tools</h3>${tools.map((t,i)=>`<div class="chip ${i===0?'on':''}" style="border-radius:10px;padding:6px 10px">${ic(t[0],16)} ${t[1]}</div>`).join('')}
+        <h3 class="h" style="margin-top:6px">Tiles</h3><div class="grid" style="grid-template-columns:1fr 1fr;gap:6px">${pal.map((p,i)=>`<div class="card ${i===2?'on':''}" style="align-items:center;padding:5px;gap:3px">${tile(p[0],34)}<span style="font-size:11px;font-weight:900">${p[1]}</span></div>`).join('')}</div>
+        <div class="row" style="gap:6px;font-size:13px">${spo('speed',24)}${spo('attack',24)}${spo('delay',24)}${spo('mystic',24)}</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0">
+        <div class="row" style="gap:8px;color:#fff;font-weight:900"><a class="btn xs ghost" href="#editor">${ic('undo',13)}</a><span>Zoom</span><a class="btn xs ghost" href="#editor">−</a><span>100%</span><a class="btn xs ghost" href="#editor">+</a><span style="margin-left:14px">${chk('Grid')}</span></div>
+        ${gameMap(28,{grid:true,sets:true,play:false,cursor:true})}
+        <div class="row" style="gap:12px;color:#fff;font-size:13px;font-weight:800">Spawn points 2/8 · Power-ups 4 · Cursor (9, 6) Balk</div></div>
+      <div class="cloud" style="padding:12px;gap:8px"><h3 class="h">Map properties</h3>${fld('Name',inp('Untitled Map'))}<div class="row">${fld('Size',sel('26 × 14'),'grow')}${fld('Players',sel('8'),'grow')}</div>${fld('Visibility',sel('Private'))}
+        <h3 class="h" style="margin-top:4px">Layers</h3><div class="grid" style="grid-template-columns:1fr 1fr;gap:6px">${chk('Terrain')}${chk('Objects',false)}${chk('Spawns',false)}${chk('Grid')}</div>
+        <div style="flex:1"></div><div class="notice">${ic('pin',18)} Need 6 more spawn points for 8 players.</div><div class="row" style="gap:6px;flex-wrap:wrap"><a class="btn xs ghost" href="#editor">Validate</a><a class="btn xs ghost" href="#editor">Import</a><a class="btn xs ghost" href="#editor">Export</a></div></div>`});
+  if(ff==='portrait') return page(ff,{title:'EDITOR',right:`<a class="btn icon" href="#editor" aria-label="Save">${ic('check',20)}</a>`,user:null,
+    body:`<div class="notice">${ic('gear',18)} The editor works best on desktop. Pinch to zoom.</div>
+      <div style="display:flex;justify-content:center">${gameMap(26,{grid:true,sets:true,play:false,rot:true,cursor:true}).replace('class="gm','style="transform:scale(.62);transform-origin:top center;margin-bottom:-260px" class="gm')}</div>`,
+    foot:`<div style="display:flex;flex-direction:column;gap:8px;width:100%"><div class="row sb">${tools.slice(0,4).map((t,i)=>`<span class="chip ${i===0?'on':''}">${ic(t[0],15)}</span>`).join('')}<a class="btn sm blue" href="#hud">${ic('play',14)} Test</a></div>
+      <div class="row" style="gap:8px;overflow:hidden">${pal.map((p,i)=>`<span class="card ${i===2?'on':''}" style="padding:4px">${tile(p[0],36)}</span>`).join('')}</div></div>`});
+  return page(ff,{title:'MAP EDITOR',right:`<a class="btn sm ghost" href="#editor">Save</a><a class="btn sm blue" href="#hud">${ic('play',14)} Test</a>`,user:null,
+    bs:'flex-direction:row;gap:10px;padding:4px 8px',
+    body:`<div class="cloud" style="padding:8px;gap:6px;width:62px;align-items:center">${tools.slice(0,4).map((t,i)=>`<span class="chip ${i===0?'on':''}" style="padding:6px">${ic(t[0],16)}</span>`).join('')}</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center">${gameMap(22,{grid:true,sets:true,play:false,cursor:true})}</div>
+      <div class="cloud" style="padding:8px;gap:6px;width:62px;align-items:center">${pal.map((p,i)=>`<span class="card ${i===2?'on':''}" style="padding:3px">${tile(p[0],28)}</span>`).join('')}</div>`});
+},{
+  desktop:['Ba cột: tools và tiles bên trái, canvas ở giữa, properties bên phải. Bảng tile dùng <b>đúng 6 tile của map.png</b> và 4 trứng trong spoils.png.','Canvas vẽ bằng sprite thật với lưới. Ô viền vàng là con trỏ đang đặt Balk.','Thông báo kiểm tra lỗi hiện ngay (thiếu spawn point) thay vì đợi bấm Validate.'],
+  portrait:['Map 26 cột trên màn 390pt thì mỗi tile chỉ khoảng 14pt, quá nhỏ để đặt chính xác. Mockup xoay map và thu nhỏ, kèm thông báo.','Khuyến nghị: trên phone chỉ cho xem và test play, việc chỉnh sửa làm trên desktop/tablet.'],
+  landscape:['Tool rail bên trái, bảng tile bên phải, map 22pt/tile ở giữa. Bản này dùng được, nhất là trên tablet.'],
+  doc:['Bảng Objects dùng tile thật của game: <b>Grass, Wall, Balk, Teleport, Quarantine, Dragon egg</b> và 4 loại trứng.','Kích thước mặc định 26×14 như map hiện tại.','Trên phone chạy màn ngang.'],
+});
+
+// ---- Match replay
+const REPLAYS=[['00001','Bot Deathmatch','Island','7/8','2025/12/06','10:00'],['00002','Classic 4p','Classic','3/4','2025/10/20','06:12'],['00003','8P Chaos','Canyon','8/8','2025/04/19','10:00'],['00004','My Private Test','Random','1/8','2024/11/20','02:41']];
+def('replay','Match Replay','Trận đấu','match_replay.screen.md',ff=>{
+  const detail=`<div class="cloud">${thumb(4)}<div class="nm" style="font-family:var(--display);font-size:22px;color:var(--navy)">Bot Deathmatch <span class="muted" style="font-family:var(--body);font-size:14px">#00001</span></div>
+     <div class="row muted" style="font-size:13px;gap:8px">Island · 2025/12/06 · 10:00 · 7 players</div>
+     ${SCORE.slice(0,4).map(s=>`<div class="row sb" style="font-size:14px"><span class="row" style="gap:8px"><span class="lbl" style="width:28px">${s[0]}</span>${avn(s[1],24)}${s[1]}</span><b>${s[2].toLocaleString('en')}</b></div>`).join('')}
+     <a class="btn blue block" href="#viewer">${ic('play',18)} Watch Replay</a></div>`;
+  if(ff==='desktop') return page(ff,{title:'MATCH REPLAY',user:'Guest#1234',guest:true,bs:'display:grid;grid-template-columns:1fr 340px;align-items:start',
+    body:`<div class="cloud"><div class="seg2" style="align-self:flex-start"><span class="on">Matches</span><span>Training · this session</span></div><div class="row" style="gap:10px"><div class="grow">${inp('','Name or ID…','search')}</div><div style="width:150px">${inp('','YYYY/MM/DD')}</div><div style="width:150px">${sel('Maps: All')}</div>${chk('Allow bots')}</div>
+        ${tbl(['ID','Name','Map','#Ply','Date','#Duration'],REPLAYS.map(r=>[`<span class="mono">${r[0]}</span>`,r[1],r[2],r[3],r[4],r[5]]),{sel:0})}${pager()}</div>${detail}`});
+  if(ff==='portrait') return page(ff,{title:'REPLAYS',user:'Guest#1234',
+    body:`<div class="seg2" style="align-self:center"><span class="on">Matches</span><span>Training</span></div><div class="row">${inp('','Name or ID…','search')}<span class="chip">${ic('filter',14)}</span></div>
+      ${REPLAYS.map((r,i)=>`<div class="card" style="flex-direction:row;gap:10px;align-items:center">${thumb(i+2).replace('class="thumb"','class="thumb" style="width:96px;flex:none"')}<div class="grow"><div class="nm">${r[1]}</div><div class="muted" style="font-size:12px">${r[2]} · ${r[3]} · ${r[5]}</div><div class="muted" style="font-size:12px">${r[4]}</div></div><a class="btn icon blue" href="#viewer" aria-label="Watch">${ic('play',18)}</a></div>`).join('')}`});
+  return page(ff,{title:'MATCH REPLAY',user:'Guest#1234',bs:'display:grid;grid-template-columns:1fr 280px;align-items:start',
+    body:`<div style="display:flex;flex-direction:column;gap:8px">${inp('','Name or ID…','search')}${tbl(['Name','Map','Date','#Time'],REPLAYS.map(r=>[r[1],r[2],r[4],r[5]]),{sel:0})}</div>
+      <div class="cloud" style="gap:6px">${thumb(4)}<div class="nm" style="font-family:var(--display);font-size:18px;color:var(--navy)">Bot Deathmatch</div><div class="muted" style="font-size:12px">Island · 2025/12/06 · 10:00 · 7 players</div><a class="btn blue block" href="#viewer">${ic('play',16)} Watch</a></div>`});
+},{
+  desktop:['Bảng bên trái, <b>panel chi tiết</b> bên phải hiện trận đang chọn (top 4, thời lượng) để người chơi xem trước khi bấm Watch.','Header hiện Guest#1234 như trong doc: guest cũng xem được replay.'],
+  portrait:['Mỗi trận là một card có thumbnail. Bấm nút play để xem luôn.'],
+  landscape:['List và chi tiết đặt cạnh nhau. Bảng chỉ giữ Name, Map, Date, Time.'],
+  doc:['Thêm panel chi tiết cho trận đang chọn.','Playback speed (0.5×–4×) và thanh tua thuộc về <b>replay</b>, không thuộc spectator live.'],
+});
+
+// ---- Profile
+def('profile','Player Profile','Menu','player_profile.screen.md',ff=>{
+  const head=(s)=>`<div class="cloud" style="flex-direction:row;align-items:center;gap:16px">${av('p1',s)}<div class="grow" style="display:flex;flex-direction:column;gap:4px">
+     <div style="font-family:var(--display);font-size:${s>80?28:20}px;color:var(--navy)">${ME}</div><div class="row muted" style="font-size:14px;gap:10px"><span class="pill official">Lv 42</span>Rank #127 Global</div>
+     <div class="row" style="gap:8px;font-size:13px">${bar(83,'sun')}<span class="muted" style="white-space:nowrap">12,450 / 15,000 EXP</span></div></div>${ff==='desktop'?`<div style="display:flex;flex-direction:column;gap:8px"><a class="btn sm ghost" href="#profile">Edit Profile</a><a class="btn sm ghost" href="#developer">${ic('code',14)} API Settings</a></div>`:''}</div>`;
+  const stats=[['523','Matches played'],['59.7%','Win rate · 312 / 211'],['1.46','K/D · 4,521 / 3,102'],['127h 34m','Playtime'],['18,204','Blocks destroyed'],['2,931','Eggs collected']];
+  const st=n=>stats.slice(0,n).map((s,i)=>`<div class="stat"><b>${s[0]}</b><small>${s[1]} ${i>3?prop():''}</small></div>`).join('');
+  const recent=[['12/05','Island','8P',12,7,'win','Win +50'],['12/05','Canyon','4P',8,9,'loss','Loss −10'],['12/04','Classic','6P',15,6,'win','Win +50'],['12/03','Island','8P',5,9,'loss','Loss −10']];
+  const rp=r=>r[5]==='win'?pill('ready',r[6]+' EXP'):pill('lock',r[6]+' EXP');
+  if(ff==='desktop') return page(ff,{title:'PLAYER PROFILE',
+    body:`${head(96)}<div class="tiles" style="grid-template-columns:repeat(6,1fr)">${st(6)}</div>
+      <div class="cloud"><h3 class="h">Recent matches <a class="btn xs ghost sp" href="#replay">View all</a></h3>${tbl(['Date','Map','Mode','#K','#D','Result'],recent.map(r=>[r[0],r[1],r[2],r[3],r[4],rp(r)]))}</div>
+      <div class="row"><a class="btn sm ghost" href="#leaderboard">${ic('trophy',16)} View Leaderboard</a></div>`});
+  if(ff==='portrait') return page(ff,{title:'PROFILE',tab:'profile',back:null,right:`<a class="btn icon ghost" href="#profile" aria-label="Edit">${ic('brush',18)}</a>`,user:null,
+    body:`${head(64)}<div class="tiles" style="grid-template-columns:1fr 1fr">${st(4)}</div>
+      <div class="cloud" style="gap:6px"><h3 class="h">Recent matches</h3>${recent.map(r=>`<div class="row sb" style="font-size:13px;border-bottom:2px solid #e3ecfa;padding-bottom:5px"><span><b>${r[1]}</b> <span class="muted">${r[2]} · ${r[0]}</span></span><span class="row" style="gap:8px"><span class="muted">${r[3]}/${r[4]}</span>${rp(r)}</span></div>`).join('')}</div>`});
+  return page(ff,{title:'PROFILE',bs:'display:grid;grid-template-columns:1fr 1fr;align-items:start',
+    body:`<div style="display:flex;flex-direction:column;gap:10px">${head(56)}<div class="tiles" style="grid-template-columns:1fr 1fr">${st(4)}</div></div>
+      <div class="cloud" style="gap:6px"><h3 class="h">Recent matches</h3>${tbl(['Map','#K','#D','Result'],recent.map(r=>[r[1]+' <span class="muted">'+r[2]+'</span>',r[3],r[4],rp(r)]))}</div>`});
+},{
+  desktop:['Header gồm avatar (sprite thật), level và thanh EXP. Các stat là ô số lớn, đọc nhanh hơn dạng "Label : value" trong doc.','Hai stat cuối (Blocks destroyed, Eggs collected) là <b>đề xuất</b> thay cho Accuracy.'],
+  portrait:['Profile là một tab của tab bar nên không có nút Back. Stat xếp lưới 2×2.'],
+  landscape:['Hai cột: thông tin và stat bên trái, trận gần đây bên phải.'],
+  doc:['Bỏ <b>Accuracy</b>, thêm Blocks destroyed và Eggs collected.','Nút "API Settings" dẫn tới Developer Portal (cùng một màn).'],
+});
+
+// ---- Leaderboard
+const TOP=[['GodOfWar',99,'87%','3.45','99,999'],['ProGamer_123',95,'84%','3.12','89,450'],['EliteMaster',92,'82%','2.98','85,123'],['SnipeLord',89,'80%','2.87','78,901'],['TankCommander',87,'78%','2.65','74,567'],['BlastQueen',86,'77%','2.60','73,010']];
+const BOTS=[['UltimateAI','ProCoder','95%','2,850'],['DeepThink_v7','ML_Master','92%','2,720'],['PerfectShot','BotGuru','89%','2,650'],['SmartElefant','CodeNinja','87%','2,580'],['TacticalBot','StrategyKing','85%','2,490']];
+def('leaderboard','Leaderboard','Menu','leaderboard.screen.md',ff=>{
+  const tabs=`<div class="seg2"><span class="on">Players</span><span>Bots</span></div>`;
+  const podium=(s)=>`<div class="row" style="align-items:flex-end;justify-content:center;gap:${s/3}px">${[[1,'silver','#c7d0e4',.8],[0,'gold','#ffd447',1],[2,'bronze','#e3a46b',.65]].map(([i,_,c,h])=>`<div style="display:flex;flex-direction:column;align-items:center;gap:4px">${i===0?`<span style="color:#ffd447">${ic('crown',s/2.4)}</span>`:''}${avn(TOP[i][0],s)}<b style="color:#fff;font-size:${s/4.2}px">${TOP[i][0]}</b><div style="width:${s*1.5}px;height:${s*h}px;background:${c};border:3px solid var(--navy);border-radius:10px 10px 0 0;display:grid;place-items:center;font-family:var(--display);font-size:${s/2.2}px;color:var(--navy)">${i+1}</div></div>`).join('')}</div>`;
+  const rows=TOP.slice(3).map((t,i)=>[`#${i+4}`,nameCell(t[0],24),t[1],t[2],t[3],t[4]]).concat([[`…`,'…','','','',''],['#127',nameCell(ME,24),43,'60%','1.46','12,450']]);
+  if(ff==='desktop') return page(ff,{title:'LEADERBOARD',bs:'display:grid;grid-template-columns:1fr 380px;align-items:start',
+    body:`<div class="cloud"><div class="row sb">${tabs}<div class="row" style="gap:8px"><div style="width:140px">${sel('Global')}</div><div style="width:150px">${sel('This Week')}</div></div></div>
+        <div style="background:linear-gradient(#2f6fd8,#1b3f9a);border:3px solid var(--navy);border-radius:14px;padding:12px 0 0">${podium(64)}</div>
+        ${tbl(['Rank','Player','#Level','#W/L','#K/D','#EXP'],rows,{me:4})}<div class="row sb"><span class="muted">Season 2025-Q4</span>${pager()}</div></div>
+      <div class="cloud"><h3 class="h">Top bots</h3>${tbl(['Rank','Bot','#Rating'],BOTS.map((b,i)=>[`#${i+1}`,`${b[0]}<br><span class="muted" style="font-size:12px">by ${b[1]}</span>`,b[3]]).concat([['#45',`DestroyerBot<br><span class="muted" style="font-size:12px">by ${ME}</span>`,'1,850']]),{me:5})}
+        <div class="row" style="gap:8px;flex-wrap:wrap"><a class="btn xs ghost" href="#profile">View your stats</a><a class="btn xs ghost" href="#leaderboard">Hall of Fame</a></div></div>`});
+  if(ff==='portrait') return page(ff,{title:'RANKS',tab:'leaderboard',back:null,user:null,
+    body:`<div class="row sb">${tabs}<div class="chips"><span class="chip on">Week</span><span class="chip">Season</span><span class="chip">All</span></div></div>${podium(52)}
+      <div class="cloud" style="gap:4px;padding:8px 10px">${TOP.slice(3).map((t,i)=>`<div class="row sb" style="font-size:14px;padding:4px 0;border-bottom:2px solid #e3ecfa"><span class="row" style="gap:8px"><span class="lbl" style="width:26px">#${i+4}</span>${avn(t[0],26)}${t[0]}</span><b>${t[4]}</b></div>`).join('')}</div>`,
+    foot:`<div class="card" style="flex-direction:row;align-items:center;gap:10px;width:100%;background:#fff1b8"><span class="lbl">#127</span>${av('p1',30)}<b class="grow">You · ${ME}</b><b>12,450</b></div>`});
+  return page(ff,{title:'LEADERBOARD',right:tabs,user:null,bs:'display:grid;grid-template-columns:250px 1fr;align-items:start',
+    body:`<div style="background:linear-gradient(#2f6fd8,#1b3f9a);border:3px solid var(--navy);border-radius:14px;padding:10px 0 0">${podium(44)}</div>
+      ${tbl(['Rank','Player','#W/L','#K/D','#EXP'],rows.map(r=>[r[0],r[1],r[3],r[4],r[5]]).filter((_,i)=>i!==3),{me:3})}`});
+},{
+  desktop:['Top 3 thành <b>bục podium</b>. Dòng của chính người chơi (#127) tô vàng và luôn hiện dù đang ở trang khác.','Top bots chuyển sang cột phải. Bot của chính người chơi (#45) cũng được highlight.'],
+  portrait:['Tab là segmented control. Dòng "You #127" dính ngay trên tab bar để luôn thấy hạng của mình.','Trên phone bỏ các cột Level, W/L, K/D, chỉ giữ EXP.'],
+  landscape:['Podium nhỏ bên trái, bảng bên phải. Tab đưa lên topbar.'],
+  doc:['Tab chỉ còn <b>Players / Bots</b>. Khoảng thời gian (tuần, mùa, tất cả) chuyển thành filter.','Top 3 hiển thị dạng bục podium.'],
+});
+
+// ---- Settings
+def('settings','Settings','Menu','settings.screen.md',ff=>{
+  const slider=(l,v)=>`<div class="fld inl"><span class="lbl">${l}</span><div class="grow">${bar(v,'sky')}</div><b style="width:42px;text-align:right">${v}%</b></div>`;
+  const keyrow=(l,k)=>`<div class="row sb" style="font-size:14px"><span>${l}</span><span class="row" style="gap:8px"><span class="chip mono" style="min-width:64px;justify-content:center">${k}</span><a class="btn xs ghost" href="#settings">Rebind</a></span></div>`;
+  const graphics=`<div class="cloud"><h3 class="h">Graphics</h3>${fld('Resolution',sel('1920 × 1080'),'inl')}${fld('Display mode',sel('Fullscreen'),'inl')}${fld('UI scale',sel('Auto (100%)'),'inl')}${fld('FPS limit',sel('60'),'inl')}${chk('V-Sync')}</div>`;
+  const audio=`<div class="cloud"><h3 class="h">Audio</h3>${slider('Master',80)}${slider('Music',60)}${slider('SFX',70)}</div>`;
+  const controls=`<div class="cloud" style="gap:8px"><h3 class="h">Controls</h3>${keyrow('Move up','W')}${keyrow('Move left','A')}${keyrow('Move down','S')}${keyrow('Move right','D')}${keyrow('Place bomb','Space')}${keyrow('Use power-up','E')}${keyrow('Chat','Enter')}</div>`;
+  const net=`<div class="cloud"><h3 class="h">Network</h3>${fld('Region',sel('Auto · asia-1'),'inl')}${fld('Max ping',sel('100 ms'),'inl')}${chk('Show ping')}</div>`;
+  if(ff==='desktop') return page(ff,{title:'SETTINGS',bs:'display:grid;grid-template-columns:1fr 1fr;align-items:start',
+    body:`<div style="display:flex;flex-direction:column;gap:16px">${graphics}${audio}</div><div style="display:flex;flex-direction:column;gap:16px">${controls}${net}</div>`,
+    foot:`<a class="btn ghost" href="#settings">Reset to Default</a><div class="grow"></div><a class="btn" href="#menu">Apply</a>`});
+  const touch=`<div class="cloud" style="gap:8px"><h3 class="h">Touch controls</h3>${fld('Move with',`<div class="seg2"><span class="on">D-pad</span><span>Joystick</span></div>`,'inl')}${slider('Button size',70)}<div class="row sb"><span>Left-handed layout</span><span class="tog"></span></div><div class="row sb"><span>Vibration</span><span class="tog on"></span></div></div>`;
+  if(ff==='portrait') return page(ff,{title:'SETTINGS',tab:'settings',back:null,user:null,
+    body:`${audio}${touch}<div class="cloud" style="gap:8px"><h3 class="h">Graphics &amp; network</h3>${fld('Quality',sel('Battery saver'),'inl')}${fld('Region',sel('Auto · asia-1'),'inl')}<div class="row sb"><span>Show ping</span><span class="tog on"></span></div></div>`});
+  return page(ff,{title:'SETTINGS',bs:'display:grid;grid-template-columns:170px 1fr 260px;align-items:start',
+    body:`<div class="cloud" style="padding:8px;gap:6px">${['Audio','Controls','Graphics','Network'].map((t,i)=>`<div class="chip ${i===1?'on':''}" style="border-radius:10px">${t}</div>`).join('')}</div>${touch}
+      <div class="cloud" style="padding:8px;gap:6px"><span class="lbl">Preview</span><div style="position:relative;height:150px;border-radius:10px;background:linear-gradient(#7cc242,#5aa52e);border:2px solid var(--navy);overflow:hidden">
+        <div class="pad" style="position:absolute;left:6px;bottom:6px;transform:scale(.62);transform-origin:left bottom"><b class="u"></b><b class="lf"></b><b class="rt"></b><b class="d"></b></div>
+        <div class="bombbtn" style="position:absolute;right:10px;bottom:10px;transform:scale(.6);transform-origin:right bottom">${bombi(58)}</div></div></div>`});
+},{
+  desktop:['Lưới 2×2 thay cho danh sách dọc dài, nên không phải cuộn trang.','Đổi "Fire" thành <b>Place bomb</b>, bỏ Mouse sensitivity và Anti-aliasing. Thêm <b>UI scale</b>, nối với UiScale() hiện có trong code.'],
+  portrait:['Bỏ các tuỳ chọn không có nghĩa trên phone (Resolution, Display mode, V-Sync, phím bấm). Thay bằng <b>Touch controls</b>: chọn D-pad hay Joystick, kích thước nút, layout cho người thuận tay trái, rung.','Dùng toggle thay checkbox, vì toggle là control quen thuộc trên mobile.'],
+  landscape:['Danh mục ở bên trái, nội dung ở giữa, kèm <b>preview vị trí nút</b> để người chơi thấy ngay khi chỉnh.'],
+  doc:['Bỏ <b>Voice Chat, Mouse Sensitivity, Anti-Aliasing, Quality</b>. "Fire" đổi thành Place bomb.','Thêm <b>UI scale</b>. "Resolution" chỉ còn là kích thước cửa sổ, vì game vẽ ở logical 1500×948.','Trên mobile có mục Touch controls riêng.'],
+});
+
+// ---- Developer portal
+def('developer','Developer Portal','Menu','developer_portal.screen.md',ff=>{
+  const token=`<div class="cloud"><h3 class="h">API access</h3><div class="lbl">Your API token</div>
+     <div class="in v mono" style="height:auto;padding:8px 12px;font-size:14px"><span>eb_8888_a1b2c3d4••••••••••••••••q7r8s9</span><span style="margin-left:auto;color:var(--navy)">${ic('eye',18)}</span></div>
+     <div class="row" style="gap:8px;flex-wrap:wrap"><a class="btn sm ghost" href="#developer">${ic('copy',14)} Copy</a><a class="btn sm ghost" href="#developer">Regenerate</a><a class="btn sm red" href="#developer">Revoke</a></div>
+     <div class="row sb" style="font-size:14px"><span class="row" style="gap:8px"><span class="dot"></span>Connected</span><span class="muted">100 req/s limit</span></div>
+     <div class="fld"><div class="row sb" style="font-size:13px"><span class="lbl">Usage today</span><b>1,247 / 10,000</b></div>${bar(12.5,'sky')}</div></div>`;
+  const bots=tbl(['Bot','Status','#Ping','Last active'],[['DestroyerBot_v3',pill('live'),'23 ms','2 min ago'],['SmartAI_Beta',pill('off'),'—','3 hours ago'],['TestBot_001',pill('live'),'45 ms','Just now']]);
+  const logs=tbl(['Time','Event'],[['14:23:45','DestroyerBot_v3 connected to Room #123'],['14:20:12','TestBot_001 joined match'],['14:15:33','<span style="color:#b85f00">API rate limit warning (95%)</span>']]);
+  const hooks=`<div class="cloud"><h3 class="h">Webhooks <span class="muted" style="font-family:var(--body);font-size:13px">optional</span></h3>${fld('Endpoint',inp('','https://your-server.example/hooks'))}
+     <div class="grid" style="grid-template-columns:1fr 1fr;gap:6px">${chk('Match start')}${chk('Match end')}${chk('Bot error')}${chk('API quota warning',false)}</div><div class="row" style="justify-content:flex-end"><a class="btn sm" href="#developer">Save</a></div></div>`;
+  if(ff==='desktop') return page(ff,{title:'DEVELOPER PORTAL',bs:'display:grid;grid-template-columns:420px 1fr;align-items:start',
+    body:`<div style="display:flex;flex-direction:column;gap:16px">${token}${hooks}</div>
+      <div style="display:flex;flex-direction:column;gap:16px"><div class="cloud"><h3 class="h">Active bots</h3>${bots}</div><div class="cloud"><h3 class="h">Recent API logs <a class="btn xs ghost sp" href="#developer">View full logs</a></h3>${logs}</div></div>`});
+  if(ff==='portrait') return page(ff,{title:'DEVELOPER',user:null,
+    body:`${token}<div class="cloud" style="gap:6px"><h3 class="h">Active bots</h3>${[['DestroyerBot_v3','live','23 ms'],['SmartAI_Beta','off','—'],['TestBot_001','live','45 ms']].map(b=>`<div class="row sb" style="font-size:14px;border-bottom:2px solid #e3ecfa;padding-bottom:5px"><b>${b[0]}</b><span class="row" style="gap:8px"><span class="muted">${b[2]}</span>${pill(b[1])}</span></div>`).join('')}</div>
+      <div class="notice">${ic('code',18)} Webhooks and full logs are available on desktop.</div>`});
+  return page(ff,{title:'DEVELOPER PORTAL',user:null,bs:'display:grid;grid-template-columns:1fr 1fr;align-items:start',
+    body:`${token}<div class="cloud"><div class="seg2" style="align-self:flex-start"><span class="on">Bots</span><span>Logs</span><span>Webhooks</span></div>${bots}</div>`});
+},{
+  desktop:['Token và webhooks bên trái (phần cấu hình), bots và logs bên phải (phần theo dõi).','Token mặc định bị che, bấm biểu tượng mắt để hiện. Nút <b>Revoke</b> màu đỏ vì đây là thao tác phá huỷ; khi làm thật cần có bước xác nhận.'],
+  portrait:['Chỉ giữ token, usage và trạng thái bot. Webhooks và full logs để dành cho desktop.'],
+  landscape:['Hai cột. Bots, Logs, Webhooks gom thành các tab.'],
+  doc:['Token bị che mặc định, Revoke cần bước xác nhận.','Trên mobile chỉ xem: token, usage, trạng thái bot.'],
+});
+
+// ---- In-game HUD
+const HPL=[[ME,'p1',27,true,2],['God Of War','p2',31,true,3],['BabyBot_v2','bot',24,true,1],['Big Daddy','p2',18,false,0]];
+// 3 lives per round
+const hearts=(n,s=12)=>`<span class="hearts" style="font-size:${s}px">${[0,1,2].map(i=>`<i class="${i<n?'on':''}">♥</i>`).join('')}</span>`;
+const powerups=(s)=>`<div class="row" style="gap:10px">${[['speed','2'],['attack','3'],['delay','1']].map(p=>`<span class="hchip" style="padding:4px 8px">${spo(p[0],s)}×${p[1]}</span>`).join('')}<span class="hchip" style="padding:4px 8px">${bombi(s)}0.8s</span></div>`;
+const feed=n=>`<div class="feed">${[['God Of War','Big Daddy'],['BabyBot_v2',ME],[ME,'BabyBot_v2']].slice(0,n).map(([a,b])=>`<div><em>${a}</em> blasted ${b}</div>`).join('')}</div>`;
+def('hud','In-Game HUD','Trận đấu','in_game_hud.screen.md',ff=>{
+  if(ff==='desktop') return `<div class="hudbg"></div><div class="layer">
+     <div class="row sb" style="padding:12px 20px"><div class="row" style="gap:8px">${HPL.map(p=>`<div class="hchip ${p[3]?'':'dead'}">${av(p[1],30)}<div>${p[0]}<small>${p[2].toLocaleString('en')} pts ${hearts(p[4])}</small></div></div>`).join('')}</div>
+       <div style="text-align:center"><div class="timer">03:45</div><div style="color:#cfe0ff;font-size:12px;font-weight:900">ROUND 2 / 3</div></div>
+       <div class="row" style="gap:8px"><span class="hchip"><span class="dot"></span>42 ms</span><a class="btn icon ghost" href="#hud" aria-label="Pause">${ic('pause',20)}</a></div></div>
+     <div style="flex:1;display:grid;grid-template-columns:1fr 280px;gap:16px;padding:0 20px 8px;align-items:start">
+       <div style="display:flex;flex-direction:column;align-items:center;gap:12px">${gameMap(34)}${powerups(30)}</div>
+       <div style="display:flex;flex-direction:column;gap:12px"><div class="cloud" style="padding:10px;gap:6px"><h3 class="h" style="font-size:17px">Scoreboard <span class="sp"><kbd class="chip mono" style="padding:1px 6px">Tab</kbd></span></h3>
+         ${tbl(['Player','#Pts','#K','#D'],[['God Of War','31',7,3],[ME,'27',5,2],['BabyBot_v2','24',6,4],['Big Daddy','18',3,5]],{me:1})}</div>${feed(3)}
+         <div class="cloud" style="padding:8px 10px;gap:4px;font-size:13px;background:rgba(255,255,255,.85)"><div><b>[Player#8888]</b> gg</div><div><b>[God Of War]</b> nice blast!</div><div class="in" style="height:30px;font-size:12px">Press Enter to chat</div></div></div></div>
+     <div class="keys" style="padding:0 0 12px"><span><kbd>WASD</kbd>Move</span><span><kbd>Space</kbd>Bomb</span><span><kbd>E</kbd>Power-up</span><span><kbd>Tab</kbd>Scoreboard</span><span><kbd>Enter</kbd>Chat</span><span><kbd>Esc</kbd>Pause</span></div></div>`;
+  if(ff==='portrait') return `<div class="hudbg"></div>${chromeBits(ff)}<div class="layer">
+     <div class="row sb" style="padding:2px 12px 6px"><div class="hchip">${av('p1',26)}<div>27 pts<small>${hearts(2,11)}</small></div></div><div style="text-align:center"><div class="timer" style="font-size:24px">03:45</div></div><div class="row" style="gap:6px"><span class="hchip" style="padding:4px 8px">${av('p2',22)}${av('bot',22)}${av('p2',22)}</span><a class="btn icon ghost" style="width:36px;height:36px" href="#hud" aria-label="Pause">${ic('pause',18)}</a></div></div>
+     <div style="display:flex;justify-content:center;position:relative">${gameMap(22,{rot:true})}<div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:250px">${feed(1)}</div></div>
+     <div class="row sb" style="flex:1;padding:6px 14px 4px;align-items:center"><div class="pad"><b class="u"></b><b class="lf"></b><b class="rt"></b><b class="d"></b></div>
+       <div style="display:flex;flex-direction:column;gap:6px;align-items:center">${[['speed','2'],['attack','3'],['delay','1']].map(p=>`<span class="hchip" style="padding:2px 8px">${spo(p[0],22)}×${p[1]}</span>`).join('')}</div>
+       <div class="bombbtn">${bombi(58)}</div></div></div>`;
+  return `<div class="hudbg"></div>${chromeBits(ff)}
+     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">${gameMap(26)}</div>
+     <div style="position:absolute;left:52px;top:10px" class="hchip">${av('p1',24)}<div>27 pts<small>${hearts(2,11)}</small></div></div>
+     <div style="position:absolute;left:50%;top:6px;transform:translateX(-50%)" class="timer">03:45</div>
+     <div style="position:absolute;right:44px;top:10px" class="row"><span class="hchip" style="padding:4px 8px">${av('p2',22)}${av('bot',22)}${av('p2',22)}</span><a class="btn icon ghost" style="width:36px;height:36px" href="#hud" aria-label="Pause">${ic('pause',18)}</a></div>
+     <div style="position:absolute;left:58px;bottom:18px"><div class="joy"></div></div>
+     <div style="position:absolute;right:52px;bottom:22px;display:flex;align-items:flex-end;gap:10px"><div style="display:flex;flex-direction:column;gap:4px">${[['speed','2'],['attack','3']].map(p=>`<span class="hchip" style="padding:2px 6px">${spo(p[0],20)}×${p[1]}</span>`).join('')}</div><div class="bombbtn">${bombi(58)}</div></div>
+     <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:260px">${feed(1)}</div>`;
+},{
+  desktop:['Map hiện toàn bộ (26×14, mỗi tile 34px) bằng sprite thật, có bom, nổ, trứng và spoil. Vì đã thấy cả map nên <b>bỏ Mini-Map</b>.','Thanh trên: chip người chơi (người đã chết làm mờ), đồng hồ và round ở giữa, ping và pause bên phải. Cột phải: scoreboard, kill feed, chat.','Power-up dùng sprite thật trong spoils.png (Speed / Attack / Delay) kèm thời gian hồi bom.','Ký hiệu trên map theo luật mới: <b>vòng màu</b> quanh trứng GST và ô Quarantine của từng người; trứng GST bị nổ trúng → <b>vòng nét đứt + đếm 3s</b> (đi xuyên được); người trong Quarantine có <b>đồng hồ 10s</b>; người vừa được thả có <b>khiên bất tử 3s</b>; điểm <b>+1 / +3 / −1</b> bay lên tại chỗ.'],
+  portrait:['Map <b>xoay 90°</b> (14×26, tile khoảng 22pt). Server không cần đổi gì, chỉ client xoay khi vẽ và khi đọc input. Nhân vật vẫn đứng thẳng.','Nửa dưới cho điều khiển: D-pad bên trái, nút BOM bên phải (ngón cái), power-up ở giữa.','Scoreboard thu gọn thành chip avatar, kill feed hiện dạng toast trên map.'],
+  landscape:['Map chiếm gần hết chiều cao (tile 26pt). Joystick và nút bom nằm đè (overlay) ở hai mép.','Khi vào trận từ Lobby (dọc), hiện màn "Xoay ngang để chơi" nếu người chơi chưa xoay máy.'],
+  doc:['Bỏ <b>HP, Ammo, Shield, Mini-Map</b>. Thay bằng số bom và power-up (Speed, Attack, Delay) dùng sprite thật.','Scoreboard đầy đủ chỉ hiện khi giữ Tab.','Trên phone màn này chạy <b>ngang</b>. Khi vào trận, app cho phép xoay ngang; khi về Lobby thì khoá dọc lại.'],
+});
+
+// ---- Spectator HUD
+def('spectator','Spectator HUD','Trận đấu','spectator_hud.screen.md',ff=>{
+  const cams=[[ME,'p1'],['God Of War','p2'],['BabyBot_v2','bot'],['Big Daddy','p2']];
+  const speed=`<div class="seg2"><span class="on">Follow</span><span>Free cam</span><span>Overview</span></div>`;
+  const board=tbl(['Player','#K','#D'],[['God Of War',7,3],[ME,5,2],['BabyBot_v2',6,4],['Big Daddy',3,5]],{me:1});
+  if(ff==='desktop') return `<div class="hudbg"></div><div class="layer">
+     <div class="row sb" style="padding:12px 20px"><a class="btn sm ghost" href="#join">${ic('back',16)} Exit</a>${sign('SPECTATING · '+ME,22)}<div class="row" style="gap:8px"><span class="hchip">${pill('live','● LIVE')}</span><span class="hchip">Room #00123</span></div></div>
+     <div style="flex:1;display:grid;grid-template-columns:220px 1fr 250px;gap:14px;padding:0 20px;align-items:start">
+       <div style="display:flex;flex-direction:column;gap:12px"><div class="cloud" style="padding:10px;gap:6px"><h3 class="h" style="font-size:17px">Cameras</h3>${cams.map((c,i)=>`<div class="chip ${i===0?'on':''}" style="border-radius:10px;justify-content:flex-start">${av(c[1],22)}<span class="grow">${c[0]}</span><kbd class="mono" style="font-size:11px">${i+1}</kbd></div>`).join('')}<div class="chip" style="border-radius:10px">${ic('map',16)} Free camera <kbd class="mono" style="font-size:11px;margin-left:auto">5</kbd></div></div>
+         <div class="cloud" style="padding:10px;gap:4px;font-size:13px"><h3 class="h" style="font-size:17px">Match info</h3><div>Map: <b>Island Chaos</b></div><div>Mode: <b>8P Deathmatch</b></div><div>Elapsed <b>05:32</b> · Left <b>04:28</b></div></div></div>
+       <div style="display:flex;flex-direction:column;align-items:center;gap:10px">${gameMap(30)}<div class="row" style="gap:12px;color:#fff;font-weight:900">Camera ${speed}</div></div>
+       <div style="display:flex;flex-direction:column;gap:12px"><div class="cloud" style="padding:10px;gap:6px"><h3 class="h" style="font-size:17px">Live scoreboard</h3>${board}</div>${feed(3)}</div></div>
+     <div class="keys" style="padding:6px 0 12px"><span><kbd>1-5</kbd>Switch camera</span><span><kbd>Space</kbd>Pause</span><span><kbd>F</kbd>Follow</span><span><kbd>M</kbd>Map</span></div></div>`;
+  if(ff==='portrait') return `<div class="hudbg"></div>${chromeBits(ff)}<div class="layer">
+     <div class="row sb" style="padding:2px 12px 6px"><a class="btn icon ghost" style="width:36px;height:36px" href="#join" aria-label="Exit">${ic('back',18)}</a><div class="hchip">${ic('eye',16)} ${ME}</div><span class="hchip">${pill('live','● LIVE')}</span></div>
+     <div style="display:flex;justify-content:center">${gameMap(18,{rot:true})}</div>
+     <div style="padding:8px 12px;display:flex;flex-direction:column;gap:8px;flex:1;min-height:0">
+       <div class="row" style="gap:6px;overflow:hidden">${cams.map((c,i)=>`<span class="chip ${i===0?'on':''}">${av(c[1],20)}${c[0].split(/[# ]/)[0]}</span>`).join('')}</div>
+       <div class="row sb"><div class="seg2"><span class="on">Score</span><span>Feed</span><span>Info</span></div>${speed}</div>
+       <div class="cloud" style="padding:6px 8px;gap:4px">${board}</div></div></div>`;
+  return `<div class="hudbg"></div>${chromeBits(ff)}
+     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">${gameMap(24)}</div>
+     <div style="position:absolute;left:52px;top:10px" class="row"><a class="btn icon ghost" style="width:36px;height:36px" href="#join" aria-label="Exit">${ic('back',18)}</a><span class="hchip">${ic('eye',14)} ${ME}</span></div>
+     <div style="position:absolute;right:44px;top:10px" class="hchip">${pill('live','● LIVE')} 05:32</div>
+     <div style="position:absolute;left:54px;top:60px;display:flex;flex-direction:column;gap:6px">${cams.map((c,i)=>`<span style="outline:${i===0?'3px solid var(--sun)':'0'};border-radius:50%">${av(c[1],34)}</span>`).join('')}</div>
+     <div style="position:absolute;right:44px;top:56px;width:170px" class="cloud" >${tbl(['','#K','#D'],[['GoW',7,3],['You',5,2],['Bot',6,4]],{me:1})}</div>
+     <div style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%)">${speed}</div>`;
+},{
+  desktop:['Ba cột: chọn camera và thông tin trận bên trái, map ở giữa, scoreboard và kill feed bên phải. Phím tắt 1–5 hiện ngay trên từng camera.'],
+  portrait:['Map xoay giống HUD người chơi. Nửa dưới là tab Score / Feed / Info và hàng camera vuốt ngang.'],
+  landscape:['Map ở giữa. Camera thành cột avatar bên trái, có viền vàng cho camera đang chọn. Scoreboard nhỏ đè ở góc phải.'],
+  doc:['Bỏ <b>Playback speed</b> ở chế độ live, thay bằng chế độ camera: Follow / Free cam / Overview.','Bỏ Full Map mini-map vì map đã hiện toàn bộ.','Trên phone màn này chạy ngang.'],
+});
+
+// ---- Post game
+def('results','Post-Game Results','Trận đấu','post_game_results.screen.md',ff=>{
+  const rsum=[['R1','God Of War','p2'],['R2',ME,'p1'],['R3','God Of War','p2']];
+  const banner=sz=>`<div style="display:flex;flex-direction:column;align-items:center;gap:6px">${sign('2ND PLACE!',sz)}<div style="color:#fff;font-weight:900;font-size:${sz/2.6}px;text-align:center">Match #00123 · Island Chaos · 8P Deathmatch · 10:00</div><div class="row" style="gap:6px">${rsum.map(r=>`<span class="hchip" style="padding:3px 8px;font-size:${Math.max(12,sz/3.2)}px">${r[0]} ${av(r[2],sz/1.8)}<span style="color:var(--sun)">★</span></span>`).join('')}</div></div>`;
+  const RW=[2,1,0,0,0,0,0,0];
+  const rows=SCORE.map((s,i)=>[s[0],nameCell(s[1],24)+(s[0]==='1st'?' <span style="color:#d99a00">'+ic('crown',14)+'</span>':''),'★'.repeat(RW[i])||'–',s[2],s[3],s[4]]);
+  const perf=[['12','Kills'],['7','Deaths'],['5','Assists'],['1.71','K/D'],['6','Power-ups used'],['84','Blocks destroyed']];
+  const reward=`<div class="cloud" style="gap:6px"><h3 class="h">Rewards</h3>${[['Base EXP','+100'],['Placement · 2nd of 8','+40'],['Kill bonus · 12 × 2','+24'],['Performance · high K/D','+15']].map(r=>`<div class="row sb" style="font-size:14px"><span class="muted">${r[0]}</span><b>${r[1]}</b></div>`).join('')}
+     <div class="row sb" style="border-top:3px solid var(--navy);padding-top:6px;font-family:var(--display);font-size:20px;color:var(--navy)"><span>Total EXP</span><span>+179</span></div>
+     <div class="row" style="gap:8px;font-size:13px"><span class="pill official">Lv 42 → 43</span><div class="grow">${bar(12,'sun')}</div><span class="muted">LEVEL UP!</span></div></div>`;
+  if(ff==='desktop') return page(ff,{title:'MATCH RESULTS',back:null,bs:'display:grid;grid-template-columns:1fr 360px;align-items:start;gap:16px',
+    body:`<div style="display:flex;flex-direction:column;gap:14px">${banner(44)}<div class="cloud"><h3 class="h">Final scoreboard</h3>${tbl(['Pos','Player','Rounds','#Score','#K','#D'],rows,{me:1})}</div></div>
+      <div style="display:flex;flex-direction:column;gap:14px"><div class="cloud"><h3 class="h">Your performance</h3><div class="tiles" style="grid-template-columns:1fr 1fr 1fr">${perf.map((p,i)=>`<div class="stat"><b>${p[0]}</b><small>${p[1]}${i===5?' '+prop():''}</small></div>`).join('')}</div></div>${reward}</div>`,
+    foot:`<a class="btn ghost" href="#replay">${ic('film',18)} Save Replay</a><a class="btn blue" href="#lobby">Rematch</a><div class="grow"></div><a class="btn ghost" href="#menu">Main Menu</a><a class="btn lg" href="#lobby">Back to Lobby</a>`});
+  if(ff==='portrait') return page(ff,{top:'',
+    body:`${banner(34)}<div class="cloud" style="flex-direction:row;align-items:center;gap:12px">${av('p1',54)}<div class="grow"><div style="font-family:var(--display);font-size:22px;color:var(--navy)">2nd · 1 round · 88 pts</div><div class="muted" style="font-size:13px">12 K · 7 D · 5 A</div></div><div style="font-family:var(--display);font-size:22px;color:#2a9a26">+179</div></div>
+      ${reward.replace(/<div class="row sb" style="font-size:14px">.*?<\/div>/g,'')}
+      <div class="cloud" style="gap:4px;padding:8px 10px">${SCORE.slice(0,5).map(s=>`<div class="row sb" style="font-size:14px;padding:3px 0;${s[1]===ME?'background:#fff1b8;border-radius:6px':''}"><span class="row" style="gap:8px"><span class="lbl" style="width:28px">${s[0]}</span>${avn(s[1],24)}${s[1]}</span><b>${s[2].toLocaleString('en')}</b></div>`).join('')}</div>`,
+    foot:`<div style="display:flex;flex-direction:column;gap:10px;width:100%"><a class="btn lg block" href="#lobby">Back to Lobby</a><div class="row" style="gap:8px"><a class="btn sm blue grow" href="#lobby">Rematch</a><a class="btn sm ghost grow" href="#replay">Save Replay</a><a class="btn sm ghost grow" href="#menu">Menu</a></div></div>`});
+  return page(ff,{top:'',bs:'display:grid;grid-template-columns:300px 1fr;align-items:start;padding-top:12px',
+    body:`<div style="display:flex;flex-direction:column;gap:10px">${banner(28)}${reward.replace(/<div class="row sb" style="font-size:14px">.*?<\/div>/g,'')}</div>
+      <div class="cloud" style="padding:8px">${tbl(['Pos','Player','#Score','#K','#D'],rows.slice(0,6).map(r=>r.slice(0,5)),{me:1})}</div>`,
+    foot:`<a class="btn sm ghost" href="#replay">Save Replay</a><a class="btn sm blue" href="#lobby">Rematch</a><div class="grow"></div><a class="btn sm ghost" href="#menu">Menu</a><a class="btn" href="#lobby">Back to Lobby</a>`});
+},{
+  desktop:['Banner ở trên, scoreboard bên trái (dòng của mình tô vàng), performance và rewards bên phải. EXP bar có hiệu ứng level up.','Nút chính là <b>Back to Lobby</b>, vì _ui_flows ghi Match End thì quay về Room Lobby.'],
+  portrait:['Ưu tiên "kết quả của tôi": hạng, điểm, +EXP lên đầu, scoreboard rút gọn còn top 5.','Nút Lobby lớn dính dưới đáy, các hành động phụ xếp thành một hàng nhỏ.'],
+  landscape:['Rewards bên trái, scoreboard bên phải, hành động nằm dưới đáy.'],
+  doc:['Banner theo hạng thật: <b>VICTORY!</b> chỉ khi hạng 1, còn lại hiện "2ND PLACE!"... "Victory bonus" đổi thành thưởng theo hạng.','Bỏ Damage, Headshots, Accuracy. Thêm Blocks destroyed.','Cần thêm nút <b>Next Round</b> cho host khi chưa hết round.'],
+});
+
+// ---------------------------------------------------------------- screens added beyond the original .md set
+const hudOf=ff=>S.find(s=>s.id==='hud').render(ff);
+const ovl=(ff,inner,dim=.62)=>hudOf(ff)+`<div class="ovl" style="background:rgba(6,12,40,${dim})">${inner}</div>`;
+const topSign=(t,sz)=>`<div style="position:absolute;top:-24px;left:50%;transform:translateX(-50%)">${sign(t,sz)}</div>`;
+
+def('splash','Connecting','Vào game','_ui_flows.md · Launch',ff=>{
+  const d=ff==='desktop';
+  return `${bgv(.35)}${chromeBits(ff)}<div class="layer" style="align-items:center;justify-content:center;gap:${d?18:14}px;padding:${d?'0':'46px 24px 30px'}">
+    <img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:${d?620:330}px;margin:${d?'-60px 0 -70px':'-30px 0 -40px'}">
+    <div style="width:${d?420:280}px">${bar(64,'sun')}</div>
+    <div class="conn"><span class="dot" style="background:#ffcf2e;box-shadow:0 0 0 3px rgba(255,207,46,.3)"></span>Connecting to asia-1…</div>
+    <p style="margin:0;max-width:${d?460:300}px;text-align:center;color:#dfe8ff;font-weight:800;font-size:${d?15:13}px;line-height:1.5">Tip: grab a Speed egg early. A faster elephant outruns its own blast.</p></div>
+    <div style="position:absolute;bottom:${d?12:30}px;left:0;right:0;text-align:center;color:#fff;font-size:12px;opacity:.8">v0.3.0-dev · loading assets 64%</div>`;
+},{
+  desktop:['Màn đầu tiên khi mở app: load asset (texture, font) và <b>auto-connect central server</b> như _ui_flows mô tả. Xong thì chuyển sang Login.','Thanh tiến trình đo việc load asset thật (AssetManager::Load), không phải thanh giả.','Mỗi lần mở hiện một mẹo chơi ngẫu nhiên.'],
+  portrait:['Cùng bố cục, xếp dọc, dùng nền dọc background_v.png.'],
+  doc:['<b>Màn mới.</b> _ui_flows có bước "Connection Screen (auto-connect)" nhưng chưa có màn tương ứng.','Nếu kết nối thất bại thì hiện dialog "Connection lost" (xem màn System Dialogs).'],
+});
+
+def('register','Create Account','Vào game','(mới)',ff=>{
+  const d=ff==='desktop',fs=d?20:15;
+  const form=`${lbx('Account','elefant_fan',fs)}${lbx('Email','you@example.com',fs)}${lbx('Password','••••••••••',fs)}
+    <div class="row" style="gap:8px;font-size:12px">${bar(70)}<span class="muted" style="white-space:nowrap">Strong password</span></div>
+    ${lbx('Confirm','••••••••••',fs)}${chk('I agree to the Terms of Play')}
+    <a class="btn ${d?'lg':''} block" href="#menu">Create Account</a><a class="lnk c" href="#login">I already have an account</a>`;
+  const panel=w=>`<div class="cloud" style="width:${w}px;padding:${d?36:30}px ${d?20:14}px ${d?18:14}px;gap:${d?12:9}px">${topSign('SIGN UP',d?24:19)}
+    <span class="peek" style="left:-14px">${av('p1',d?48:40)}</span><span class="peek" style="right:-14px">${av('p2',d?48:40)}</span>${form}</div>`;
+  if(d) return `${bgv(0)}<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,18,58,.55),rgba(8,18,58,0) 45%)"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;padding:20px 40px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px"><img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:520px">${conn}</div>${panel(430)}</div>`;
+  return `${bgv(0)}${chromeBits(ff)}<div style="position:absolute;inset:0;background:linear-gradient(rgba(8,18,58,.1),rgba(8,18,58,.55))"></div>
+    <div style="position:absolute;inset:46px 0 24px;display:flex;flex-direction:column;align-items:center;gap:26px">
+      <img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:230px;margin:-26px 0 -36px">${panel(350)}</div>`;
+},{
+  desktop:['Dùng lại bộ ô <b>label_input_box</b> giống Login để hai màn trông cùng một bộ.','Có thanh độ mạnh mật khẩu. Server đã có PBKDF2 nên client chỉ cần kiểm tra độ dài và độ mạnh.','Login có thêm nút "New player? Create account" để dẫn sang màn này.'],
+  portrait:['Panel mây vẽ bằng code vì ảnh dialog có sẵn chữ "LOGIN". Nếu muốn đồng bộ, cần artist làm thêm bản "SIGN UP" hoặc một dialog không có chữ.','Form có 4 ô nên khi bàn phím ảo mở, cần cuộn tới ô đang focus.'],
+  doc:['<b>Màn mới.</b> Doc chỉ có login bằng tài khoản có sẵn, chưa có cách tạo tài khoản.','Email là tuỳ chọn, nhưng nên có để khôi phục mật khẩu sau này.'],
+});
+
+def('rotate','Rotate Device','Trận đấu','(mới)',ff=>{
+  if(ff==='desktop') return `${bgv(1)}<div class="layer" style="align-items:center;justify-content:center"><div class="cloud" style="width:520px;align-items:center;text-align:center"><h3 class="h">Mobile only</h3><p class="muted" style="margin:0;line-height:1.5">Cửa sổ desktop và web đã nằm ngang nên màn này không bao giờ hiện ở đây.</p></div></div>`;
+  return `<div class="hudbg"></div>${chromeBits(ff)}<div class="layer" style="align-items:center;justify-content:center;gap:22px;padding:46px 28px 22px;text-align:center">
+    <div class="rot"><div class="ph"></div></div>${sign('ROTATE TO PLAY',22)}
+    <p style="margin:0;color:#dfe8ff;font-weight:800;font-size:15px;line-height:1.5">Friday Night Blast is starting.<br>Turn your phone sideways.</p>
+    <div class="hchip">${ic('play',16)} Match starts in <b style="color:var(--sun)">5</b></div>
+    <a class="lnk" style="color:#9fc3ff" href="#lobby">Back to lobby</a></div>`;
+},{
+  desktop:['Màn này chỉ có trên mobile.'],
+  portrait:['Hiện khi host bấm Start Game mà điện thoại vẫn đang cầm dọc. Xoay ngang xong thì vào thẳng màn Match Start.','Trong SDL: đổi <b>SDL_HINT_ORIENTATIONS</b> sang "LandscapeLeft LandscapeRight" khi vào trận, và đổi về "Portrait" khi ra Lobby.','Có đếm ngược để người chơi biết trận sắp bắt đầu, nên xoay máy nhanh.'],
+  doc:['<b>Màn mới</b>, cần có vì bạn chọn dọc cho menu và ngang cho trận đấu.'],
+});
+
+def('countdown','Match Start','Trận đấu','(mới)',ff=>{
+  const d=ff==='desktop';
+  const vs=HPL.map(p=>`<div style="display:flex;flex-direction:column;align-items:center;gap:4px">${av(p[1],d?64:44)}<b style="color:#fff;font-size:${d?15:12}px">${p[0]}</b></div>`).join(`<span style="font-family:var(--display);color:var(--sun);font-size:${d?28:20}px">VS</span>`);
+  return ovl(ff,`<div style="display:flex;flex-direction:column;align-items:center;gap:${d?18:8}px">
+    <div style="color:#cfe0ff;font-weight:900;letter-spacing:2px;font-size:${d?16:12}px">ROUND 1 / 3 · ISLAND CHAOS · FIRST TO 2</div>
+    <div class="row" style="gap:${d?18:10}px">${vs}</div>
+    <div class="cnt" style="font-size:${d?160:92}px">3</div>${sign('GET READY!',d?26:17)}</div>`,.55);
+},{
+  desktop:['Đếm ngược 3-2-1 đè lên map. Người chơi thấy trước map và vị trí xuất phát, input bị khoá cho tới khi đếm xong.','Thời điểm bắt đầu do <b>server</b> quyết định (gửi kèm timestamp), để mọi client bắt đầu cùng lúc.'],
+  landscape:['Cùng nội dung, thu nhỏ cho vừa chiều cao 390pt.'],
+  doc:['<b>Màn mới</b>, là cầu nối giữa Lobby và HUD.'],
+});
+
+def('pause','Pause Menu','Trận đấu','in_game_hud.screen.md · [ESC]',ff=>{
+  const d=ff==='desktop';
+  return ovl(ff,`<div class="cloud" style="width:${d?440:380}px;padding-top:${d?36:28}px;gap:${d?12:7}px">${topSign('MENU',d?26:19)}
+    <p class="hint">The match keeps running while this menu is open.</p>
+    <a class="btn ${d?'lg':''} green block" href="#hud">${ic('play',20)} Resume</a>
+    <div class="row" style="gap:8px"><a class="btn ${d?'':'sm'} blue grow" href="#settings">${ic('gear',16)} Settings</a><a class="btn ${d?'':'sm'} blue grow" href="#hud">${ic('trophy',16)} Scoreboard</a></div>
+    <div class="fld inl"><span class="lbl" style="width:60px">Music</span><div class="grow">${bar(60,'sky')}</div></div>
+    <div class="fld inl"><span class="lbl" style="width:60px">SFX</span><div class="grow">${bar(70,'sky')}</div></div>
+    <a class="btn ${d?'':'sm'} red block" href="#dialogs">${ic('logout',18)} Leave Match</a></div>`);
+},{
+  desktop:['Game online nên <b>không dừng được thật</b>. Menu chỉ đè lên trên, và có dòng nhắc để người chơi biết.','Âm lượng chỉnh ngay tại đây, không cần mở hết Settings.','Leave Match dẫn tới dialog xác nhận (xem System Dialogs).'],
+  landscape:['Panel gọn để vẫn thấy một phần map phía sau.','Mở bằng nút pause ở góc phải trên. Trên Android cũng mở bằng nút Back.'],
+  doc:['<b>Màn mới.</b> Doc HUD có phím [ESC] Pause nhưng chưa vẽ menu.'],
+});
+
+def('eliminated','Eliminated','Trận đấu','(mới)',ff=>{
+  const d=ff==='desktop';
+  return ovl(ff,`<div style="display:flex;flex-direction:column;align-items:center;gap:${d?14:8}px">
+    <div class="cnt" style="font-size:${d?84:50}px;color:#ff6b5e">OUT OF LIVES!</div>${hearts(0,d?30:22)}
+    <div class="hchip" style="font-size:${d?16:13}px">${av('p2',d?34:26)} by <b style="color:var(--sun)">God Of War</b> · 01:12 left</div>
+    <div class="row" style="gap:${d?12:8}px">${[['5','Kills'],['31','Blocks'],['2','Eggs']].map(s=>`<div class="stat" style="align-items:center;min-width:${d?100:72}px"><b>${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
+    <p style="margin:0;color:#cfe0ff;font-weight:800;font-size:${d?15:12}px">Spectating God Of War in 3…</p>
+    <div class="row" style="gap:10px"><a class="btn ${d?'':'sm'} blue" href="#spectator">${ic('eye',18)} Spectate now</a><a class="btn ${d?'':'sm'} ghost" href="#dialogs">Leave</a></div></div>`,.7);
+},{
+  desktop:['Chỉ hiện khi người chơi <b>mất cả 3 mạng</b> trong round: ai hạ mạng cuối, chỉ số tới lúc đó. Mất 1 mạng thì chỉ bị đưa vào Quarantine (xem HUD).','Sau 3 giây tự chuyển sang xem người đã hạ mình (Spectator HUD), để người chơi không phải nhìn màn hình đứng yên.'],
+  landscape:['Cùng nội dung, chữ nhỏ hơn. Map vẫn mờ phía sau.'],
+  doc:['<b>Màn mới.</b> Doc chưa nói chuyện gì xảy ra khi người chơi chết trước khi round kết thúc.'],
+});
+
+def('round','Round Result','Trận đấu','_ui_flows.md · Round End',ff=>{
+  const d=ff==='desktop';
+  const rw=[['God Of War','p2',1,14],[ME,'p1',1,11],['BabyBot_v2','bot',0,9],['Big Daddy','p2',0,6]];
+  const star=n=>[0,1].map(i=>`<span style="color:${i<n?'#f5b400':'#c7d0e4'};font-size:${d?22:16}px">★</span>`).join('');
+  return ovl(ff,`<div class="cloud" style="width:${d?520:430}px;padding-top:${d?36:26}px;gap:${d?10:5}px">${topSign('ROUND 2 / 3',d?24:18)}
+    <div class="row" style="gap:10px;justify-content:center">${av('p2',d?48:34)}<div><div style="font-family:var(--display);font-size:${d?24:18}px;color:var(--navy)">God Of War wins the round!</div><div class="muted" style="font-size:12px">Last elephant standing · 02:48</div></div></div>
+    <div style="display:flex;flex-direction:column;gap:${d?6:2}px">${rw.map(r=>`<div class="row sb" style="font-size:${d?15:13}px;padding:2px 6px;${r[0]===ME?'background:#fff1b8;border-radius:8px':''}"><span class="row" style="gap:8px">${av(r[1],d?28:22)}${r[0]}</span><span class="row" style="gap:8px"><span class="muted" style="font-size:12px">${r[3]} pts</span><span>${star(r[2])}</span></span></div>`).join('')}</div>
+    <p class="hint">Tied 1–1. Round 3 decides the match.</p>
+    <div class="row" style="gap:10px"><span class="muted grow row" style="font-size:13px;gap:6px">${ic('crown',14)} You are the host</span><a class="btn ${d?'':'sm'}" href="#countdown">Next Round ${ic('chevron',16)}</a></div></div>`);
+},{
+  desktop:['Kết quả giữa các round: ai thắng round, số sao (round thắng) của từng người.','Chỉ host thấy nút <b>Next Round</b>. Người khác thấy "Waiting for host…". Nên có thêm tự động chuyển sau khoảng 15 giây để host AFK không làm kẹt cả phòng.','Sau round cuối thì chuyển sang Post-Game Results.'],
+  landscape:['Panel gọn, đè lên map như Pause Menu.'],
+  doc:['<b>Màn mới.</b> _ui_flows có "Round End → Result Screen → Host presses Next Round", nhưng chỉ có màn kết quả cuối trận.'],
+});
+
+def('dialogs','System Dialogs','Hệ thống','(mới)',ff=>{
+  const d=ff==='desktop';
+  const dlg=(icon,title,body,btns,w,cls='',st='')=>`<div class="cloud ${cls}" style="width:${w};gap:10px;${st}"><h3 class="h">${icon}${title}</h3><div class="muted" style="font-size:14px;line-height:1.45;display:flex;flex-direction:column;gap:8px">${body}</div><div class="row" style="gap:8px;justify-content:flex-end">${btns}</div></div>`;
+  const recon=w=>dlg(`<span style="color:#e0443b">${ic('globe',20)}</span>`,'Connection lost',`<span>Reconnecting to asia-1… attempt 2 of 5.</span>${bar(40,'sky')}`,`<a class="btn sm ghost" href="#login">Back to Login</a><a class="btn sm blue" href="#dialogs">Retry now</a>`,w);
+  const leave=(w,cls,st)=>dlg(`<span style="color:#e0443b">${ic('logout',20)}</span>`,'Leave match?',`<span>You will lose this match's EXP and a bot takes your slot.</span>`,`<a class="btn sm ghost" href="#hud">Stay</a><a class="btn sm red" href="#lobby">Leave</a>`,w,cls,st);
+  const full=w=>dlg(`<span style="color:#b85f00">${ic('users',20)}</span>`,'Room is full','<span>8P Chaos filled up just before you joined.</span>',`<a class="btn sm ghost" href="#join">OK</a><a class="btn sm green" href="#lobby">Quick Join instead</a>`,w);
+  const base=S.find(s=>s.id==='menu').render(ff);
+  const toast=`<div class="toast">${ic('check',16)} Replay saved</div>`;
+  if(d) return base+`<div class="ovl" style="flex-direction:column;gap:26px">${toast}<div class="row" style="gap:20px;align-items:flex-start">${recon('360px')}${leave('360px')}${full('360px')}</div></div>`;
+  return base+`<div class="ovl" style="align-items:flex-start;padding-top:60px">${toast}</div>
+    <div style="position:absolute;left:16px;right:16px;top:260px;z-index:9">${recon('100%')}</div>
+    <div style="position:absolute;inset:auto 0 0 0;z-index:9">${leave('100%','sheet','')}</div>`;
+},{
+  desktop:['Ba mẫu thông báo dùng chung cho cả app: dialog <b>mất kết nối</b> (tự thử lại, có tiến trình), dialog <b>xác nhận</b> thao tác phá huỷ (nút đỏ ở bên phải), và dialog <b>báo lỗi</b> kèm hướng xử lý.','Toast cho thông báo nhỏ, tự tắt sau khoảng 2 giây, không chặn thao tác.','Mockup đặt cả 3 cạnh nhau để so sánh. Thực tế mỗi lúc chỉ hiện một cái.'],
+  portrait:['Xác nhận dùng <b>bottom sheet</b> (trượt từ dưới lên, gần ngón cái). Dialog lỗi thì vẫn ở giữa màn.','Bấm ra vùng tối bên ngoài thì đóng sheet. Riêng dialog mất kết nối thì không cho đóng.'],
+  doc:['<b>Màn mới.</b> Nên làm sớm thành một component ImGui (ví dụ <b>ModalDialog</b> dùng BeginPopupModal), vì hầu như màn nào cũng cần.'],
+});
+
+
+// ---- Forgot password
+def('forgot','Forgot Password','Vào game','(mới)',ff=>{
+  const d=ff==='desktop',fs=d?20:15;
+  const steps=[['Account',1],['Code',2],['New password',3]].map(([t,i])=>`<div class="row" style="gap:6px;font-size:${d?13:12}px;font-weight:900;color:${i<2?'#2a9a26':i===2?'var(--navy)':'#8a96b8'}"><span style="width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:3px solid currentColor;background:${i<2?'#e2f7dc':'#fff'}">${i<2?ic('check',12):i}</span>${t}</div>`).join(`<span style="flex:1;height:3px;background:#c6d3ee;border-radius:2px"></span>`);
+  const form=`<div class="row" style="gap:6px">${steps}</div>
+    <p class="hint" style="text-align:left">We sent a 6-digit code to <b>q•••••2@gmail.com</b>.</p>
+    <div class="code">${'B7K2'.split('').map(c=>`<b>${c}</b>`).join('')}<b class="on"></b><b></b></div>
+    <div class="row sb" style="font-size:13px"><span class="muted">Didn't get it?</span><span class="muted">Resend in <b>0:42</b></span></div>
+    ${lbx('New','••••••••••',fs)}${lbx('Confirm','',fs)}
+    <a class="btn ${d?'lg':''} block" href="#login">Reset Password</a><a class="lnk c" href="#login">Back to login</a>`;
+  const panel=w=>`<div class="cloud" style="width:${w}px;padding:${d?36:30}px ${d?20:14}px ${d?18:14}px;gap:${d?12:10}px">${topSign('RESET',d?24:19)}${form}</div>`;
+  if(d) return `${bgv(0)}<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,18,58,.55),rgba(8,18,58,0) 45%)"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;padding:20px 40px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px"><img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:520px">${conn}</div>${panel(430)}</div>`;
+  return `${bgv(0)}${chromeBits(ff)}<div style="position:absolute;inset:0;background:linear-gradient(rgba(8,18,58,.1),rgba(8,18,58,.55))"></div>
+    <div style="position:absolute;inset:46px 0 24px;display:flex;flex-direction:column;align-items:center;gap:26px">
+      <img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:230px;margin:-26px 0 -36px">${panel(350)}</div>`;
+},{
+  desktop:['3 bước trên cùng một panel: <b>nhập account/email → nhập mã 6 số → đặt mật khẩu mới</b>. Thanh bước cho biết đang ở đâu.','Email hiển thị bị che bớt (q•••••2@) để không lộ địa chỉ.','Nút "Resend" khoá 60 giây chống spam. Server cũng phải giới hạn số lần thử mã.'],
+  portrait:['Ô mã dùng bàn phím số. Dán mã từ SMS/email phải tự điền đủ 6 ô.','Login có link "Forgot password?" dẫn tới đây.'],
+  doc:['<b>Màn mới.</b> Trước mắt chỉ làm giao diện. Server cần endpoint gửi mã và xác nhận mã sau.','Server <b>luôn trả "đã gửi"</b> kể cả khi account không tồn tại, để không lộ account nào có thật.'],
+});
+
+// ---- Tutorial
+def('tutorial','How to Play','Menu','(mới)',ff=>{
+  const d=ff==='desktop';
+  const ch=[['Move & drop bombs','bomb'],['Blast chains & balks','fire'],['Dragon eggs','egg'],['Special tiles','tile'],['Win the round','crown']];
+  const eggs=[['speed','Speed','Move faster'],['attack','Attack','Blast reaches 1 more tile'],['delay','Delay','Shorter wait between bombs'],['mystic','Mystic','Random: Speed, Attack or Delay']];
+  const slide=`<div style="display:grid;grid-template-columns:${d?'1fr 1fr':'1fr 1fr'};gap:${d?14:8}px">${eggs.map(e=>`<div class="card" style="align-items:center;text-align:center;gap:4px">${spo(e[0],d?72:52)}<div class="nm">${e[1]}</div><small class="muted" style="font-size:12px">${e[2]}</small></div>`).join('')}</div>`;
+  const dots=`<div class="row" style="gap:6px;justify-content:center">${ch.map((_,i)=>`<span style="width:${i===2?22:10}px;height:10px;border-radius:5px;background:${i===2?'var(--sun)':'#9fb0d8'};border:2px solid var(--navy)"></span>`).join('')}</div>`;
+  const text=`<h3 class="h" style="font-size:${d?26:20}px">Dragon eggs</h3><p class="muted" style="margin:0;line-height:1.5;font-size:${d?15:14}px">Blow up a balk and an egg may drop. Walk over it to power up. Eggs stack until the round ends: more Delay eggs mean you can drop bombs more often.</p>`;
+  if(d) return page(ff,{title:'HOW TO PLAY',bs:'display:grid;grid-template-columns:260px 1fr;align-items:start',
+    body:`<div class="cloud" style="gap:6px">${ch.map((c,i)=>`<div class="chip ${i===2?'on':''}" style="border-radius:10px;justify-content:flex-start;padding:8px 12px"><span class="lbl" style="color:inherit;width:18px">${i+1}</span>${c[0]}${i<2?`<span style="margin-left:auto;color:#3fa33a">${ic('check',14)}</span>`:''}</div>`).join('')}
+        <div style="flex:1"></div><div class="row" style="gap:8px">${tile(1,30)}${tile(0,30)}${tile(3,30)}${tile(4,30)}</div></div>
+      <div class="cloud" style="gap:16px">${text}${slide}${dots}<div class="row sb"><a class="btn ghost" href="#tutorial">${ic('back',16)} Back</a><div class="row" style="gap:10px"><a class="btn blue" href="#training">Try it in Training</a><a class="btn" href="#tutorial">Next ${ic('chevron',16)}</a></div></div></div>`});
+  return page(ff,{title:'HOW TO PLAY',right:`<a class="lnk" style="color:#cfe0ff" href="#menu">Skip</a>`,user:null,
+    body:`<div class="cloud" style="gap:12px"><div class="lbl">Step 3 of 5</div>${text}${slide}</div>${dots}`,
+    foot:`<div style="display:flex;flex-direction:column;gap:10px;width:100%"><a class="btn lg block" href="#tutorial">Next ${ic('chevron',18)}</a><a class="btn sm blue block" href="#training">Try it in Training</a></div>`});
+},{
+  desktop:['5 chương, chương đang xem được tô màu, chương đã xem có dấu tích. Có thể nhảy thẳng tới chương bất kỳ.','Hình minh hoạ dùng <b>sprite thật</b> (trứng, tile), nên khi đổi art thì tutorial tự cập nhật theo.','Nút "Try it in Training" mở luôn phòng training để người chơi thử ngay.'],
+  portrait:['Dạng slide vuốt ngang, có dấu chấm chỉ vị trí. Nút Next to ở đáy, "Skip" ở góc phải trên.','Tự mở ở lần đăng nhập đầu tiên. Sau đó mở lại từ Main Menu.'],
+  doc:['<b>Màn mới.</b> Speed = chạy nhanh, Attack = nổ xa thêm 1 ô, Delay = giảm thời gian chờ giữa hai lần đặt bom (theo bạn xác nhận).','Mystic = nhận ngẫu nhiên 1 trong 3 hiệu ứng trên. Teleport đưa người chơi vào Quarantine; Quarantine giữ người chơi 10 giây (không đi, không đặt bom) rồi thả ra một vị trí ngẫu nhiên.'],
+});
+
+// ---- Friends
+const FR=[['God Of War','p2','match','In match · Friday Night Blast · 03:12'],['Big Daddy','p2','online','Online · Main menu'],['NoobPlayer','p1','online','Online · Browsing maps'],['Big Mommy','p1','off','Offline · 2 h ago'],['AFK_Guy','p2','off','Offline · 3 days ago']];
+def('friends','Friends','Menu','(mới)',ff=>{
+  const d=ff==='desktop';
+  const dotc={match:'#ff9f1a',online:'#3fd35a',off:'#9aa3b5'};
+  const act=f=>f[2]==='match'?`<a class="btn xs ghost" href="#spectator">${ic('eye',13)} Watch</a>`:f[2]==='online'?`<a class="btn xs green" href="#lobby">Invite</a>`:'';
+  const row=f=>`<div class="row sb" style="padding:${d?7:5}px 0;border-bottom:2px solid #e3ecfa"><span class="row" style="gap:10px;min-width:0"><span style="position:relative">${av(f[1],d?40:34)}<i style="position:absolute;right:-1px;bottom:-1px;width:12px;height:12px;border-radius:50%;background:${dotc[f[2]]};border:2px solid #fff"></i></span><span style="min-width:0"><b style="display:block">${f[0]}</b><small class="muted" style="font-size:12px;white-space:nowrap">${f[3]}</small></span></span><span class="row" style="gap:6px">${act(f)}${d?`<a class="btn xs ghost" href="#profile">Profile</a>`:''}</span></div>`;
+  const req=n=>`<div class="row sb" style="font-size:14px"><span class="row" style="gap:8px">${avn(n,30)}<b>${n}</b></span><span class="row" style="gap:6px"><a class="btn xs green" href="#friends">${ic('check',13)}</a><a class="btn xs ghost" href="#friends">${ic('x',13)}</a></span></div>`;
+  const invite=`<div class="cloud" style="flex-direction:row;align-items:center;gap:10px;padding:10px 12px;${d?'width:420px':''}">${av('p2',36)}<div class="grow" style="font-size:13px"><b>God Of War</b> invited you to <b>Friday Night Blast</b></div><a class="btn xs green" href="#lobby">Join</a><a class="btn xs ghost" href="#friends">${ic('x',13)}</a></div>`;
+  if(d) return page(ff,{title:'FRIENDS',bs:'display:grid;grid-template-columns:320px 1fr;align-items:start',
+    body:`<div style="display:flex;flex-direction:column;gap:16px"><div class="cloud"><h3 class="h">Add friend</h3><div class="row">${inp('','Player name…','search')}<a class="btn sm" href="#friends">${ic('plus',14)} Add</a></div></div>
+        <div class="cloud" style="gap:10px"><h3 class="h">Requests <span class="pill host">2</span></h3>${req('Big Mommy #2')}${req('EliteMaster')}</div></div>
+      <div style="display:flex;flex-direction:column;gap:14px"><div style="align-self:flex-end">${invite}</div>
+        <div class="cloud" style="gap:2px"><h3 class="h">Friends <span class="muted" style="font-family:var(--body);font-size:14px">3 online · 12 total</span></h3>${FR.map(row).join('')}</div></div>`});
+  return page(ff,{title:'FRIENDS',tab:'friends',back:null,right:`<a class="btn icon" href="#friends" aria-label="Add friend">${ic('plus',20)}</a>`,user:null,
+    body:`${invite}<div class="seg2" style="align-self:center"><span class="on">Friends 12</span><span>Requests 2</span></div>${inp('','Search friends…','search')}
+      <div class="cloud" style="gap:0;padding:6px 12px">${FR.map(row).join('')}</div>`});
+},{
+  desktop:['Danh sách bạn bè có <b>trạng thái realtime</b>: chấm xanh = online, cam = đang trong trận, xám = offline kèm "lần cuối online".','Nút thay đổi theo trạng thái: <b>Invite</b> khi bạn đang ở trong phòng và người kia online, <b>Watch</b> khi họ đang chơi.','Lời mời vào phòng hiện thành <b>thẻ thông báo</b> (góc phải trên) ở bất kỳ màn nào, có Join/Decline.'],
+  portrait:['Friends thành một tab trong tab bar (thay chỗ cho Ranks? hoặc tab bar 5 mục như mockup).','Lời mời hiện thành banner trên đầu màn.'],
+  doc:['<b>Màn mới, có thể bỏ.</b> Cần ở server: bảng friendship (pending/accepted), presence (online/in-match), và gói tin invite.','Guest không có Friends vì không có tài khoản.','Nếu bỏ màn này, vẫn có thể giữ cách mời bằng <b>room code</b> (màn Join Private Room).'],
+});
+
+// ---- Join private room
+def('joincode','Join Private Room','Trận đấu','(mới)',ff=>{
+  const d=ff==='desktop';
+  const body=`<p class="hint" style="text-align:left">Ask the host for the room code. Private rooms also need a password.</p>
+    <div class="lbl">Room code</div><div class="code">${'B7K2Q9'.split('').map(c=>`<b>${c}</b>`).join('')}</div>
+    ${fld('Password',inp('••••••'))}
+    <div class="notice" style="background:#e2f7dc;border-color:#3aa135;color:#1d6219">${ic('check',16)} Friday Night Blast · Bot Deathmatch · 4/8</div>
+    <div class="row" style="gap:10px"><a class="btn ghost" href="#join">Cancel</a><a class="btn green grow" href="#lobby">Join Room</a></div>`;
+  const base=S.find(s=>s.id==='join').render(ff);
+  if(d) return base+`<div class="ovl"><div class="cloud" style="width:440px;padding-top:36px;gap:10px">${topSign('PRIVATE ROOM',22)}${body}</div></div>`;
+  return base+`<div class="ovl" style="align-items:flex-end"></div><div class="cloud sheet" style="position:absolute;z-index:9;gap:10px">${body}</div>`;
+},{
+  desktop:['Hai cách vào phòng riêng: <b>nhập mã 6 ký tự</b> (host gửi cho bạn bè), hoặc bấm vào phòng có khoá trong danh sách rồi nhập mật khẩu.','Khi mã hợp lệ, hiện ngay tên phòng, map và số người để người chơi biết mình vào đúng phòng.','Mã chỉ dùng chữ in hoa và số, bỏ các ký tự dễ nhầm (0/O, 1/I).'],
+  portrait:['Bottom sheet trượt lên trên danh sách phòng. Ô mã tự chuyển ô khi gõ, và dán được cả mã 6 ký tự.'],
+  doc:['<b>Màn mới.</b> Tách rõ hai khái niệm: <b>Locked</b> = host đã khoá, không ai vào được nữa; <b>Private</b> = vào được nếu có mật khẩu.','Create Match có thêm tuỳ chọn "Private room" kèm mật khẩu. Join Match có nút "Enter code".'],
+});
+
+// ---- Training room
+def('training','Training Room','Trận đấu','_ui_flows.md · Training',ff=>{
+  const d=ff==='desktop';
+  const banner=`<div class="notice">${ic('gear',18)}<span><b>TRAINING</b> · Not ranked · Not saved to match history · Replays are kept only until you log out</span></div>`;
+  const bots=[[ME,'p1','Host'],['Bot · Easy','bot','Easy'],['Bot · Normal','bot','Normal'],['Bot · Hard','bot','Hard']];
+  const slot=(b,i)=>`<div class="card" style="flex-direction:row;align-items:center;gap:10px"><span class="lbl">#${i+1}</span>${av(b[1],d?36:30)}<b class="grow">${b[0]}</b>${i===0?pill('host'):`<div style="width:${d?120:100}px">${sel(b[2])}</div>${d?`<a class="btn xs red" href="#training">${ic('x',13)}</a>`:''}`}</div>`;
+  const empty=i=>`<div class="card" style="flex-direction:row;align-items:center;gap:10px;border-style:dashed;background:rgba(255,255,255,.55)"><span class="lbl">#${i+1}</span><a class="btn xs ghost" href="#training">${ic('plus',13)} Add bot</a><a class="btn xs ghost" href="#friends">Invite friend</a></div>`;
+  const reps=`<div class="cloud" style="gap:8px"><h3 class="h">This session's replays</h3>${[['Training #2','Bot Deathmatch','05:40'],['Training #1','Classic 4p','03:12']].map(r=>`<div class="row sb" style="font-size:14px;border-bottom:2px solid #e3ecfa;padding-bottom:6px"><span><b>${r[0]}</b><br><span class="muted" style="font-size:12px">${r[1]} · ${r[2]}</span></span><a class="btn xs blue" href="#viewer">${ic('play',12)} Watch</a></div>`).join('')}<p class="hint" style="text-align:left">Cleared when you log out.</p></div>`;
+  if(d) return page(ff,{title:'TRAINING ROOM',
+    body:`${banner}<div style="display:grid;grid-template-columns:1fr 320px;gap:16px;min-height:0;flex:1">
+      <div class="cloud"><h3 class="h">Players <span class="muted" style="font-family:var(--body);font-size:14px">4 / 8 · map Bot Deathmatch</span></h3><div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${bots.map(slot).join('')}${[4,5,6,7].map(empty).join('')}</div></div>${reps}</div>`,
+    foot:`<a class="btn red" href="#menu">Leave</a><a class="btn green" href="#training">${ic('check',18)} Ready</a><a class="btn blue" href="#friends">${ic('users',18)} Invite</a><div class="grow"></div><span style="color:#cfe0ff;font-weight:800">Code <b class="mono" style="color:#fff">T4M8X2</b></span><a class="btn ghost" href="#create">Change map</a><a class="btn lg" href="#rotate">${ic('play',22)} Start Training</a>`});
+  return page(ff,{title:'TRAINING',
+    body:`${banner}<div style="display:flex;flex-direction:column;gap:8px">${bots.map(slot).join('')}${empty(4)}</div>
+      <div class="card" style="flex-direction:row;align-items:center;justify-content:space-between"><span class="row" style="gap:8px;font-weight:900">${ic('film',18)} Session replays (2)</span>${ic('chevron',18)}</div>`,
+    foot:`<a class="btn icon red" href="#menu" aria-label="Leave">${ic('logout',20)}</a><a class="btn lg grow" href="#rotate">Start Training</a>`});
+},{
+  desktop:['Giống Match Lobby nhưng có <b>banner TRAINING</b> nói rõ 3 điều: không tính rank, không lưu lịch sử, replay mất khi logout.','Slot trống có nút <b>Add bot</b> (chọn độ khó Easy/Normal/Hard) hoặc <b>Invite friend</b>.','Cột phải là replay của <b>phiên đăng nhập này</b>. Server giữ chúng theo session của chủ phòng và xoá khi logout.','Vào trận dùng các màn thường (Rotate → Match Start → HUD). Results thì không có EXP/rank, chỉ có nút "Watch replay".'],
+  portrait:['Slot dạng list, độ khó bot chọn ngay trên dòng. Replay của phiên thu gọn thành một dòng mở được.'],
+  doc:['<b>Màn mới</b>, theo mô tả của bạn: training là trận bình thường nhưng không ghi nhận gì.','Create Match có thêm lựa chọn Mode: <b>Ranked / Training</b>. Join list có pill "Training" để người khác biết.','Người lạ vào được như phòng thường: Ready, Invite, mã phòng, host Kick/Lock/Start đều giống Match Lobby.'],
+});
+
+
+// ---- Replay viewer
+def('viewer','Replay Viewer','Trận đấu','(mới)',ff=>{
+  const d=ff==='desktop';
+  const marks=[[12,'k'],[21,'k'],[33,'r'],[41,'k'],[48,'k'],[66,'r'],[72,'k'],[88,'k']];
+  const track=`<div class="track">${marks.map(m=>`<b class="${m[1]}" style="left:${m[0]}%"></b>`).join('')}<i class="fill"></i><span class="knob"></span></div>`;
+  const speed=`<div class="seg2"><span>0.5×</span><span class="on">1×</span><span>2×</span><span>4×</span></div>`;
+  const tl=`<div class="tl">
+    <a class="btn icon ghost" style="width:${d?40:34}px;height:${d?40:34}px" href="#viewer" aria-label="Back 10 seconds">${ic('undo',16)}</a>
+    <a class="btn icon" style="width:${d?48:40}px;height:${d?48:40}px" href="#viewer" aria-label="Pause">${ic('pause',20)}</a>
+    <span class="mono" style="white-space:nowrap">05:32 <span style="opacity:.6">/ 10:00</span></span>${track}
+    ${d?`<a class="btn xs ghost" href="#viewer">Next kill ${ic('chevron',12)}</a>`:''}${speed}</div>`;
+  const ev=[['05:28','BabyBot_v2 blasted Player#8888'],['04:51','Round 2 started'],['04:40','God Of War wins round 1'],['03:12','Player#8888 blasted BabyBot_v2']];
+  if(d) return `<div class="hudbg"></div><div class="layer">
+    <div class="row sb" style="padding:12px 20px"><a class="btn sm ghost" href="#replay">${ic('back',16)} Replays</a>${sign('REPLAY · BOT DEATHMATCH',22)}<div class="row" style="gap:8px"><span class="hchip">#00001 · 2025/12/06</span>${`<div class="seg2"><span class="on">Follow</span><span>Free cam</span><span>Overview</span></div>`}</div></div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 280px;gap:16px;padding:0 20px;align-items:start">
+      <div style="display:flex;justify-content:center">${gameMap(33)}</div>
+      <div style="display:flex;flex-direction:column;gap:12px"><div class="cloud" style="padding:10px;gap:6px"><h3 class="h" style="font-size:17px">Score at 05:32</h3>${tbl(['Player','#Pts','#K','#D'],[['God Of War','31',7,3],[ME,'27',5,2],['BabyBot_v2','24',6,4],['Big Daddy','18',3,5]],{me:1})}</div>
+        <div class="cloud" style="padding:10px;gap:4px"><h3 class="h" style="font-size:17px">Events</h3>${ev.map(e=>`<div class="row" style="gap:8px;font-size:13px;padding:3px 0;border-bottom:2px solid #e3ecfa"><span class="mono" style="color:#1f5fd1">${e[0]}</span><span class="grow">${e[1]}</span></div>`).join('')}</div></div></div>
+    <div style="padding:6px 20px 8px">${tl}</div>
+    <div class="keys" style="padding:0 0 10px"><span><kbd>Space</kbd>Play/Pause</span><span><kbd>← →</kbd>±10 s</span><span><kbd>N</kbd>Next kill</span><span><kbd>1-4</kbd>Camera</span><span><kbd>[ ]</kbd>Speed</span></div></div>`;
+  return `<div class="hudbg"></div>${chromeBits(ff)}
+    <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding-top:8px">${gameMap(22)}</div>
+    <div style="position:absolute;left:52px;top:10px" class="row"><a class="btn icon ghost" style="width:36px;height:36px" href="#replay" aria-label="Back">${ic('back',18)}</a><span class="hchip">${ic('film',14)} Bot Deathmatch</span></div>
+    <div style="position:absolute;right:44px;top:10px" class="hchip">${ic('eye',14)} ${ME}</div>
+    <div style="position:absolute;left:52px;right:44px;bottom:14px">${tl}</div>`;
+},{
+  desktop:['Dùng lại layout của HUD/Spectator, thêm <b>thanh timeline</b> ở dưới: play/pause, lùi/tiến 10 giây, kéo để tua, tốc độ 0.5×–4×.','Trên timeline có <b>vạch đánh dấu</b>: đỏ là có người bị hạ, vàng là hết round. Bấm "Next kill" để nhảy tới pha hạ gục tiếp theo.','Cột phải: điểm số <b>tại thời điểm đang xem</b>, và danh sách sự kiện bấm vào là nhảy tới đúng lúc đó.'],
+  landscape:['Map ở trên, timeline đè ở dưới. Chạm vào map thì ẩn/hiện các nút điều khiển (giống app xem video).','Đổi camera bằng cách chạm chip tên người chơi ở góc phải trên.'],
+  doc:['<b>Màn mới.</b> Match Replay trước đây chỉ là danh sách, chưa có màn xem.','Để tua được, replay nên lưu <b>snapshot trạng thái mỗi vài giây</b> kèm các input/sự kiện ở giữa. Khi tua thì nạp snapshot gần nhất rồi chạy tiếp tới đúng thời điểm.'],
+});
+
+
+// ---------------------------------------------------------------- UI kit (export contract)
+// Every item below becomes one PNG in assets/graphics/ui/ (rendered @2x, transparent background).
+// No text is ever baked into an image: labels are drawn by ImGui with the fonts listed in the kit.
+// slice = 9-slice insets [top,right,bottom,left] in 1x px, measured on the exported box (padding included).
+// tint = exported white, coloured at draw time (ImDrawList::AddImage col argument).
+const KX=(id,html,o={})=>({id,html,slice:o.slice||null,tint:!!o.tint,pad:o.pad??10,note:o.note||''});
+const BTN_V=[['yellow',''],['blue','blue'],['red','red'],['green','green'],['ghost','ghost']];
+const BTN_S=[['normal',''],['hover','st-hover'],['pressed','st-pressed'],['disabled','dis']];
+const UIKIT=[
+ ['Buttons · 9-slice, label drawn by ImGui',[
+   ...BTN_V.flatMap(([v,c])=>BTN_S.map(([st,sc])=>KX(`btn_${v}_${st}`,`<div class="btn ${c} ${sc}" style="width:150px;height:46px;padding:0"></div>`,{slice:[24,24,26,24]}))),
+   ...BTN_V.flatMap(([v,c])=>BTN_S.map(([st,sc])=>KX(`btn_sm_${v}_${st}`,`<div class="btn sm ${c} ${sc}" style="width:96px;height:32px;padding:0"></div>`,{slice:[18,18,20,18]}))),
+ ]],
+ ['Panels & containers',[
+   KX('panel_cloud',`<div class="cloud" style="width:220px;height:130px"></div>`,{slice:[38,38,44,38],pad:14}),
+   KX('panel_cloud_sm',`<div class="portrait"><div class="cloud" style="width:200px;height:110px"></div></div>`,{slice:[32,32,36,32],pad:12}),
+   KX('panel_sheet',`<div class="portrait"><div class="cloud" style="width:220px;height:90px;border-radius:24px 24px 0 0;border-bottom:0"></div></div>`,{slice:[36,36,10,36],pad:12}),
+   KX('card',`<div class="card" style="width:150px;height:80px"></div>`,{slice:[24,24,26,24]}),
+   KX('card_selected',`<div class="card on" style="width:150px;height:80px"></div>`,{slice:[26,26,28,26]}),
+   KX('card_empty_slot',`<div class="card" style="width:150px;height:60px;border-style:dashed;background:rgba(255,255,255,.55)"></div>`,{slice:[24,24,26,24]}),
+   KX('sign_wood',`<div class="sign" style="width:200px;height:44px;padding:0"></div>`,{slice:[20,26,24,26],note:'title text: Lilita One, #ffcf2e, 2px shadow #6a2f08'}),
+   KX('notice_warn',`<div class="notice" style="width:200px;height:40px"></div>`,{slice:[22,22,22,22]}),
+   KX('notice_ok',`<div class="notice" style="width:200px;height:40px;background:#e2f7dc;border-color:#3aa135"></div>`,{slice:[22,22,22,22]}),
+   KX('toast_ok',`<div class="toast" style="width:160px;height:38px;padding:0"></div>`,{slice:[22,22,26,22]}),
+   KX('hud_chip',`<div class="hchip" style="width:140px;height:40px;padding:0"></div>`,{slice:[24,24,24,24]}),
+   KX('status_chip',`<div class="conn" style="width:160px;height:34px;padding:0"></div>`,{slice:[26,26,26,26]}),
+   KX('timeline_bg',`<div class="tl" style="width:240px;height:52px;padding:0"></div>`,{slice:[24,24,24,24]}),
+   KX('topbar_bg',`<div class="tb" style="width:200px;height:56px;padding:0;display:block"></div>`,{slice:[10,10,16,10],pad:0}),
+   KX('tabbar_bg',`<div class="tabbar" style="width:200px;height:60px;display:block;margin:0;padding:0"></div>`,{slice:[10,10,10,10],pad:0}),
+   KX('kbd_key',`<kbd class="keys" style="display:block;width:44px;height:22px;background:#fff;border:2px solid var(--navy);border-radius:6px"></kbd>`,{slice:[16,16,16,16]}),
+ ]],
+ ['Inputs & selection',[
+   KX('input',`<div class="in" style="width:180px"></div>`,{slice:[22,22,22,22]}),
+   KX('input_focus',`<div class="in" style="width:180px;box-shadow:0 0 0 3px var(--sun)"></div>`,{slice:[24,24,24,24]}),
+   KX('code_box',`<div class="code"><b style="width:44px;max-width:none"></b></div>`,{slice:[22,22,22,22]}),
+   KX('code_box_active',`<div class="code"><b class="on" style="width:44px;max-width:none"></b></div>`,{slice:[24,24,24,24]}),
+   KX('checkbox_off',`<span class="chk"><i></i></span>`),
+   KX('checkbox_on',`<span class="chk on"><i></i></span>`),
+   KX('toggle_off',`<span class="tog"></span>`),
+   KX('toggle_on',`<span class="tog on"></span>`),
+   KX('chip_off',`<span class="chip" style="width:90px;height:30px;padding:0"></span>`,{slice:[24,24,24,24]}),
+   KX('chip_on',`<span class="chip on" style="width:90px;height:30px;padding:0"></span>`,{slice:[24,24,24,24]}),
+   KX('segment_bg',`<div class="seg2" style="width:160px;height:30px"></div>`,{slice:[20,20,20,20]}),
+   KX('segment_on',`<div style="width:60px;height:26px;background:var(--navy)"></div>`,{slice:[12,12,12,12],note:'drawn inside segment_bg; first/last get the outer rounding from the bg'}),
+   ...['wait','ingame','lock','training','official','public','private','host'].map(k=>KX(`pill_${k}`,`<span class="pill ${k}" style="width:80px;height:22px;padding:0"></span>`,{slice:[20,20,20,20]})),
+ ]],
+ ['Bars & timeline',[
+   KX('bar_track',`<div class="bar" style="width:160px"></div>`,{slice:[14,14,14,14]}),
+   KX('bar_fill_green',`<div class="bar" style="width:160px;border-color:transparent;background:none"><i style="width:100%"></i></div>`,{slice:[14,14,14,14]}),
+   KX('bar_fill_sun',`<div class="bar sun" style="width:160px;border-color:transparent;background:none"><i style="width:100%"></i></div>`,{slice:[14,14,14,14]}),
+   KX('bar_fill_sky',`<div class="bar sky" style="width:160px;border-color:transparent;background:none"><i style="width:100%"></i></div>`,{slice:[14,14,14,14]}),
+   KX('track_bg',`<div class="track" style="width:160px;flex:none"></div>`,{slice:[14,14,14,14]}),
+   KX('track_fill',`<div class="track" style="width:160px;flex:none;background:none"><i class="fill" style="width:100%"></i></div>`,{slice:[14,14,14,14]}),
+   KX('track_knob',`<div style="position:relative;width:22px;height:22px"><span class="knob" style="position:absolute;inset:0;border-radius:50%;background:#fff;border:3px solid var(--navy)"></span></div>`),
+   KX('track_mark_kill',`<b style="display:block;width:5px;height:20px;border-radius:3px;background:#ff6b5e"></b>`),
+   KX('track_mark_round',`<b style="display:block;width:5px;height:20px;border-radius:3px;background:#ffe36b"></b>`),
+ ]],
+ ['HUD & touch controls',[
+   KX('dpad_button',`<div class="pad" style="width:46px;height:46px"><b class="u" style="left:0;top:0"></b></div>`,{note:'rotate 90° steps for the other directions'}),
+   KX('joystick_base',`<div class="joy" style="background:rgba(255,255,255,.18)"></div>`,{note:'knob = joystick_knob'}),
+   KX('joystick_knob',`<div style="width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.85);border:3px solid var(--navy)"></div>`),
+   KX('bomb_button',`<div class="bombbtn">${bombi(58)}</div>`),
+   KX('bomb_cooldown_ring',`<div style="width:96px;height:96px;border-radius:50%;background:conic-gradient(rgba(10,22,66,.65) 0 70%,transparent 0)"></div>`,{note:'draw as arc in ImGui (PathArcTo) instead; reference only'}),
+   KX('heart_full',`<span class="hearts" style="font-size:28px"><i class="on">♥</i></span>`),
+   KX('heart_empty',`<span class="hearts" style="font-size:28px"><i style="color:rgba(255,255,255,.35)">♥</i></span>`),
+   KX('ring_owner',`<div style="width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 3px #fff,0 0 10px #fff"></div>`,{tint:true,note:'GST egg owner ring, tint with player colour'}),
+   KX('ring_gone',`<div style="width:40px;height:40px;border-radius:50%;border:2px dashed #fff"></div>`,{tint:true,note:'GST egg respawning (3 s)'}),
+   KX('frame_quarantine',`<div style="width:40px;height:40px;border-radius:4px;border:3px dashed #fff"></div>`,{tint:true}),
+   KX('ring_shield',`<div style="width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 3px #7fe3ff,0 0 14px 4px rgba(127,227,255,.8);background:radial-gradient(circle,transparent 55%,rgba(127,227,255,.4))"></div>`,{note:'invulnerable 3 s'}),
+   KX('badge_timer',`<div style="width:30px;height:30px;border-radius:50%;background:rgba(10,22,66,.85);border:2px solid #fff"></div>`,{note:'quarantine countdown number drawn on top'}),
+   KX('cursor_tile',`<div style="width:40px;height:40px;border:3px solid var(--sun);border-radius:4px;box-shadow:0 0 0 2px #000"></div>`,{note:'map editor'}),
+   KX('rotate_phone',`<div class="rot" style="width:120px;height:120px"><div class="ph" style="animation:none;transform:rotate(-90deg)"></div></div>`,{note:'rotate device screen; animate rotation in code'}),
+ ]],
+ ['Icons · 24 px, white, tint at draw time',
+   Object.keys(ICON).map(n=>KX(`icon_${n}`,`<span style="color:#fff;display:block;line-height:0">${ic(n,24)}</span>`,{tint:true,pad:4}))],
+ ['Backdrops',[
+   KX('veil_gradient',`<div style="width:16px;height:256px;background:linear-gradient(180deg,rgba(18,40,110,.62),rgba(8,18,58,.86))"></div>`,{pad:0,note:'stretch to full screen over the background art'}),
+   KX('hud_backdrop',`<div style="width:256px;height:160px;background:radial-gradient(ellipse at 50% 40%,#2b4fa8,#0e1b4d 70%)"></div>`,{pad:0,note:'stretch behind the map'}),
+   KX('overlay_dim',`<div style="width:16px;height:16px;background:rgba(6,12,40,.62)"></div>`,{pad:0,note:'or AddRectFilled with the same colour'}),
+ ]],
+];
+const TOKENS=[['navy','#1b2f6e','outlines, headings, table header'],['sun','#ffcf2e','primary button, title text'],['sky','#2f8cf0','secondary button'],['leaf','#3fa33a','success, ready, checkbox'],['berry','#e8473f','danger, leave'],['gtext','#1b2a55','body text on light panels'],['cloud','#f8fcff → #d9eeff','panel fill'],['wood','#c87d3a → #97521f','sign'],['p1 ring','#ff9f1a','player 1 colour'],['p2 ring','#3aa8ff','player 2 colour']];
+const TYPE=[['Lilita One','Titles, buttons, numbers','sign 26 · button 20 (sm 15) · panel title 21 · timer 30 · countdown 160'],['Nunito 700–900','Body, labels, tables','body 15 · small 12–13 · table 15 (phone 13) · label caps 12'],['Roboto (current)','Fallback until the two fonts above are added to assets/fonts','—']];
+function kitPage(){
+  const box=k=>`<figure class="kfig"><div class="kbox"><div class="kx" data-ex="${k.id}" style="padding:${k.pad}px">${k.html}</div></div><figcaption><b>${k.id}.png</b>${k.slice?`<span>9-slice ${k.slice.join(' ')}</span>`:''}${k.tint?'<span>tint</span>':''}${k.note?`<em>${k.note}</em>`:''}</figcaption></figure>`;
+  const sec=([t,items])=>`<section class="ksec"><h3>${t} <small>${items.length}</small></h3><div class="kgrid">${items.map(box).join('')}</div></section>`;
+  const total=UIKIT.reduce((a,[,i])=>a+i.length,0);
+  return `<div class="kit"><p class="kintro">${total} images → <code>assets/graphics/ui/&lt;name&gt;.png</code> at @2x, plus <code>ui_kit.json</code> with 9-slice insets. Checkerboard = transparent.</p>
+    <section class="ksec"><h3>Colour tokens</h3><div class="ktok">${TOKENS.map(t=>`<div><i style="background:${t[1].includes('→')?`linear-gradient(${t[1].replace('→',',')})`:t[1]}"></i><b>${t[0]}</b><code>${t[1]}</code><span>${t[2]}</span></div>`).join('')}</div></section>
+    <section class="ksec"><h3>Type</h3><table class="ktype">${TYPE.map(t=>`<tr><th>${t[0]}</th><td>${t[1]}</td><td>${t[2]}</td></tr>`).join('')}</table></section>
+    ${UIKIT.map(sec).join('')}</div>`;
+}
+def('uikit','UI Kit','Hệ thống','ui_kit.md',null,{
+  desktop:['Đây là <b>danh sách export</b>: mỗi ô là một file PNG trong <b>assets/graphics/ui/</b>, xuất ở @2x với nền trong suốt.','<b>Không ảnh nào chứa chữ.</b> Chữ do ImGui vẽ bằng font Lilita One và Nunito, nên đổi ngôn ngữ hay đổi chữ không cần làm lại ảnh.','Ảnh có ghi <b>9-slice</b> thì giãn được theo mọi kích thước, 4 góc giữ nguyên. Ảnh có ghi <b>tint</b> được xuất màu trắng, lúc vẽ nhân màu bằng tham số col của AddImage (ví dụ vòng màu của từng player).','Avatar tròn không cần ảnh riêng: dùng <b>AddImageRounded</b> với rounding = nửa cạnh để cắt tròn sprite.'],
+  doc:['Trang mới, là "hợp đồng" giữa mockup và bước export. Tên file và thông số 9-slice sẽ được ghi vào <b>ui_kit.json</b>.'],
+});
+S.find(s=>s.id==='uikit').kit=kitPage;
+
+// keep the index in play order rather than definition order
+const ORDER=['splash','login','guest','register','forgot','menu','tutorial','friends','profile','leaderboard','settings','developer','join','joincode','create','lobby','training','rotate','countdown','hud','pause','eliminated','round','spectator','results','replay','viewer','browse','editor','dialogs','uikit'];
+S.sort((a,b)=>ORDER.indexOf(a.id)-ORDER.indexOf(b.id));
+
+// ---------------------------------------------------------------- viewer
+// spec file for each screen in docs/designs
+const SPEC={splash:'connecting',login:'login_as_player',guest:'login_as_guest',register:'create_account',forgot:'forgot_password',
+  menu:'main_menu',tutorial:'how_to_play',friends:'friends',profile:'player_profile',leaderboard:'leaderboard',settings:'settings',
+  developer:'developer_portal',join:'join_match',joincode:'join_private_room',create:'create_match',lobby:'match_lobby',
+  training:'training_room',rotate:'rotate_device',countdown:'match_start',hud:'in_game_hud',pause:'pause_menu',eliminated:'eliminated',
+  round:'round_result',spectator:'spectator_hud',results:'post_game_results',replay:'match_replay',browse:'browse_maps',
+  editor:'map_editor',viewer:'replay_viewer',dialogs:'system_dialogs'};
+const MODES={desktop:'Web / Desktop',portrait:'Mobile · dọc',landscape:'Mobile · ngang'};
+const OUTER={desktop:[1280,834],portrait:[414,868],landscape:[868,414]};
+// Phones run portrait; only gameplay and the editor rotate to landscape.
+const LANDSCAPE_ON_PHONE=new Set(['hud','spectator','editor','viewer','countdown','pause','eliminated','round']);
+const mobFF=scr=>LANDSCAPE_ON_PHONE.has(scr.id)?'landscape':'portrait';
+let mode='desktop';
+try{mode=localStorage.getItem('eb-mode2')||'desktop'}catch(e){}
+if(!['desktop','mobile','all'].includes(mode)) mode='desktop';
+const fits=[];
+function device(ff,scr){
+  const chrome=ff==='desktop'?`<div class="wbar"><i></i><i></i><i></i><span>Elefant Blaster</span></div>`:'';
+  return `<div class="device ${ff}">${chrome}<div class="scr">${scr.render(ff)}</div></div>`;
+}
+function holder(ff,scr,maxH,cap){
+  return `<div>${cap?`<p class="cap">${MODES[ff]}</p>`:''}<div class="holder" data-ff="${ff}" data-maxh="${maxH}">${device(ff,scr)}</div></div>`;
+}
+function fit(){
+  document.querySelectorAll('.holder').forEach(h=>{
+    const [w,hh]=OUTER[h.dataset.ff];const d=h.firstElementChild;
+    const s=Math.min(h.clientWidth/w,(+h.dataset.maxh)/hh,1);
+    d.style.transform=`scale(${s})`;d.style.left=Math.max(0,(h.clientWidth-w*s)/2)+'px';h.style.height=(hh*s)+'px';
+  });
+}
+function current(){const id=location.hash.slice(1);return S.find(s=>s.id===id)||S[0]}
+function render(){
+  const scr=current();
+  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===mode));
+  document.querySelectorAll('.idx a').forEach(a=>{if(a.getAttribute('href')==='#'+scr.id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  $('#sname').textContent=scr.name;$('#ssrc').textContent='docs/designs/'+(scr.kit?scr.src:(SPEC[scr.id]||scr.id)+'.screen.md');
+  if(scr.kit){$('#stage').innerHTML=scr.kit();$('#notes').innerHTML=`<div class="note"><h3>UI Kit</h3><ul>${scr.notes.desktop.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;return;}
+  const vh=Math.max(420,innerHeight-150);
+  const st=$('#stage');
+  const mf=mobFF(scr);
+  if(mode==='all') st.innerHTML=mf==='portrait'
+    ?`<div class="row2 rev">${holder('desktop',scr,600,true)}${holder('portrait',scr,600,true)}</div>`
+    :holder('desktop',scr,600,true)+holder('landscape',scr,440,true);
+  else if(mode==='mobile') st.innerHTML=holder(mf,scr,mf==='landscape'?Math.min(vh,520):vh,false);
+  else st.innerHTML=holder('desktop',scr,vh,false);
+  const n=scr.notes;
+  const block=(ff)=>`<div class="note"><h3>${MODES[ff]}</h3><ul>${n[ff].map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+  const shown=mode==='all'?['desktop',mf]:mode==='mobile'?[mf]:['desktop'];
+  $('#notes').innerHTML=shown.map(block).join('')+`<div class="note doc"><h3>Thay đổi so với file .md</h3><ul>${n.doc.map(x=>`<li>${x}</li>`).join('')}</ul></div>`;
+  fit();
+}
+function $(s){return document.querySelector(s)}
+const groups=[...new Set(S.map(s=>s.group))];
+$('#idx').innerHTML=groups.map(g=>`<section><h2>${g}</h2>${S.filter(s=>s.group===g).map(s=>`<a href="#${s.id}">${s.name}</a>`).join('')}</section>`).join('');
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;try{localStorage.setItem('eb-mode2',mode)}catch(e){}render()}));
+addEventListener('hashchange',()=>{render();window.scrollTo({top:0})});
+addEventListener('resize',fit);
+render();
+</script>
+</body>
+</html>
