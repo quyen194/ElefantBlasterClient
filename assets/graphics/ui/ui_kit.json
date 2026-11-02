@@ -1,0 +1,1908 @@
+{
+  "version": 1,
+  "scale": 2,
+  "source": "docs/designs/mockups/index.html#uikit",
+  "note": "w/h/slice in 1x px; multiply by scale for texels",
+  "images": [
+    {
+      "name": "btn_yellow_normal",
+      "file": "btn_yellow_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_yellow_hover",
+      "file": "btn_yellow_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_yellow_pressed",
+      "file": "btn_yellow_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_yellow_disabled",
+      "file": "btn_yellow_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_blue_normal",
+      "file": "btn_blue_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_blue_hover",
+      "file": "btn_blue_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_blue_pressed",
+      "file": "btn_blue_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_blue_disabled",
+      "file": "btn_blue_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_red_normal",
+      "file": "btn_red_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_red_hover",
+      "file": "btn_red_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_red_pressed",
+      "file": "btn_red_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_red_disabled",
+      "file": "btn_red_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_green_normal",
+      "file": "btn_green_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_green_hover",
+      "file": "btn_green_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_green_pressed",
+      "file": "btn_green_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_green_disabled",
+      "file": "btn_green_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_ghost_normal",
+      "file": "btn_ghost_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_ghost_hover",
+      "file": "btn_ghost_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_ghost_pressed",
+      "file": "btn_ghost_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_ghost_disabled",
+      "file": "btn_ghost_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 170,
+      "h": 66,
+      "px_w": 340,
+      "px_h": 132,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_yellow_normal",
+      "file": "btn_sm_yellow_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 116,
+      "h": 52,
+      "px_w": 232,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_yellow_hover",
+      "file": "btn_sm_yellow_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 116,
+      "h": 52,
+      "px_w": 232,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_yellow_pressed",
+      "file": "btn_sm_yellow_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_yellow_disabled",
+      "file": "btn_sm_yellow_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_blue_normal",
+      "file": "btn_sm_blue_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_blue_hover",
+      "file": "btn_sm_blue_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_blue_pressed",
+      "file": "btn_sm_blue_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_blue_disabled",
+      "file": "btn_sm_blue_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_red_normal",
+      "file": "btn_sm_red_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 116,
+      "h": 52,
+      "px_w": 232,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_red_hover",
+      "file": "btn_sm_red_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_red_pressed",
+      "file": "btn_sm_red_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_red_disabled",
+      "file": "btn_sm_red_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_green_normal",
+      "file": "btn_sm_green_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_green_hover",
+      "file": "btn_sm_green_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_green_pressed",
+      "file": "btn_sm_green_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_green_disabled",
+      "file": "btn_sm_green_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_ghost_normal",
+      "file": "btn_sm_ghost_normal.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 116,
+      "h": 52,
+      "px_w": 232,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_ghost_hover",
+      "file": "btn_sm_ghost_hover.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_ghost_pressed",
+      "file": "btn_sm_ghost_pressed.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "btn_sm_ghost_disabled",
+      "file": "btn_sm_ghost_disabled.png",
+      "group": "Buttons · 9-slice, label drawn by ImGui",
+      "w": 117,
+      "h": 52,
+      "px_w": 234,
+      "px_h": 104,
+      "slice": [
+        18,
+        18,
+        20,
+        18
+      ],
+      "tint": false
+    },
+    {
+      "name": "panel_cloud",
+      "file": "panel_cloud.png",
+      "group": "Panels & containers",
+      "w": 248,
+      "h": 158,
+      "px_w": 496,
+      "px_h": 316,
+      "slice": [
+        38,
+        38,
+        44,
+        38
+      ],
+      "tint": false
+    },
+    {
+      "name": "panel_cloud_sm",
+      "file": "panel_cloud_sm.png",
+      "group": "Panels & containers",
+      "w": 224,
+      "h": 134,
+      "px_w": 448,
+      "px_h": 268,
+      "slice": [
+        32,
+        32,
+        36,
+        32
+      ],
+      "tint": false
+    },
+    {
+      "name": "panel_sheet",
+      "file": "panel_sheet.png",
+      "group": "Panels & containers",
+      "w": 244,
+      "h": 114,
+      "px_w": 488,
+      "px_h": 228,
+      "slice": [
+        36,
+        36,
+        10,
+        36
+      ],
+      "tint": false
+    },
+    {
+      "name": "card",
+      "file": "card.png",
+      "group": "Panels & containers",
+      "w": 170,
+      "h": 100,
+      "px_w": 340,
+      "px_h": 200,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "card_selected",
+      "file": "card_selected.png",
+      "group": "Panels & containers",
+      "w": 170,
+      "h": 100,
+      "px_w": 340,
+      "px_h": 200,
+      "slice": [
+        26,
+        26,
+        28,
+        26
+      ],
+      "tint": false
+    },
+    {
+      "name": "card_empty_slot",
+      "file": "card_empty_slot.png",
+      "group": "Panels & containers",
+      "w": 170,
+      "h": 80,
+      "px_w": 340,
+      "px_h": 160,
+      "slice": [
+        24,
+        24,
+        26,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "sign_wood",
+      "file": "sign_wood.png",
+      "group": "Panels & containers",
+      "w": 220,
+      "h": 64,
+      "px_w": 440,
+      "px_h": 128,
+      "slice": [
+        20,
+        26,
+        24,
+        26
+      ],
+      "tint": false,
+      "note": "title text: Lilita One, #ffcf2e, 2px shadow #6a2f08"
+    },
+    {
+      "name": "notice_warn",
+      "file": "notice_warn.png",
+      "group": "Panels & containers",
+      "w": 220,
+      "h": 60,
+      "px_w": 440,
+      "px_h": 120,
+      "slice": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "tint": false
+    },
+    {
+      "name": "notice_ok",
+      "file": "notice_ok.png",
+      "group": "Panels & containers",
+      "w": 220,
+      "h": 60,
+      "px_w": 440,
+      "px_h": 120,
+      "slice": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "tint": false
+    },
+    {
+      "name": "toast_ok",
+      "file": "toast_ok.png",
+      "group": "Panels & containers",
+      "w": 180,
+      "h": 58,
+      "px_w": 360,
+      "px_h": 116,
+      "slice": [
+        22,
+        22,
+        26,
+        22
+      ],
+      "tint": false
+    },
+    {
+      "name": "hud_chip",
+      "file": "hud_chip.png",
+      "group": "Panels & containers",
+      "w": 160,
+      "h": 60,
+      "px_w": 320,
+      "px_h": 120,
+      "slice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "status_chip",
+      "file": "status_chip.png",
+      "group": "Panels & containers",
+      "w": 180,
+      "h": 54,
+      "px_w": 360,
+      "px_h": 108,
+      "slice": [
+        26,
+        26,
+        26,
+        26
+      ],
+      "tint": false
+    },
+    {
+      "name": "timeline_bg",
+      "file": "timeline_bg.png",
+      "group": "Panels & containers",
+      "w": 260,
+      "h": 72,
+      "px_w": 520,
+      "px_h": 144,
+      "slice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "topbar_bg",
+      "file": "topbar_bg.png",
+      "group": "Panels & containers",
+      "w": 200,
+      "h": 56,
+      "px_w": 400,
+      "px_h": 112,
+      "slice": [
+        10,
+        10,
+        16,
+        10
+      ],
+      "tint": false
+    },
+    {
+      "name": "tabbar_bg",
+      "file": "tabbar_bg.png",
+      "group": "Panels & containers",
+      "w": 200,
+      "h": 60,
+      "px_w": 400,
+      "px_h": 120,
+      "slice": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "tint": false
+    },
+    {
+      "name": "kbd_key",
+      "file": "kbd_key.png",
+      "group": "Panels & containers",
+      "w": 64,
+      "h": 42,
+      "px_w": 128,
+      "px_h": 84,
+      "slice": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "tint": false
+    },
+    {
+      "name": "input",
+      "file": "input.png",
+      "group": "Inputs & selection",
+      "w": 200,
+      "h": 60,
+      "px_w": 400,
+      "px_h": 120,
+      "slice": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "tint": false
+    },
+    {
+      "name": "input_focus",
+      "file": "input_focus.png",
+      "group": "Inputs & selection",
+      "w": 200,
+      "h": 60,
+      "px_w": 400,
+      "px_h": 120,
+      "slice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "code_box",
+      "file": "code_box.png",
+      "group": "Inputs & selection",
+      "w": 64,
+      "h": 74,
+      "px_w": 128,
+      "px_h": 148,
+      "slice": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "tint": false
+    },
+    {
+      "name": "code_box_active",
+      "file": "code_box_active.png",
+      "group": "Inputs & selection",
+      "w": 65,
+      "h": 74,
+      "px_w": 130,
+      "px_h": 148,
+      "slice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "checkbox_off",
+      "file": "checkbox_off.png",
+      "group": "Inputs & selection",
+      "w": 43,
+      "h": 42,
+      "px_w": 86,
+      "px_h": 84,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "checkbox_on",
+      "file": "checkbox_on.png",
+      "group": "Inputs & selection",
+      "w": 43,
+      "h": 42,
+      "px_w": 86,
+      "px_h": 84,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "toggle_off",
+      "file": "toggle_off.png",
+      "group": "Inputs & selection",
+      "w": 65,
+      "h": 46,
+      "px_w": 130,
+      "px_h": 92,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "toggle_on",
+      "file": "toggle_on.png",
+      "group": "Inputs & selection",
+      "w": 65,
+      "h": 46,
+      "px_w": 130,
+      "px_h": 92,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "chip_off",
+      "file": "chip_off.png",
+      "group": "Inputs & selection",
+      "w": 111,
+      "h": 50,
+      "px_w": 222,
+      "px_h": 100,
+      "slice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "chip_on",
+      "file": "chip_on.png",
+      "group": "Inputs & selection",
+      "w": 110,
+      "h": 50,
+      "px_w": 220,
+      "px_h": 100,
+      "slice": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "tint": false
+    },
+    {
+      "name": "segment_bg",
+      "file": "segment_bg.png",
+      "group": "Inputs & selection",
+      "w": 180,
+      "h": 50,
+      "px_w": 360,
+      "px_h": 100,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "segment_on",
+      "file": "segment_on.png",
+      "group": "Inputs & selection",
+      "w": 80,
+      "h": 46,
+      "px_w": 160,
+      "px_h": 92,
+      "slice": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "tint": false,
+      "note": "drawn inside segment_bg; first/last get the outer rounding from the bg"
+    },
+    {
+      "name": "pill_wait",
+      "file": "pill_wait.png",
+      "group": "Inputs & selection",
+      "w": 100,
+      "h": 42,
+      "px_w": 200,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_ingame",
+      "file": "pill_ingame.png",
+      "group": "Inputs & selection",
+      "w": 101,
+      "h": 42,
+      "px_w": 202,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_lock",
+      "file": "pill_lock.png",
+      "group": "Inputs & selection",
+      "w": 101,
+      "h": 42,
+      "px_w": 202,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_training",
+      "file": "pill_training.png",
+      "group": "Inputs & selection",
+      "w": 101,
+      "h": 42,
+      "px_w": 202,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_official",
+      "file": "pill_official.png",
+      "group": "Inputs & selection",
+      "w": 101,
+      "h": 42,
+      "px_w": 202,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_public",
+      "file": "pill_public.png",
+      "group": "Inputs & selection",
+      "w": 100,
+      "h": 42,
+      "px_w": 200,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_private",
+      "file": "pill_private.png",
+      "group": "Inputs & selection",
+      "w": 101,
+      "h": 42,
+      "px_w": 202,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "pill_host",
+      "file": "pill_host.png",
+      "group": "Inputs & selection",
+      "w": 101,
+      "h": 42,
+      "px_w": 202,
+      "px_h": 84,
+      "slice": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "tint": false
+    },
+    {
+      "name": "bar_track",
+      "file": "bar_track.png",
+      "group": "Bars & timeline",
+      "w": 180,
+      "h": 30,
+      "px_w": 360,
+      "px_h": 60,
+      "slice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "tint": false
+    },
+    {
+      "name": "bar_fill_green",
+      "file": "bar_fill_green.png",
+      "group": "Bars & timeline",
+      "w": 180,
+      "h": 30,
+      "px_w": 360,
+      "px_h": 60,
+      "slice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "tint": false
+    },
+    {
+      "name": "bar_fill_sun",
+      "file": "bar_fill_sun.png",
+      "group": "Bars & timeline",
+      "w": 180,
+      "h": 30,
+      "px_w": 360,
+      "px_h": 60,
+      "slice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "tint": false
+    },
+    {
+      "name": "bar_fill_sky",
+      "file": "bar_fill_sky.png",
+      "group": "Bars & timeline",
+      "w": 180,
+      "h": 30,
+      "px_w": 360,
+      "px_h": 60,
+      "slice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "tint": false
+    },
+    {
+      "name": "track_bg",
+      "file": "track_bg.png",
+      "group": "Bars & timeline",
+      "w": 180,
+      "h": 30,
+      "px_w": 360,
+      "px_h": 60,
+      "slice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "tint": false
+    },
+    {
+      "name": "track_fill",
+      "file": "track_fill.png",
+      "group": "Bars & timeline",
+      "w": 180,
+      "h": 30,
+      "px_w": 360,
+      "px_h": 60,
+      "slice": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "tint": false
+    },
+    {
+      "name": "track_knob",
+      "file": "track_knob.png",
+      "group": "Bars & timeline",
+      "w": 42,
+      "h": 42,
+      "px_w": 84,
+      "px_h": 84,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "track_mark_kill",
+      "file": "track_mark_kill.png",
+      "group": "Bars & timeline",
+      "w": 25,
+      "h": 40,
+      "px_w": 50,
+      "px_h": 80,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "track_mark_round",
+      "file": "track_mark_round.png",
+      "group": "Bars & timeline",
+      "w": 26,
+      "h": 40,
+      "px_w": 52,
+      "px_h": 80,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "dpad_button",
+      "file": "dpad_button.png",
+      "group": "HUD & touch controls",
+      "w": 66,
+      "h": 66,
+      "px_w": 132,
+      "px_h": 132,
+      "slice": null,
+      "tint": false,
+      "note": "rotate 90° steps for the other directions"
+    },
+    {
+      "name": "joystick_base",
+      "file": "joystick_base.png",
+      "group": "HUD & touch controls",
+      "w": 149,
+      "h": 148,
+      "px_w": 298,
+      "px_h": 296,
+      "slice": null,
+      "tint": false,
+      "note": "knob = joystick_knob"
+    },
+    {
+      "name": "joystick_knob",
+      "file": "joystick_knob.png",
+      "group": "HUD & touch controls",
+      "w": 75,
+      "h": 74,
+      "px_w": 150,
+      "px_h": 148,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "bomb_button",
+      "file": "bomb_button.png",
+      "group": "HUD & touch controls",
+      "w": 117,
+      "h": 116,
+      "px_w": 234,
+      "px_h": 232,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "bomb_cooldown_ring",
+      "file": "bomb_cooldown_ring.png",
+      "group": "HUD & touch controls",
+      "w": 117,
+      "h": 116,
+      "px_w": 234,
+      "px_h": 232,
+      "slice": null,
+      "tint": false,
+      "note": "draw as arc in ImGui (PathArcTo) instead; reference only"
+    },
+    {
+      "name": "heart_full",
+      "file": "heart_full.png",
+      "group": "HUD & touch controls",
+      "w": 41,
+      "h": 48,
+      "px_w": 82,
+      "px_h": 96,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "heart_empty",
+      "file": "heart_empty.png",
+      "group": "HUD & touch controls",
+      "w": 40,
+      "h": 48,
+      "px_w": 80,
+      "px_h": 96,
+      "slice": null,
+      "tint": false
+    },
+    {
+      "name": "ring_owner",
+      "file": "ring_owner.png",
+      "group": "HUD & touch controls",
+      "w": 60,
+      "h": 60,
+      "px_w": 120,
+      "px_h": 120,
+      "slice": null,
+      "tint": true,
+      "note": "GST egg owner ring, tint with player colour"
+    },
+    {
+      "name": "ring_gone",
+      "file": "ring_gone.png",
+      "group": "HUD & touch controls",
+      "w": 61,
+      "h": 60,
+      "px_w": 122,
+      "px_h": 120,
+      "slice": null,
+      "tint": true,
+      "note": "GST egg respawning (3 s)"
+    },
+    {
+      "name": "frame_quarantine",
+      "file": "frame_quarantine.png",
+      "group": "HUD & touch controls",
+      "w": 61,
+      "h": 60,
+      "px_w": 122,
+      "px_h": 120,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "ring_shield",
+      "file": "ring_shield.png",
+      "group": "HUD & touch controls",
+      "w": 61,
+      "h": 60,
+      "px_w": 122,
+      "px_h": 120,
+      "slice": null,
+      "tint": false,
+      "note": "invulnerable 3 s"
+    },
+    {
+      "name": "badge_timer",
+      "file": "badge_timer.png",
+      "group": "HUD & touch controls",
+      "w": 51,
+      "h": 50,
+      "px_w": 102,
+      "px_h": 100,
+      "slice": null,
+      "tint": false,
+      "note": "quarantine countdown number drawn on top"
+    },
+    {
+      "name": "cursor_tile",
+      "file": "cursor_tile.png",
+      "group": "HUD & touch controls",
+      "w": 61,
+      "h": 60,
+      "px_w": 122,
+      "px_h": 120,
+      "slice": null,
+      "tint": false,
+      "note": "map editor"
+    },
+    {
+      "name": "rotate_phone",
+      "file": "rotate_phone.png",
+      "group": "HUD & touch controls",
+      "w": 141,
+      "h": 140,
+      "px_w": 282,
+      "px_h": 280,
+      "slice": null,
+      "tint": false,
+      "note": "rotate device screen; animate rotation in code"
+    },
+    {
+      "name": "icon_back",
+      "file": "icon_back.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 32,
+      "h": 32,
+      "px_w": 64,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_home",
+      "file": "icon_home.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_trophy",
+      "file": "icon_trophy.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_user",
+      "file": "icon_user.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_users",
+      "file": "icon_users.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_gear",
+      "file": "icon_gear.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_search",
+      "file": "icon_search.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_play",
+      "file": "icon_play.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_map",
+      "file": "icon_map.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_plus",
+      "file": "icon_plus.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_lock",
+      "file": "icon_lock.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_heart",
+      "file": "icon_heart.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_copy",
+      "file": "icon_copy.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 32,
+      "h": 32,
+      "px_w": 64,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_logout",
+      "file": "icon_logout.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_pause",
+      "file": "icon_pause.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_chat",
+      "file": "icon_chat.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_eye",
+      "file": "icon_eye.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_code",
+      "file": "icon_code.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_film",
+      "file": "icon_film.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_filter",
+      "file": "icon_filter.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_crown",
+      "file": "icon_crown.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_x",
+      "file": "icon_x.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_check",
+      "file": "icon_check.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_brush",
+      "file": "icon_brush.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_eraser",
+      "file": "icon_eraser.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 32,
+      "h": 32,
+      "px_w": 64,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_pin",
+      "file": "icon_pin.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_grid",
+      "file": "icon_grid.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_more",
+      "file": "icon_more.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_globe",
+      "file": "icon_globe.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_zoom",
+      "file": "icon_zoom.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_undo",
+      "file": "icon_undo.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_layers",
+      "file": "icon_layers.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_chevron",
+      "file": "icon_chevron.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "icon_refresh",
+      "file": "icon_refresh.png",
+      "group": "Icons · 24 px, white, tint at draw time",
+      "w": 33,
+      "h": 32,
+      "px_w": 66,
+      "px_h": 64,
+      "slice": null,
+      "tint": true
+    },
+    {
+      "name": "veil_gradient",
+      "file": "veil_gradient.png",
+      "group": "Backdrops",
+      "w": 16,
+      "h": 256,
+      "px_w": 32,
+      "px_h": 512,
+      "slice": null,
+      "tint": false,
+      "note": "stretch to full screen over the background art"
+    },
+    {
+      "name": "hud_backdrop",
+      "file": "hud_backdrop.png",
+      "group": "Backdrops",
+      "w": 257,
+      "h": 160,
+      "px_w": 514,
+      "px_h": 320,
+      "slice": null,
+      "tint": false,
+      "note": "stretch behind the map"
+    },
+    {
+      "name": "overlay_dim",
+      "file": "overlay_dim.png",
+      "group": "Backdrops",
+      "w": 17,
+      "h": 16,
+      "px_w": 34,
+      "px_h": 32,
+      "slice": null,
+      "tint": false,
+      "note": "or AddRectFilled with the same colour"
+    }
+  ]
+}
