@@ -1,20 +1,25 @@
-┌─────────────────────────────────────────────────────────────┐
-│ ELEFANT BLASTER 2025                             Guest#1234 │
-├─────────────────────────────────────────────────────────────┤
-│ [ ← Back ]              MATCH REPLAY                        │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│ Match Filters                                               │
-│ Name/ID: [____________________]                             │
-│ Date   : [____/__/__]                                       │
-│ Maps   : [ All ▼]  Allow Bots: [x]                          │
-│ ┌─────────┬──────────────────┬─────────┬─────┬────────────┐ │
-│ │   ID    │ Name             │ Map     │ Ply │ Date       │ │
-│ ├─────────┼──────────────────┼─────────┼─────┼────────────┤ │
-│ │  00001  │ Bot Deathmatch   │ Island  │ 7/8 │ 2025/12/06 │ │
-│ │  00002  │ Classic 4p       │ Classic │ 3/4 │ 2025/10/20 │ │
-│ │  00003  │ 8P Chaos         │ Canyon  │ 8/8 │ 2025/04/19 │ │
-│ │  00004  │ My Private Test  │ Random  │ 1/8 │ 2024/11/20 │ │
-│ └─────────┴──────────────────┴─────────┴─────┴────────────┘ │
-│                                         Page 1 2 3 ... 42   │
-└─────────────────────────────────────────────────────────────┘
+# Match Replay
+
+Mockup: mockups/index.html#replay · Mobile: portrait · Status: draft
+From: Main Menu, Profile · To: Replay Viewer
+
+## Purpose
+Find and watch past matches.
+
+## Elements
+- Tabs: `Matches` | `Training · this session`.
+- Filters: name/ID, date range, map, allow bots.
+- Table: ID, name, map, players, date, duration; selected row.
+- Detail panel: preview, top 4, `Watch Replay`.
+
+## Watching
+`Watch Replay` opens the [Replay Viewer](replay_viewer.screen.md).
+
+## States
+Empty list; training tab empty ("Training replays appear here until you log out").
+
+## Mobile
+Cards with preview and a play button.
+
+## Server
+Replay list (ranked), per-session training replays, replay download/stream.

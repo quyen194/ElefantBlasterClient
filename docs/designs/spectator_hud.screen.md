@@ -1,48 +1,24 @@
-┌─────────────────────────────────────────────────────────────┐
-│                    SPECTATOR MODE                           │
-└─────────────────────────────────────────────────────────────┘
+# Spectator HUD
 
-┌─────────────────────────────────────────────────────────────┐
-│ [ ← Exit ]  SPECTATING: Player#8888        Room #00123      │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│                    ╔════════════════╗                       │
-│                    ║                ║                       │
-│                    ║   GAME VIEW    ║                       │
-│                    ║                ║                       │
-│                    ║      [🐘]       ║                       │
-│                    ║                ║                       │
-│                    ╚════════════════╝                       │
-│                                                             │
-│  Camera Controls:                                           │
-│  [1] Player#8888  [2] God Of War  [3] BabyBot_v2           │
-│  [4] Big Daddy    [5] Free Camera                          │
-│                                                             │
-│  Playback Speed: [0.5x] [1x] [2x] [4x]                     │
-│                                                             │
-│  ┌─────────────────┐              Live Scoreboard:         │
-│  │   Full Map      │              ┌──────────┬──────┬────┐ │
-│  │   ┌──────────┐  │              │ Player   │ K    │ D  │ │
-│  │   │ x  🐘  o │  │              ├──────────┼──────┼────┤ │
-│  │   │ o  x   x │  │              │ God#War  │ 7    │ 3  │ │
-│  │   │ x  o   🐘│  │              │ Player#8 │ 5    │ 2  │ │
-│  │   │ o  x   o │  │              │ BabyBot  │ 6    │ 4  │ │
-│  │   └──────────┘  │              │ BigDaddy │ 3    │ 5  │ │
-│  └─────────────────┘              └──────────┴──────┴────┘ │
-│                                                             │
-│  Match Info:                                                │
-│  Map: Island Chaos                                          │
-│  Mode: 8P Deathmatch                                        │
-│  Time Elapsed: 05:32                                        │
-│  Time Remaining: 04:28                                      │
-│                                                             │
-│  Kill Feed:                                                 │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │ [05:30] God Of War 💥 Big Daddy                     │    │
-│  │ [05:28] BabyBot_v2 💀 Player#8888                   │    │
-│  │ [05:25] Player#8888 💥 BabyBot_v2                   │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                             │
-├─────────────────────────────────────────────────────────────┤
-│ [1-5] Switch Camera  [Space] Pause  [F] Follow  [M] Map    │
-└─────────────────────────────────────────────────────────────┘
+Mockup: mockups/index.html#spectator · Mobile: landscape · Status: draft
+From: Join Match (Watch), Eliminated, Friends (Watch) · To: Join Match, Post-Game Results
+
+## Purpose
+Watch a live match.
+
+## Elements
+- Top: `Exit`, `SPECTATING · <player>`, `● LIVE`, room id.
+- Left: cameras (players with keys 1–4, `Free camera` 5), match info (map, mode, elapsed / left).
+- Center: map; camera mode `Follow` | `Free cam` | `Overview`.
+- Right: live scoreboard, kill feed.
+- Key hints: 1–5 switch camera, F follow, M map.
+
+## Notes
+- No playback speed while live (cannot run ahead of real time). Speed and seeking belong to
+  the [Replay Viewer](replay_viewer.screen.md).
+
+## Mobile (landscape)
+Map in the center, camera avatars as a column on the left, small scoreboard top-right.
+
+## Server
+Spectator stream (may be delayed a few seconds to prevent ghosting).

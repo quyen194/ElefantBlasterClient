@@ -1,46 +1,26 @@
-┌─────────────────────────────────────────────────────────────┐
-│ ELEFANT BLASTER 2025                            Player#8888 │
-├─────────────────────────────────────────────────────────────┤
-│ [ ← Back ]            DEVELOPER PORTAL                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  API Access                                                 │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │ Your API Token:                                     │    │
-│  │ ┌─────────────────────────────────────────────────┐ │    │
-│  │ │ eb_8888_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9  │ │    │
-│  │ └─────────────────────────────────────────────────┘ │    │
-│  │ [ Copy ]  [ Regenerate Token ]  [ Revoke Token ]    │    │
-│  │                                                     │    │
-│  │ API Status: ● Connected                             │    │
-│  │ Rate Limit: 100 requests/second                     │    │
-│  │ Usage Today: 1,247 / 10,000 requests                │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                             │
-│  Active Bots                                                │
-│  ┌──────────────────┬────────┬─────────┬─────────────────┐  │
-│  │ Bot Name         │ Status │ Ping    │ Last Active     │  │
-│  ├──────────────────┼────────┼─────────┼─────────────────┤  │
-│  │ DestroyerBot_v3  │ ● Live │ 23ms    │ 2 min ago       │  │
-│  │ SmartAI_Beta     │ ○ Off  │ --      │ 3 hours ago     │  │
-│  │ TestBot_001      │ ● Live │ 45ms    │ Just now        │  │
-│  └──────────────────┴────────┴─────────┴─────────────────┘  │
-│                                                             │
-│  Recent API Logs                                            │
-│  ┌────────────┬─────────────────────────────────────────┐   │
-│  │ Time       │ Event                                   │   │
-│  ├────────────┼─────────────────────────────────────────┤   │
-│  │ 14:23:45   │ DestroyerBot_v3 connected to Room #123  │   │
-│  │ 14:20:12   │ TestBot_001 joined match                │   │
-│  │ 14:15:33   │ API rate limit warning (95%)            │   │
-│  └────────────┴─────────────────────────────────────────┘   │
-│                                         [ View Full Logs ]  │
-│                                                             │
-│  Webhooks (Optional)                                        │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │ Endpoint: [________________________________]         │    │
-│  │ Events: [x] Match Start  [x] Match End              │    │
-│  │         [x] Bot Error    [ ] API Quota Warning      │    │
-│  │                                      [ Save ]       │    │
-│  └─────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
+# Developer Portal
+
+Mockup: mockups/index.html#developer · Mobile: portrait · Status: draft
+From: Main Menu, Profile (API Settings) · To: back
+
+## Purpose
+Manage the API token and bots that play through the bot API.
+
+## Elements
+- API access: token (masked, eye to reveal), `Copy`, `Regenerate`, `Revoke`; status; rate limit
+  (100 req/s); usage today (`1,247 / 10,000`) with bar.
+- Webhooks: endpoint URL, events (match start, match end, bot error, quota warning), `Save`.
+- Active bots: name, status (Live / Off), ping, last active.
+- Recent API logs with `View full logs`.
+
+## Actions
+`Regenerate` and `Revoke` ask for confirmation and invalidate the old token immediately.
+
+## States
+No token yet → `Create token`. Quota near limit → warning row in logs.
+
+## Mobile
+Read-only: token (copy), usage, bot status. Webhooks and full logs are desktop only.
+
+## Server
+Token CRUD, usage counters, bot presence, log tail.

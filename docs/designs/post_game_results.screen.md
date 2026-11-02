@@ -1,52 +1,27 @@
-┌─────────────────────────────────────────────────────────────┐
-│ ELEFANT BLASTER 2025                            Player#8888 │
-├─────────────────────────────────────────────────────────────┤
-│                    MATCH RESULTS                            │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│                 🏆 VICTORY! 🏆                              │
-│                                                             │
-│  Match #00123 - Island Chaos - 8P Deathmatch               │
-│  Duration: 10:00                                            │
-│                                                             │
-│  Final Scoreboard                                           │
-│  ┌─────┬─────────────────┬──────┬───────┬──────┬──────┬────┐│
-│  │ Pos │ Player          │ Type │ Score │ K    │ D    │ A  ││
-│  ├─────┼─────────────────┼──────┼───────┼──────┼──────┼────┤│
-│  │ 1st │ God Of War ⭐   │ 👤   │ 2,500 │ 15   │ 6    │ 3  ││
-│  │ 2nd │ Player#8888     │ 👤   │ 2,250 │ 12   │ 7    │ 5  ││
-│  │ 3rd │ BabyBot_v2      │ 🤖   │ 2,100 │ 13   │ 8    │ 2  ││
-│  │ 4th │ Big Daddy       │ 👤   │ 1,850 │ 10   │ 9    │ 4  ││
-│  │ 5th │ TestBot_001     │ 🤖   │ 1,650 │ 9    │ 10   │ 3  ││
-│  │ 6th │ NoobPlayer      │ 👤   │ 1,400 │ 7    │ 12   │ 1  ││
-│  │ 7th │ AFK_Guy         │ 👤   │   850 │ 4    │ 14   │ 0  ││
-│  │ 8th │ BadBot_v1       │ 🤖   │   600 │ 3    │ 15   │ 1  ││
-│  └─────┴─────────────────┴──────┴───────┴──────┴──────┴────┘│
-│                                                             │
-│  Your Performance                                           │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │ Kills           : 12                                │    │
-│  │ Deaths          : 7                                 │    │
-│  │ Assists         : 5                                 │    │
-│  │ K/D Ratio       : 1.71                              │    │
-│  │ Accuracy        : 68%                               │    │
-│  │ Damage Dealt    : 3,450                             │    │
-│  │ Damage Taken    : 2,100                             │    │
-│  │ Headshots       : 4                                 │    │
-│  │ Power-ups Used  : 6                                 │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                             │
-│  Rewards                                                    │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │ Base EXP        : +100                              │    │
-│  │ Victory Bonus   : +50                               │    │
-│  │ Kill Bonus      : +24  (12 kills × 2)               │    │
-│  │ Performance     : +15  (High K/D)                   │    │
-│  │ ─────────────────────────────────────               │    │
-│  │ Total EXP       : +189                              │    │
-│  │                                                     │    │
-│  │ 🎉 Level Up! 42 → 43                                │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                             │
-│  [ Save Replay ]  [ Rematch ]  [ Lobby ]  [ Main Menu ]    │
-└─────────────────────────────────────────────────────────────┘
+# Post-Game Results
+
+Mockup: mockups/index.html#results · Mobile: portrait · Status: draft
+From: Round Result (match over) · To: Match Lobby, Main Menu, Match Replay
+
+## Purpose
+Final standings and what the player earned.
+
+## Elements
+- Banner from the real result: `VICTORY!` for the winner, `DRAW!` when the match ends drawn,
+  otherwise `2ND PLACE!`, `3RD PLACE!`…
+- Round summary: one cell per round played (win star, draw, or the round winner's avatar).
+- `Match #00123 · Island Chaos · 8P Deathmatch · 10:00`.
+- Final scoreboard ordered by round wins, then total score: pos, player (crown on 1st), rounds won,
+  score, K (lives taken), D (lives lost); own row highlighted. Tied players share a position.
+- Your performance: kills, deaths, assists, K/D, power-ups used, blocks destroyed.
+- Rewards: base EXP, placement bonus, kill bonus, performance; total; level-up bar.
+- Actions: `Save Replay`, `Rematch`, `Main Menu`, `Back to Lobby` (primary).
+
+## Training mode
+No rewards block and no level bar; `Watch replay` and `Play again` instead of `Save Replay` / `Rematch`.
+
+## Mobile
+Own result first (place, score, +EXP), rewards, top-5 list, `Back to Lobby` sticky, small secondary row.
+
+## Server
+Final results and EXP breakdown computed by the server.

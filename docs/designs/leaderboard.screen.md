@@ -1,41 +1,30 @@
-┌─────────────────────────────────────────────────────────────┐
-│ ELEFANT BLASTER 2025                            Player#8888 │
-├─────────────────────────────────────────────────────────────┤
-│ [ ← Back ]              LEADERBOARD                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│ [ Players ] [ Bots ] [ Weekly ] [ All Time ]                │
-│                                                             │
-│  Global Top Players                    Season 2025-Q4       │
-│  ┌──────┬──────────────────┬───────┬──────┬───────┬────────┐│
-│  │ Rank │ Player           │ Level │ W/L  │ K/D   │ EXP    ││
-│  ├──────┼──────────────────┼───────┼──────┼───────┼────────┤│
-│  │  #1  │ 👑 GodOfWar      │  99   │ 87%  │ 3.45  │ 99,999 ││
-│  │  #2  │ ProGamer_123     │  95   │ 84%  │ 3.12  │ 89,450 ││
-│  │  #3  │ EliteMaster      │  92   │ 82%  │ 2.98  │ 85,123 ││
-│  │  #4  │ SnipeLord        │  89   │ 80%  │ 2.87  │ 78,901 ││
-│  │  #5  │ TankCommander    │  87   │ 78%  │ 2.65  │ 74,567 ││
-│  │  ... │ ...              │  ...  │ ...  │ ...   │ ...    ││
-│  │ #127 │ ⭐ Player#8888   │  43   │ 60%  │ 1.46  │ 12,450 ││
-│  │  ... │ ...              │  ...  │ ...  │ ...   │ ...    ││
-│  └──────┴──────────────────┴───────┴──────┴───────┴────────┘│
-│                                        Page 1 2 3 ... 1,234 │
-│                                                             │
-│  Top Bots (Developer Ranking)                               │
-│  ┌──────┬──────────────────┬──────────────┬──────┬─────────┐│
-│  │ Rank │ Bot Name         │ Creator      │ W/L  │ Rating  ││
-│  ├──────┼──────────────────┼──────────────┼──────┼─────────┤│
-│  │  #1  │ 🤖 UltimateAI    │ ProCoder     │ 95%  │ 2,850   ││
-│  │  #2  │ 🤖 DeepThink_v7  │ ML_Master    │ 92%  │ 2,720   ││
-│  │  #3  │ 🤖 PerfectShot   │ BotGuru      │ 89%  │ 2,650   ││
-│  │  #4  │ 🤖 SmartElefant  │ CodeNinja    │ 87%  │ 2,580   ││
-│  │  #5  │ 🤖 TacticalBot   │ StrategyKing │ 85%  │ 2,490   ││
-│  │  ... │ ...              │ ...          │ ...  │ ...     ││
-│  │ #45  │ 🤖 DestroyerBot  │ Player#8888  │ 64%  │ 1,850   ││
-│  │  ... │ ...              │ ...          │ ...  │ ...     ││
-│  └──────┴──────────────────┴──────────────┴──────┴─────────┘│
-│                                                             │
-│  Filter: Region [ Global ▼ ]  Time [ This Week ▼ ]         │
-│                                                             │
-│  [ View Your Stats ]  [ Bot Rankings ]  [ Hall of Fame ]   │
-└─────────────────────────────────────────────────────────────┘
+# Leaderboard
+
+Mockup: mockups/index.html#leaderboard · Mobile: portrait · Status: draft
+From: Main Menu, Profile · To: Player Profile
+
+## Purpose
+Ranking of players and of developer bots.
+
+## Elements
+- Tabs: `Players` | `Bots`.
+- Filters: period (`This week` / `Season` / `All time`), region.
+- Podium for the top 3 (avatars, crown on #1).
+- Table: rank, player, level, W/L, K/D, EXP. Bots table: rank, bot, creator, W/L, rating.
+- Your own row (`#127`) always visible and highlighted, even when it is not on the current page.
+
+## Actions
+| Control | Result |
+| --- | --- |
+| Row | Player Profile |
+| Your row | Scroll / page to your position |
+
+## States
+Loading; not ranked yet ("Play 5 ranked matches to get a rank"); guest sees the board without a
+"you" row.
+
+## Mobile
+Podium on top, list with rank, avatar, name, EXP only; "You #127" bar pinned above the tab bar.
+
+## Server
+Paged ranking query by tab + period + region; own rank.

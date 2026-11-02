@@ -1,19 +1,32 @@
-┌─────────────────────────────────────────────────────────────────┐
-│ ELEFANT BLASTER 2025                                Player#8888 │
-├─────────────────────────────────────────────────────────────────┤
-│ [ ← Back ]               JOIN MATCH                             │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│ [ Quick Join ]                                                  │
-│                                                                 │
-│ Search: [____________________]  Maps: [ All ▼]  Allow Bots: [x] │
-│ ┌─────────┬──────────────────┬─────────┬─────┬──────┬─────────┐ │
-│ │   ID    │ Name             │ Map     │ Ply │ Bots │ Status  │ │
-│ ├─────────┼──────────────────┼─────────┼─────┼──────┼─────────┤ │
-│ │  00001  │ Bot Deathmatch   │ Island  │ 7/8 │   4  │ In Game │ │
-│ │  00002  │ Classic 4p       │ Classic │ 3/4 │   0  │ Waiting │ │
-│ │  00003  │ 8P Chaos         │ Canyon  │ 8/8 │   0  │ Locked  │ │
-│ │  00004  │ My Private Test  │ Random  │ 1/8 │   0  │ Waiting │ │
-│ └─────────┴──────────────────┴─────────┴─────┴──────┴─────────┘ │
-│                                             Page 1 2 3 ... 42   │
-└─────────────────────────────────────────────────────────────────┘
+# Join Match
+
+Mockup: mockups/index.html#join · Mobile: portrait · Status: draft
+From: Main Menu · To: Match Lobby, Training Room, Join Private Room, Spectator HUD
+
+## Purpose
+Find a room to join or watch.
+
+## Elements
+- `Quick Join`, `Enter code`, search (name or ID), map filter, `Allow bots`, refresh.
+- Room table: ID, name, map, players (count + fill bar), bots, status, action.
+- Status pills: `Waiting`, `In Game`, `Training`, `Private` (lock), `Locked`.
+- Pagination (desktop).
+
+## Actions
+| Control | Result |
+| --- | --- |
+| Quick Join | First public, unlocked, ranked room with a free slot → Lobby |
+| Join (Waiting / Training) | Lobby / Training Room |
+| Join (Private) | Join Private Room with this room preselected |
+| Watch (In Game) | Spectator HUD |
+| Enter code | Join Private Room |
+
+## States
+Empty ("No rooms yet: create one"), loading, room filled while joining → "Room is full" dialog.
+Guest: every action is `Watch`.
+
+## Mobile
+Each room is a card; infinite scroll; `Quick Join` sticky at the bottom with an `Enter code` icon.
+
+## Server
+Room list with live updates (players, status).

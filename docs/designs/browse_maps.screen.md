@@ -1,40 +1,29 @@
-┌───────────────────────────────────────────────────────────────┐
-│ ELEFANT BLASTER 2025                              Player#8888 │
-├───────────────────────────────────────────────────────────────┤
-│ [ ← Back ]               BROWSE MAP                           │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ [ Create Map ]                                                │
-│                                                               │
-│ Map Filters                                                   │
-│ Name         : [____________________]                         │
-│ Visibility   : [x] Official [x] Public [x] Private            │
-│ ┌─────────────────┬─────────────────┬────────────┬──────────┐ │
-│ │ Name            │ Preview         │ Visibility │ Action   │ │
-│ ├─────────────────┼─────────────────┼────────────┼──────────┤ │
-│ │ Bot Deathmatch  │ ┌─────────────┐ │ Official   │   [♥]    │ │
-│ │                 │ │ x   o   x   │ │            │          │ │
-│ │                 │ │ o    x    o │ │            │ [Clone]  │ │
-│ │                 │ │   x      x  │ │            │          │ │
-│ │                 │ └─────────────┘ │            │          │ │
-│ ├─────────────────┼─────────────────┼────────────┼──────────┤ │
-│ │ Classic 4p      │ ┌─────────────┐ │ Official   │   [♥]    │ │
-│ │                 │ │ x   o   x   │ │            │          │ │
-│ │                 │ │ o    x    o │ │            │ [Clone]  │ │
-│ │                 │ │   x      x  │ │            │          │ │
-│ │                 │ └─────────────┘ │            │          │ │
-│ ├─────────────────┼─────────────────┼────────────┼──────────┤ │
-│ │ 8P Chaos        │ ┌─────────────┐ │ Public     │   [♡]    │ │
-│ │                 │ │ x   o   x   │ │            │          │ │
-│ │                 │ │ o    x    o │ │            │ [Clone]  │ │
-│ │                 │ │   x      x  │ │            │          │ │
-│ │                 │ └─────────────┘ │            │          │ │
-│ ├─────────────────┼─────────────────┼────────────┼──────────┤ │
-│ │ My Private Test │ ┌─────────────┐ │ Private    │   [♥]    │ │
-│ │                 │ │ x   o   x   │ │            │          │ │
-│ │                 │ │ o    x    o │ │            │ [Clone]  │ │
-│ │                 │ │   x      x  │ │            │          │ │
-│ │                 │ └─────────────┘ │            │          │ │
-│ └─────────────────┴─────────────────┴────────────┴──────────┘ │
-│                                           Page 1 2 3 ... 42   │
-└───────────────────────────────────────────────────────────────┘
+# Browse Maps
+
+Mockup: mockups/index.html#browse · Mobile: portrait · Status: draft
+From: Main Menu · To: Map Editor, Create Match
+
+## Purpose
+Discover maps, like them, clone or play them.
+
+## Elements
+- `Create Map`, name search, visibility (Official / Public / Private), players (2–8), sort (most liked, newest),
+  only favourites.
+- Grid of map cards: preview, name, max players (`up to 8`), like (filled heart = liked),
+  visibility pill, author,
+  `Clone`, `Play`.
+- Pagination.
+
+## Actions
+| Control | Result |
+| --- | --- |
+| Heart | Like / unlike |
+| Clone | Copy into your private maps → Map Editor |
+| Play | Create Match with this map selected |
+| Card (mobile) | Map details with the same actions |
+
+## Mobile
+Two-column grid, filter chips, `+` in the top bar.
+
+## Server
+Map list with likes, clone.
