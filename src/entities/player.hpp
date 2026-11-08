@@ -19,7 +19,10 @@
 
 
 // -----------------------------------------------------------------------------
+#include <map>
 #include <string>
+
+#include <aries_base/utils/get_default.hpp>
 
 #include "effects/movement.hpp"
 // -----------------------------------------------------------------------------
@@ -43,10 +46,31 @@ namespace _PlayerNo {
 enum T {
   k1,
   k2,
+  k3,
+  k4,
+  k5,
+  k6,
+  k7,
+  k8,
   kMax,
 };
 }
 typedef _PlayerNo::T PlayerNo;
+// -----------------------------------------------------------------------------
+inline const std::string GetId(const PlayerNo e) {
+  static const std::map<PlayerNo, std::string> kMap = {
+      {PlayerNo::k1,  "PlayerNo_01"},
+      {PlayerNo::k2,  "PlayerNo_02"},
+      {PlayerNo::k3,  "PlayerNo_03"},
+      {PlayerNo::k4,  "PlayerNo_04"},
+      {PlayerNo::k5,  "PlayerNo_05"},
+      {PlayerNo::k6,  "PlayerNo_06"},
+      {PlayerNo::k7,  "PlayerNo_07"},
+      {PlayerNo::k8,  "PlayerNo_08"},
+  };
+
+  return aries_base::utils::GetDefault(kMap, e, std::string("Unknown"));
+}
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------

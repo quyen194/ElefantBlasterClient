@@ -13,6 +13,8 @@
 
 
 // -----------------------------------------------------------------------------
+#include <aries_base/utils/strings.hpp>
+
 #include <glm/glm.hpp>
 
 #include <SDL3/SDL.h>
@@ -21,6 +23,10 @@
 #include "states/match_state.hpp"
 // -----------------------------------------------------------------------------
 
+
+// -----------------------------------------------------------------------------
+using namespace aries_base;
+// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 
@@ -251,28 +257,51 @@ void MatchState::Load() {
         case MapTileType::kBalk:
         case MapTileType::kTeleportGate:
         case MapTileType::kQuarantineZone: {
+          const AssetTexture* asset_texture =
+              asset_manager_.GetAssetTexture(GetId(type));
+          if (!asset_texture) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                         "Match: missing texture '%s' for tile at (%d, %d)",
+                         GetId(type).c_str(), c, r);
+            break;
+          }
           StaticMapTile *obj = new StaticMapTile();
           obj->type = type;
           obj->map_pos = glm::vec2(c, r);
           obj->screen_pos = glm::vec2(c * sprite_size_, r * sprite_size_);
-          AssetTexture aText = asset_manager_.MapTexture(obj->type);
-          obj->texture = aText.sdl_texture;
-          obj->rect = aText.rect;
+          obj->texture = asset_texture->sdl_texture;
+          obj->rect = asset_texture->rect;
           // add to map
           layer_tiles_.push_back(obj);
         } break;
 
         case MapTileType::kDragonEggGst: {
+          const AssetTexture* asset_texture = asset_manager_.GetAssetTexture(
+              GetId(AssetTileType::kDragonEggGst_Ani));
+          if (!asset_texture) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                         "Match: missing texture '%s' for tile at (%d, %d)",
+                         GetId(AssetTileType::kDragonEggGst_Ani).c_str(), c, r);
+            break;
+          }
+          // this animation have background
+          const AssetTexture* aBgText =
+              asset_manager_.GetAssetTexture(GetId(MapTileType::kGrass));
+          if (!aBgText) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                         "Match: missing background '%s' for tile at (%d, %d)",
+                         GetId(MapTileType::kGrass).c_str(), c, r);
+            break;
+          }
           DynamicMapTile *obj = new DynamicMapTile();
           obj->type = type;
           obj->map_pos = glm::vec2(c, r);
           obj->screen_pos = obj->map_pos * sprite_size_;
-          obj->texture = asset_manager_.DragonEggGstTexture();
+          obj->texture = asset_texture->sdl_texture;
           obj->animation = Animation(20, 3.0f);
-          // this animation have background
-          AssetTexture aText = asset_manager_.MapTexture(MapTileType::kGrass);
-          obj->bg_texture = aText.sdl_texture;
-          obj->bg_rect = aText.rect;
+          // background
+          obj->bg_texture = aBgText->sdl_texture;
+          obj->bg_rect = aBgText->rect;
           // add to map
           layer_tiles_.push_back(obj);
           dynamic_tiles_.push_back(obj);
@@ -306,13 +335,20 @@ void MatchState::Load() {
         case SpoilType::kDragonEggAttack:
         case SpoilType::kDragonEggDelay:
         case SpoilType::kDragonEggMystic: {
+          const AssetTexture* asset_texture =
+              asset_manager_.GetAssetTexture(GetId(type));
+          if (!asset_texture) {
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                         "Match: missing texture '%s' for spoil at (%d, %d)",
+                         GetId(type).c_str(), c, r);
+            break;
+          }
           Spoil obj;
           obj.type = type;
           obj.map_pos = glm::vec2(c, r);
           obj.screen_pos = obj.map_pos * sprite_size_;
-          AssetTexture aText = asset_manager_.SpoilTexture(obj.type);
-          obj.texture = aText.sdl_texture;
-          obj.rect = aText.rect;
+          obj.texture = asset_texture->sdl_texture;
+          obj.rect = asset_texture->rect;
           // add to map
           layer_spoils_.push_back(obj);
         } break;
@@ -322,12 +358,13 @@ void MatchState::Load() {
 }
 // -----------------------------------------------------------------------------
 
-void MatchState::UpdatePlayers(json &obj) {
+bool MatchState::UpdatePlayers(json &obj) {
 
+  return false;
 }
 // -----------------------------------------------------------------------------
 
-void MatchState::UpdatePlayer(json &obj) {
+bool MatchState::UpdatePlayer(json &obj) {
   std::string player_id = obj["id"];
 
   Player *player = nullptr;
@@ -343,18 +380,32 @@ void MatchState::UpdatePlayer(json &obj) {
   bool new_player = false;
 
   if (!player) {
-    player = new Player();
+    // player1-xxx
+    std::string index_text =
+        player_id.length() >= 7 ? player_id.substr(6, 1) : "1";
+    int index = utils::FromString<int>(index_text) - 1;
+    PlayerNo player_no = PlayerNo::k1;
+    if (index >= PlayerNo::k1 && index < PlayerNo::kMax) {
+      player_no = static_cast<PlayerNo>(index);
+    }
+    else {
+      SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION,
+                  "Match: invalid player number in id '%s', use player 1",
+                  player_id.c_str());
+    }
+
+    const AssetTexture* asset_texture =
+        asset_manager_.GetAssetTexture(GetId(player_no));
+    if (!asset_texture) {
+      SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                   "Match: missing texture for player '%s'", player_id.c_str());
+      return false;
+    }
+
     new_player = true;
-
-    std::string player_no = player_id.substr(0, 7);
-    if (player_no == "player1") {
-      player->player_no = PlayerNo::k1;
-    }
-    else if (player_no == "player2") {
-      player->player_no = PlayerNo::k2;
-    }
-
-    player->texture = asset_manager_.PlayerTexture(player->player_no);
+    player = new Player();
+    player->player_no = player_no;
+    player->texture = asset_texture->sdl_texture;
   }
 
   player->map_pos.x = obj["currentPosition"]["col"];
@@ -398,6 +449,8 @@ void MatchState::UpdatePlayer(json &obj) {
       player1_ = player;
     }
   }
+
+  return true;
 }
 // -----------------------------------------------------------------------------
 

@@ -32,7 +32,7 @@ using json = nlohmann::json;
 
 class MapUpdater {
  public:
-  virtual void UpdatePlayers(json &obj) = 0;
+  virtual bool UpdatePlayers(json &obj) = 0;
 
  protected:
   ServerMsgType server_msg_type_;

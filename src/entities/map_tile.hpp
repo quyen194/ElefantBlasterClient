@@ -19,6 +19,10 @@
 
 
 // -----------------------------------------------------------------------------
+#include <map>
+#include <string>
+
+#include <aries_base/utils/get_default.hpp>
 #include <glm/glm.hpp>
 #include <SDL3/SDL.h>
 
@@ -35,10 +39,25 @@ enum T {
   kTeleportGate,
   kQuarantineZone,
   kDragonEggGst,
+  kDragonEggGst_Ani,
   kMax,
 };
 }
 typedef _AssetTileType::T AssetTileType;
+// -----------------------------------------------------------------------------
+inline const std::string GetId(const AssetTileType e) {
+  static const std::map<AssetTileType, std::string> kMap = {
+      {AssetTileType::kGrass,             "AssetTileType_Grass"},
+      {AssetTileType::kWall,              "AssetTileType_Wall"},
+      {AssetTileType::kBalk,              "AssetTileType_Balk"},
+      {AssetTileType::kTeleportGate,      "AssetTileType_TeleportGate"},
+      {AssetTileType::kQuarantineZone,    "AssetTileType_QuarantineZone"},
+      {AssetTileType::kDragonEggGst,      "AssetTileType_DragonEggGst"},
+      {AssetTileType::kDragonEggGst_Ani,  "AssetTileType_DragonEggGst_Ani"},
+  };
+
+  return aries_base::utils::GetDefault(kMap, e, std::string("Unknown"));
+}
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -53,6 +72,19 @@ enum T {
 };
 }
 typedef _MapTileType::T MapTileType;
+// -----------------------------------------------------------------------------
+inline const std::string GetId(const MapTileType e) {
+  static const std::map<MapTileType, std::string> kMap = {
+      {MapTileType::kGrass,             "AssetTileType_Grass"},
+      {MapTileType::kWall,              "AssetTileType_Wall"},
+      {MapTileType::kBalk,              "AssetTileType_Balk"},
+      {MapTileType::kTeleportGate,      "AssetTileType_TeleportGate"},
+      {MapTileType::kQuarantineZone,    "AssetTileType_QuarantineZone"},
+      {MapTileType::kDragonEggGst,      "AssetTileType_DragonEggGst"},
+  };
+
+  return aries_base::utils::GetDefault(kMap, e, std::string("Unknown"));
+}
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------

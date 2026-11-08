@@ -50,8 +50,8 @@ class MatchState : public MapUpdater {
  private:
   bool OnHandleKeyInput(Player *player, SDL_KeyboardEvent &event);
 
-  void UpdatePlayers(json &obj);
-  void UpdatePlayer(json &obj);
+  bool UpdatePlayers(json &obj);
+  bool UpdatePlayer(json &obj);
 
   void MovePlayer(Player *player, MoveDir dir);
   void MovePlayer(Player *player, glm::vec2 pos_start, glm::vec2 pos_end);

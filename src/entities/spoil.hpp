@@ -19,6 +19,10 @@
 
 
 // -----------------------------------------------------------------------------
+#include <map>
+#include <string>
+
+#include <aries_base/utils/get_default.hpp>
 #include <glm/glm.hpp>
 // -----------------------------------------------------------------------------
 
@@ -35,6 +39,17 @@ enum T {
 };
 typedef _AssetSpoilType::T AssetSpoilType;
 // -----------------------------------------------------------------------------
+inline const std::string GetId(const AssetSpoilType e) {
+  static const std::map<AssetSpoilType, std::string> kMap = {
+      {AssetSpoilType::kDragonEggMystic,  "AssetSpoilType_DragonEggMystic"},
+      {AssetSpoilType::kDragonEggAttack,  "AssetSpoilType_DragonEggAttack"},
+      {AssetSpoilType::kDragonEggDelay,   "AssetSpoilType_DragonEggDelay"},
+      {AssetSpoilType::kDragonEggSpeed,   "AssetSpoilType_DragonEggSpeed"},
+  };
+
+  return aries_base::utils::GetDefault(kMap, e, std::string("Unknown"));
+}
+// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 namespace _SpoilType {
@@ -46,6 +61,17 @@ enum T {
 };
 };
 typedef _SpoilType::T SpoilType;
+// -----------------------------------------------------------------------------
+inline const std::string GetId(const SpoilType e) {
+  static const std::map<SpoilType, std::string> kMap = {
+      {SpoilType::kDragonEggMystic,  "AssetSpoilType_DragonEggMystic"},
+      {SpoilType::kDragonEggAttack,  "AssetSpoilType_DragonEggAttack"},
+      {SpoilType::kDragonEggDelay,   "AssetSpoilType_DragonEggDelay"},
+      {SpoilType::kDragonEggSpeed,   "AssetSpoilType_DragonEggSpeed"},
+  };
+
+  return aries_base::utils::GetDefault(kMap, e, std::string("Unknown"));
+}
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
