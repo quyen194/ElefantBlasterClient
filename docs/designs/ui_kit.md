@@ -1,6 +1,6 @@
 # UI kit
 
-Mockup: mockups/index.html#uikit · Status: exported 2026-11-02 (136 images)
+Mockup: mockups/index.html#uikit · Status: exported 2026-11-04 (137 images)
 
 The UI kit is the contract between the mockup and the client. Every item on the `#uikit` page is
 exported as one PNG; ImGui draws everything else (text, solid shapes, sprites from the game sheets).

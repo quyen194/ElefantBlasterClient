@@ -8,7 +8,8 @@ Register a new player account.
 
 ## Elements
 - Cloud panel with wood sign `SIGN UP` (needs its own art; the login dialog has "LOGIN" baked in).
-- Fields on `label_input_box.png`: `Account`, `Email` (optional), `Password`, `Confirm`.
+- Fields (label above, kit `input` / `input_focus` + icon, same as Login): `Account`, `Email` (optional),
+  `Password`, `Confirm password`.
 - Password strength bar under Password.
 - `I agree to the Terms of Play` checkbox.
 - `Create Account` button, `I already have an account` link.

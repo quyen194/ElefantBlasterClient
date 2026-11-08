@@ -9,8 +9,8 @@ Sign in with an existing account.
 ## Elements
 - Background art; logo (left on desktop, top on phone).
 - Dialog art `dlg_login_back.png` with:
-  - `Account` field and `Password` field, both drawn on `label_input_box.png`
-    (label in the blue part, value in the white part).
+  - `Account` field and `Password` field: text label above, kit `input` / `input_focus`
+    (9-slice) with `icon_user` / `icon_lock` on the left.
   - `Remember me` checkbox, `Forgot password?` link.
   - `Login` button (primary).
 - Under the logo: connection chip, `Create account`, `Watch as guest`.

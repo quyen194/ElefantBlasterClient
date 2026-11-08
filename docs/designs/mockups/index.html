@@ -212,10 +212,15 @@ main{padding:18px 22px 40px;min-width:0;display:flex;flex-direction:column;gap:1
 .dlg{position:relative;aspect-ratio:1024/1536;flex:none}
 .dlg>img{width:100%;height:100%;display:block}
 .dlg-in{position:absolute;left:14%;right:14%;top:35.5%;bottom:17%;display:flex;flex-direction:column;justify-content:center;gap:var(--g,10px)}
-.lbx{position:relative;width:100%;aspect-ratio:389/104;background:url(../../../assets/graphics/home/label_input_box.png) center/100% 100% no-repeat;flex:none}
-.lbx b{position:absolute;left:3%;width:31%;top:50%;transform:translateY(-55%);text-align:center;color:#fff;font-family:var(--display);font-weight:400;font-size:var(--lf);text-shadow:0 2px 0 #1d3aa8;white-space:nowrap}
-.lbx span{position:absolute;left:40%;right:9%;top:50%;transform:translateY(-55%);color:#9aa5c6;font-weight:900;font-size:var(--lf);white-space:nowrap;overflow:hidden}
-.lbx span.v{color:var(--gtext)}
+.af{display:flex;flex-direction:column;gap:3px;flex:none;min-width:0}
+.af>b{font-family:var(--display);font-weight:400;color:var(--navy);font-size:calc(var(--lf)*.8);letter-spacing:.4px;line-height:1.1;padding-left:4px}
+.af .in{height:calc(var(--lf)*2.2);font-size:var(--lf);padding:0 calc(var(--lf)*.6);gap:calc(var(--lf)*.45)}
+.af .in svg{flex:none;color:#8a96b8}
+.af .in span{flex:1;color:#9aa5c6}
+.af .in span.v{color:var(--gtext)}
+.af.on .in{box-shadow:0 0 0 3px var(--sun)}
+.af.on .in svg{color:var(--navy)}
+.af .caret{flex:none;width:2px;height:1.15em;background:var(--navy);margin-left:-.3em}
 .conn{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:900;font-size:14px;background:rgba(10,24,70,.72);border:2px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:999px}
 .peek{position:absolute;top:-30px}
 
@@ -337,6 +342,7 @@ main{padding:18px 22px 40px;min-width:0;display:flex;flex-direction:column;gap:1
 <script>
 // ---------------------------------------------------------------- icons
 const ICON={
+  mail:['r3,5,18,14,2','M3 7l9 6 9-6'],
   back:['M15 5l-7 7 7 7'],
   home:['M3 11l9-7 9 7','M5 10v10h5v-6h4v6h5V10'],
   trophy:['M7 4h10v5a5 5 0 0 1-10 0z','M7 6H4v1a3 3 0 0 0 3 3','M17 6h3v1a3 3 0 0 1-3 3','M12 14v4','M8 21h8'],
@@ -522,9 +528,14 @@ const S=[];
 const def=(id,name,group,src,render,notes)=>S.push({id,name,group,src,render,notes});
 
 // ---- Login
-function lbx(l,v,fs){return `<div class="lbx" style="--lf:${fs}px"><b>${l}</b><span class="${v&&v!=='Your nickname'?'v':''}">${v}</span></div>`}
+// Field: label above, kit `input` / `input_focus` (on) with a tinted icon_* on the left.
+const AF_IC={Account:'user',Nick:'user',Email:'mail',Password:'lock','New password':'lock','Confirm password':'lock'};
+function authField(l,v,fs,on,ph){
+  const val=v?`<span class="v">${v}</span>`:`<span>${ph||''}</span>`;
+  return `<div class="af${on?' on':''}" style="--lf:${fs}px"><b>${l}</b><div class="in">${ic(AF_IC[l]||'user',Math.round(fs*1.05))}${on&&!v?'<i class="caret"></i>':''}${val}</div></div>`;
+}
 function loginForm(ff,guest,fs){
-  const f=guest?lbx('Nick','Guest#1234',fs):lbx('Account','quyen19492',fs)+lbx('Password','••••••••',fs);
+  const f=guest?authField('Nick','Guest#1234',fs):authField('Account','quyen19492',fs)+authField('Password','••••••••',fs,true);
   const mid=guest?`<p class="hint">Guests can watch matches. Create an account to play.</p>`:`<div class="row sb">${chk('Remember me')}<a class="lnk" href="#forgot">Forgot password?</a></div>`;
   const b=`<a class="btn ${ff==='desktop'?'lg':''} block" href="#menu">${guest?'Watch as Guest':'Login'}</a>`;
   return f+mid+b+(guest?`<a class="lnk c" href="#login">Back to account login</a>`:'');
@@ -557,7 +568,7 @@ function loginScreen(ff,guest){
    </div>`;
 }
 def('login','Login','Vào game','login_as_player.screen.md',ff=>loginScreen(ff,false),{
-  desktop:['Logo bên trái, <b>dlg_login_back</b> bên phải, nền vẽ cover, không bị letterbox.','Hai ô input dùng đúng ảnh <b>label_input_box</b>: chữ label nằm trong phần xanh, giá trị nhập nằm trong phần trắng.','Chip "Connected" đặt dưới logo vì flow ghi là auto-connect central server. Người chơi cần biết đã kết nối được chưa trước khi bấm Login.'],
+  desktop:['Logo bên trái, <b>dlg_login_back</b> bên phải, nền vẽ cover, không bị letterbox.','Ô nhập dùng mảnh kit <b>input</b> / <b>input_focus</b> (9-slice) với icon bên trái (<b>icon_user</b>, <b>icon_lock</b>, tint). Nhãn viết bằng chữ, nằm trên ô. Ô đang gõ (Password) có viền vàng của input_focus.','Chip "Connected" đặt dưới logo vì flow ghi là auto-connect central server. Người chơi cần biết đã kết nối được chưa trước khi bấm Login.'],
   portrait:['Dialog 2:3 vừa khít màn dọc, scale theo chiều rộng nên các hàng input cao khoảng 9mm.','Nền dùng <b>background_v.png</b> (1024×1536), vẽ kiểu cover và neo đáy để hai chú voi luôn hiện. Trên phone 9:20, mỗi bên bị cắt khoảng 16%.','Bàn phím ảo sẽ che phần dưới, nên cần đẩy dialog lên khi focus vào Password.'],
   landscape:['Ảnh dialog dọc ở đây sẽ quá nhỏ, nên mình thay bằng panel mây vẽ bằng code (CSS). Phần này cần artist làm bản <b>dialog ngang</b> hoặc tách lớp.','Hai sprite nhân vật "ló đầu" thay cho hai chú voi có sẵn trong ảnh dialog.','Bàn phím ảo ngang che khoảng 60% chiều cao, nên khi gõ phải cuộn panel lên.'],
   doc:['Bỏ nút <b>[← Back]</b> vì đây là màn đầu tiên.','Thêm <b>Remember me</b> và đổi "Login as Guest" thành link chữ để nút Login là nút chính duy nhất.','Thêm chip trạng thái kết nối server.'],
@@ -1005,9 +1016,9 @@ def('splash','Connecting','Vào game','_ui_flows.md · Launch',ff=>{
 
 def('register','Create Account','Vào game','(mới)',ff=>{
   const d=ff==='desktop',fs=d?20:15;
-  const form=`${lbx('Account','elefant_fan',fs)}${lbx('Email','you@example.com',fs)}${lbx('Password','••••••••••',fs)}
+  const form=`${authField('Account','elefant_fan',fs)}${authField('Email','',fs,false,'you@example.com (optional)')}${authField('Password','••••••••••',fs)}
     <div class="row" style="gap:8px;font-size:12px">${bar(70)}<span class="muted" style="white-space:nowrap">Strong password</span></div>
-    ${lbx('Confirm','••••••••••',fs)}${chk('I agree to the Terms of Play')}
+    ${authField('Confirm password','••••••••••',fs)}${chk('I agree to the Terms of Play')}
     <a class="btn ${d?'lg':''} block" href="#menu">Create Account</a><a class="lnk c" href="#login">I already have an account</a>`;
   const panel=w=>`<div class="cloud" style="width:${w}px;padding:${d?36:30}px ${d?20:14}px ${d?18:14}px;gap:${d?12:9}px">${topSign('SIGN UP',d?24:19)}
     <span class="peek" style="left:-14px">${av('p1',d?48:40)}</span><span class="peek" style="right:-14px">${av('p2',d?48:40)}</span>${form}</div>`;
@@ -1018,7 +1029,7 @@ def('register','Create Account','Vào game','(mới)',ff=>{
     <div style="position:absolute;inset:46px 0 24px;display:flex;flex-direction:column;align-items:center;gap:26px">
       <img src="../../../assets/graphics/home/logo.png" alt="Elefant Blaster" style="width:230px;margin:-26px 0 -36px">${panel(350)}</div>`;
 },{
-  desktop:['Dùng lại bộ ô <b>label_input_box</b> giống Login để hai màn trông cùng một bộ.','Có thanh độ mạnh mật khẩu. Server đã có PBKDF2 nên client chỉ cần kiểm tra độ dài và độ mạnh.','Login có thêm nút "New player? Create account" để dẫn sang màn này.'],
+  desktop:['Dùng cùng kiểu ô với Login (nhãn trên, <b>input</b> + icon). Nhãn dài như "Confirm password" vẫn vừa vì nhãn không bị nhốt trong ảnh.','Có thanh độ mạnh mật khẩu. Server đã có PBKDF2 nên client chỉ cần kiểm tra độ dài và độ mạnh.','Login có thêm nút "New player? Create account" để dẫn sang màn này.'],
   portrait:['Panel mây vẽ bằng code vì ảnh dialog có sẵn chữ "LOGIN". Nếu muốn đồng bộ, cần artist làm thêm bản "SIGN UP" hoặc một dialog không có chữ.','Form có 4 ô nên khi bàn phím ảo mở, cần cuộn tới ô đang focus.'],
   doc:['<b>Màn mới.</b> Doc chỉ có login bằng tài khoản có sẵn, chưa có cách tạo tài khoản.','Email là tuỳ chọn, nhưng nên có để khôi phục mật khẩu sau này.'],
 });
@@ -1120,7 +1131,7 @@ def('forgot','Forgot Password','Vào game','(mới)',ff=>{
     <p class="hint" style="text-align:left">We sent a 6-digit code to <b>q•••••2@gmail.com</b>.</p>
     <div class="code">${'B7K2'.split('').map(c=>`<b>${c}</b>`).join('')}<b class="on"></b><b></b></div>
     <div class="row sb" style="font-size:13px"><span class="muted">Didn't get it?</span><span class="muted">Resend in <b>0:42</b></span></div>
-    ${lbx('New','••••••••••',fs)}${lbx('Confirm','',fs)}
+    ${authField('New password','••••••••••',fs)}${authField('Confirm password','',fs,true,'Type it again')}
     <a class="btn ${d?'lg':''} block" href="#login">Reset Password</a><a class="lnk c" href="#login">Back to login</a>`;
   const panel=w=>`<div class="cloud" style="width:${w}px;padding:${d?36:30}px ${d?20:14}px ${d?18:14}px;gap:${d?12:10}px">${topSign('RESET',d?24:19)}${form}</div>`;
   if(d) return `${bgv(0)}<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,18,58,.55),rgba(8,18,58,0) 45%)"></div>
