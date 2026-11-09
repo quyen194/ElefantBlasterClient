@@ -35,6 +35,8 @@
 #include "entities/spoil.hpp"
 
 #include "core/sdl_state.hpp"
+
+#include "ui/ui_image.hpp"
 // -----------------------------------------------------------------------------
 
 
@@ -42,17 +44,6 @@
 struct AssetTexture {
   SDL_Texture *sdl_texture;
   SDL_FRect rect;
-};
-// -----------------------------------------------------------------------------
-struct UiImage {
-  SDL_Texture* texture = nullptr; // owned by AssetManager
-  ImVec2 size = {};               // 1x design px (w, h)
-  bool has_slice = false;
-  float slice_top = 0.0f;         // 1x px
-  float slice_right = 0.0f;       // 1x px
-  float slice_bottom = 0.0f;      // 1x px
-  float slice_left = 0.0f;        // 1x px
-  bool tint = false;              // should fill color
 };
 // -----------------------------------------------------------------------------
 
