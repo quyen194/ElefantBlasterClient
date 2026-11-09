@@ -191,6 +191,7 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC imgui)
 
 # Optional: define IMGUI_USER_CONFIG if you have a custom config header
 # target_compile_definitions(imgui PUBLIC IMGUI_USER_CONFIG="my_imgui_config.h")
+target_compile_definitions(imgui PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
 
 # Configure SDL by calling its CMake file.
 # we use EXCLUDE_FROM_ALL so that its install targets and configs don't
