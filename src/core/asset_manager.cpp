@@ -52,7 +52,15 @@ constexpr int kUiKitVersion = 1;
 // -----------------------------------------------------------------------------
 
 AssetManager::AssetManager(SDLState& sdl_state)
-    : sdl_state_(sdl_state), sprite_size_(35.0f), ui_kit_scale_(1) {
+    : sdl_state_(sdl_state),
+      font_regular_(nullptr),
+      font_medium_(nullptr),
+      font_bold_(nullptr),
+      font_title_(nullptr),
+      font_body_(nullptr),
+      font_body_strong_(nullptr),
+      sprite_size_(35.0f),
+      ui_kit_scale_(1) {
   instance_ = this;
 }
 // -----------------------------------------------------------------------------
@@ -354,6 +362,7 @@ void AssetManager::Unload() {
 
 bool AssetManager::LoadImFonts() {
   ImGuiIO& io = ImGui::GetIO();
+
   font_regular_ = io.Fonts->AddFontFromFileTTF(
       R("fonts/Roboto-Regular.ttf").string().c_str(),
       24.0f,
@@ -375,8 +384,25 @@ bool AssetManager::LoadImFonts() {
       io.Fonts->GetGlyphRangesVietnamese());
   IM_ASSERT(font_medium_ != nullptr && "Failed to load Roboto Medium");
 
+  ImFontConfig config;
+  config.MergeMode = true;
+
+  font_title_ = io.Fonts->AddFontFromFileTTF(
+      R("fonts/LilitaOne-Regular.ttf").string().c_str(), 0.0f);
+  IM_ASSERT(font_title_ != nullptr && "Failed to load LilitaOne Regular");
+  io.Fonts->AddFontFromFileTTF(
+      R("fonts/Nunito-Black.ttf").string().c_str(), 0.0f, &config);
+
+  font_body_ = io.Fonts->AddFontFromFileTTF(
+      R("fonts/Nunito-Bold.ttf").string().c_str(), 15.0f);
+  IM_ASSERT(font_body_ != nullptr && "Failed to load Nunito Bold");
+
+  font_body_strong_ = io.Fonts->AddFontFromFileTTF(
+      R("fonts/Nunito-Black.ttf").string().c_str(), 0.0f);
+  IM_ASSERT(font_body_strong_ != nullptr && "Failed to load Nunito Black");
+
   // Optional: Set default font for all ImGui
-  io.FontDefault = font_regular_;
+  io.FontDefault = font_body_;
 
   return true;
 }

@@ -73,6 +73,9 @@ class AssetManager {
   ImFont* ImFontRegular() { return font_regular_; }
   ImFont* ImFontMedium() { return font_medium_; }
   ImFont* ImFontBold() { return font_bold_; }
+  ImFont* ImFontTitle() { return font_title_; }
+  ImFont* ImFontBody() { return font_body_; }
+  ImFont* ImFontBodyStrong() { return font_body_strong_; }
 
   float SpriteSize() { return sprite_size_; }
 
@@ -102,6 +105,9 @@ class AssetManager {
   ImFont* font_regular_;
   ImFont* font_medium_;
   ImFont* font_bold_;
+  ImFont* font_title_;
+  ImFont* font_body_;
+  ImFont* font_body_strong_;
 
   float sprite_size_;
 

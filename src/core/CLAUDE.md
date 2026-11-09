@@ -27,4 +27,6 @@ Cleanup runs in reverse in destructors; any `Initialize` failure path must undo 
 
 - Paths: `R(relative)` prefixes the per-platform base (`assets` desktop, `/assets` Web, `""` Android, bundle Resources dir on iOS).
 - Sprite sheets are sliced into `AssetTexture{texture, rect}` per tile/spoil type and per-direction player `Animation`s; `SpriteSize()` is the tile size used by `MatchState` to map grid → screen.
-- Fonts: Roboto Regular/Medium/Bold loaded into ImGui (`ImFontRegular()` etc.).
+- Fonts (ImGui 1.92 dynamic fonts, size chosen at `PushFont(font, size)`):
+  - UI kit: `ImFontTitle()` = Lilita One with Nunito Black merged in (Lilita has no Vietnamese glyphs), `ImFontBody()` = Nunito Bold (default font, base size 15), `ImFontBodyStrong()` = Nunito Black.
+  - Legacy Roboto Regular/Medium/Bold (`ImFontRegular()` etc.) are still loaded until old screens move to the UI kit fonts.
