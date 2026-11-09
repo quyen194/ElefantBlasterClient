@@ -280,11 +280,11 @@ bool AssetManager::LoadUiKit() {
         j_image["slice"].size() == 4 && j_image["slice"][0].is_number() &&
         j_image["slice"][1].is_number() && j_image["slice"][2].is_number() &&
         j_image["slice"][3].is_number()) {
-      const auto& jSlices = j_image["slice"];
-      ui_image.slice_top = jSlices[0].get<float>();
-      ui_image.slice_right = jSlices[1].get<float>();
-      ui_image.slice_bottom = jSlices[2].get<float>();
-      ui_image.slice_left = jSlices[3].get<float>();
+      const auto& j_slices = j_image["slice"];
+      ui_image.slice_top = j_slices[0].get<float>();
+      ui_image.slice_right = j_slices[1].get<float>();
+      ui_image.slice_bottom = j_slices[2].get<float>();
+      ui_image.slice_left = j_slices[3].get<float>();
       ui_image.has_slice = true;
 
       if (ui_image.slice_left + ui_image.slice_right > ui_image.size.x ||

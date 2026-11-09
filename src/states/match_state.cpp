@@ -285,9 +285,9 @@ void MatchState::Load() {
             break;
           }
           // this animation have background
-          const AssetTexture* aBgText =
+          const AssetTexture* asset_bg_texture =
               asset_manager_.GetAssetTexture(GetId(MapTileType::kGrass));
-          if (!aBgText) {
+          if (!asset_bg_texture) {
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                          "Match: missing background '%s' for tile at (%d, %d)",
                          GetId(MapTileType::kGrass).c_str(), c, r);
@@ -300,8 +300,8 @@ void MatchState::Load() {
           obj->texture = asset_texture->sdl_texture;
           obj->animation = Animation(20, 3.0f);
           // background
-          obj->bg_texture = aBgText->sdl_texture;
-          obj->bg_rect = aBgText->rect;
+          obj->bg_texture = asset_bg_texture->sdl_texture;
+          obj->bg_rect = asset_bg_texture->rect;
           // add to map
           layer_tiles_.push_back(obj);
           dynamic_tiles_.push_back(obj);
