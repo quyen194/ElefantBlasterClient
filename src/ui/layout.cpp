@@ -54,8 +54,9 @@ ImVec2 Layout::FromBottomRight(float dx, float dy) const {
 // -----------------------------------------------------------------------------
 
 Layout ComputeLayout(ImVec2 display, const SDL_Rect& safe) {
-  ImVec2 safe_min((float)safe.x, (float)safe.y);
-  ImVec2 safe_max((float)(safe.x + safe.w), (float)(safe.y + safe.h));
+  ImVec2 safe_min(static_cast<float>(safe.x), static_cast<float>(safe.y));
+  ImVec2 safe_max(static_cast<float>(safe.x + safe.w),
+                  static_cast<float>(safe.y + safe.h));
 
   Layout l;
   l.display = display;

@@ -80,7 +80,28 @@ bool AssetManager::Load() {
   AssetTexture asset_texture;
   SDL_Texture *texture;
 
-  texture = loadTexture(renderer, R("graphics/tilesets/map.png"));
+  // load horizontal background
+  if (!LoadStaticTexture(
+          renderer, "home/background_h", R("graphics/home/background_h.png"))) {
+    return false;
+  }
+  // load vertical background
+  if (!LoadStaticTexture(
+          renderer, "home/background_v", R("graphics/home/background_v.png"))) {
+    return false;
+  }
+  // load dialog login background
+  if (!LoadStaticTexture(renderer,
+                         "home/dlg_login_back",
+                         R("graphics/home/dlg_login_back.png"))) {
+    return false;
+  }
+  // load logo
+  if (!LoadStaticTexture(renderer, "home/logo", R("graphics/home/logo.png"))) {
+    return false;
+  }
+
+  texture = LoadTexture(renderer, R("graphics/tilesets/map.png"));
   if (!texture) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                  "Assets: abort load, missing map tileset");
@@ -104,7 +125,7 @@ bool AssetManager::Load() {
   asset_texture.rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
   asset_textures_.insert_or_assign(GetId(AssetTileType::kDragonEggGst), asset_texture);
 
-  texture = loadTexture(renderer, R("graphics/animations/dragon_egg_gst.png"));
+  texture = LoadTexture(renderer, R("graphics/animations/dragon_egg_gst.png"));
   if (!texture) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                  "Assets: abort load, missing dragon egg GST animation");
@@ -115,7 +136,7 @@ bool AssetManager::Load() {
   asset_texture.rect = { 0, 0, sprite_size_, sprite_size_ };
   asset_textures_.insert_or_assign(GetId(AssetTileType::kDragonEggGst_Ani), asset_texture);
 
-  texture = loadTexture(renderer, R("graphics/tilesets/spoils.png"));
+  texture = LoadTexture(renderer, R("graphics/tilesets/spoils.png"));
   if (!texture) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                  "Assets: abort load, missing spoil tileset");
@@ -135,7 +156,7 @@ bool AssetManager::Load() {
 
   for (int i = 0; i < PlayerNo::kMax; i++) {
     std::string filename = utils::string_format("player%02d.png", i + 1);
-    texture = loadTexture(renderer, R("graphics/animations/" + filename));
+    texture = LoadTexture(renderer, R("graphics/animations/" + filename));
     if (!texture) {
       SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                    "Assets: abort load, missing player %d animation", i + 1);
@@ -321,7 +342,7 @@ bool AssetManager::LoadUiKit() {
       ui_image.tint = j_image["tint"].get<bool>();
     }
 
-    SDL_Texture* texture = loadTexture(
+    SDL_Texture* texture = LoadTexture(
         renderer, R("graphics/ui/" + filename), SDL_SCALEMODE_LINEAR);
     if (!texture) {
       continue;
@@ -493,7 +514,30 @@ std::filesystem::path AssetManager::R(std::filesystem::path path) {
 }
 // -----------------------------------------------------------------------------
 
-SDL_Texture* AssetManager::loadTexture(SDL_Renderer* renderer,
+bool AssetManager::LoadStaticTexture(SDL_Renderer* renderer,
+                                     const std::string& id,
+                                     const std::filesystem::path& filepath,
+                                     SDL_ScaleMode scale_mode) {
+  SDL_Texture *texture = LoadTexture(renderer, filepath, scale_mode);
+  if (!texture) {
+    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                 "Assets: abort load, missing '%s' (%s)",
+                 id.c_str(),
+                 filepath.string().c_str());
+    return false;
+  }
+
+  AssetTexture asset_texture;
+  asset_texture.sdl_texture = texture;
+  asset_texture.rect = {
+      0, 0, static_cast<float>(texture->w), static_cast<float>(texture->h)};
+  asset_textures_.insert_or_assign(id, asset_texture);
+
+  return true;
+}
+// -----------------------------------------------------------------------------
+
+SDL_Texture* AssetManager::LoadTexture(SDL_Renderer* renderer,
                                        const std::filesystem::path& filepath,
                                        SDL_ScaleMode scale_mode) {
   SDL_Texture *tex = IMG_LoadTexture(renderer, filepath.string().c_str());

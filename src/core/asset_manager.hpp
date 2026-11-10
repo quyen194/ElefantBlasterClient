@@ -82,16 +82,16 @@ class AssetManager {
   bool LoadUiKit();
   void Unload();
   static std::filesystem::path R(std::filesystem::path path);
-  SDL_Texture* loadTexture(SDL_Renderer* renderer,
+  bool LoadStaticTexture(SDL_Renderer* renderer,
+                         const std::string& id,
+                         const std::filesystem::path& filepath,
+                         SDL_ScaleMode scale_mode = SDL_SCALEMODE_LINEAR);
+  SDL_Texture* LoadTexture(SDL_Renderer* renderer,
                            const std::filesystem::path& filepath,
                            SDL_ScaleMode scale_mode = SDL_SCALEMODE_NEAREST);
 
  private:
   SDLState &sdl_state_;
-
-  AssetTexture background_h_;
-  AssetTexture background_v_;
-  AssetTexture dialog_login_bg_v_;
 
   ImFont* font_regular_;
   ImFont* font_medium_;
