@@ -36,6 +36,9 @@ constexpr ImU32 kGtext = IM_COL32(0x1b, 0x2a, 0x55, 0xff);
 constexpr ImU32 kP1 = IM_COL32(0xff, 0x9f, 0x1a, 0xff);
 constexpr ImU32 kP2 = IM_COL32(0x3a, 0xa8, 0xff, 0xff);
 constexpr ImU32 kWhite = IM_COL32(0xff, 0xff, 0xff, 0xff);
+constexpr ImU32 kHint = IM_COL32(0x9a, 0xa5, 0xc6, 0xff);
+constexpr ImU32 kIconIdle = IM_COL32(0x8a, 0x96, 0xb8, 0xff);
+constexpr ImU32 kLink = IM_COL32(0x1f, 0x5f, 0xd1, 0xff);
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------

@@ -35,6 +35,19 @@ bool GameButton(const char* id,
                 float scale,
                 bool enabled = true);
 // -----------------------------------------------------------------------------
+// Label above a 9-slice input box with a tinted icon on the left.
+// Returns true when Enter is pressed (if flags has EnterReturnsTrue).
+bool AuthField(const char* id,
+               const char* label,
+               const char* icon,
+               const char* hint,
+               char* buf,
+               size_t buf_size,
+               ImGuiInputTextFlags flags,
+               float fs,
+               float scale,
+               float width);
+// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 } // namespace ui

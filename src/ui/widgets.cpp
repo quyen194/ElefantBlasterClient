@@ -114,6 +114,76 @@ bool GameButton(const char* id,
 }
 // -----------------------------------------------------------------------------
 
+bool AuthField(const char* id,
+               const char* label,
+               const char* icon,
+               const char* hint,
+               char* buf,
+               size_t buf_size,
+               ImGuiInputTextFlags flags,
+               float fs,
+               float scale,
+               float width) {
+  AssetManager& asset_manager = AssetManager::Instance();
+  ImDrawList* dl = ImGui::GetWindowDrawList();
+
+  // 1. Label (drawn directly, then the cursor is moved below it by hand)
+  ImVec2 top = ImGui::GetCursorScreenPos();
+  float label_px = fs * 0.8f * scale;
+  ImGui::PushFont(asset_manager.ImFontTitle(), label_px);
+  dl->AddText({top.x + 4.0f * scale, top.y}, kNavy, label);
+  ImGui::PopFont();
+
+  // 2. Box geometry
+  float text_px = fs * scale;
+  ImVec2 size = {width, fs * 2.2f * scale};
+  ImVec2 box_min(top.x, top.y + label_px * 1.1f + 3.0f * scale);
+  ImVec2 box_max = box_min + size;
+
+  // 3. Foreground channel: transparent InputText over the box
+  dl->ChannelsSplit(2);
+  dl->ChannelsSetCurrent(1);  // foreground: InputText draws here
+
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, 0);
+  ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, 0);
+  ImGui::PushStyleColor(ImGuiCol_FrameBgActive, 0);
+  ImGui::PushStyleColor(ImGuiCol_Text, kGtext);
+  ImGui::PushStyleColor(ImGuiCol_TextDisabled, kHint);
+  ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, 0.0f);
+  float pad_left = (0.6f + 1.05f + 0.45f) * fs * scale;
+  float pad_top = (size.y - text_px) / 2;
+  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {pad_left, pad_top});
+  ImGui::PushFont(asset_manager.ImFontBody(), text_px);
+
+  ImGui::SetCursorScreenPos(box_min);
+  ImGui::SetNextItemWidth(width);
+  bool result = ImGui::InputTextWithHint(id, hint, buf, buf_size, flags);
+  bool active = ImGui::IsItemActive();  // now refers to the InputText
+
+  ImGui::PopFont();
+  ImGui::PopStyleVar(2);
+  ImGui::PopStyleColor(5);
+
+  // 4. Background channel: box + icon, drawn below the text
+  dl->ChannelsSetCurrent(0);  // background: drawn below channel 1
+
+  if (const UiImage* box = asset_manager.GetUiImage(active ? "input_focus" : "input")) {
+    DrawNineSlice(dl, *box, box_min, box_max, scale);
+  }
+  if (const UiImage* ic = asset_manager.GetUiImage(icon)) {
+    float s = 1.05f * fs * scale;
+    ImVec2 ic_min(box_min.x + 0.6f * fs * scale,
+                  box_min.y + (size.y - s) * 0.5f);
+    DrawImage(
+        dl, *ic, ic_min, ic_min + ImVec2(s, s), active ? kNavy : kIconIdle);
+  }
+
+  dl->ChannelsMerge();
+
+  return result;
+}
+// -----------------------------------------------------------------------------
+
 // -----------------------------------------------------------------------------
 } // namespace ui
 // -----------------------------------------------------------------------------
