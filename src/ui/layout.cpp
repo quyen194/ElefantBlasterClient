@@ -38,6 +38,11 @@ ImVec2 Layout::S(float w, float h) const { return ImVec2(w, h) * scale; }
 float Layout::S(float v) const { return v * scale; }
 // -----------------------------------------------------------------------------
 
+Rect Layout::R(float x, float y, float w, float h) const {
+  return {P(x, y), P(x + w, y + h)};
+}
+// -----------------------------------------------------------------------------
+
 ImVec2 Layout::FromRight(float dx, float y) const {
   return ImVec2(safe_max.x - dx * scale, origin.y + y * scale);
 }

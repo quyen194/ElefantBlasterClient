@@ -34,6 +34,15 @@ constexpr ImVec2 kDesignPortrait = {390.0f, 844.0f};
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
+
+struct Rect {
+  ImVec2 min;
+  ImVec2 max;
+  ImVec2 Size() const { return max - min; }
+};
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 // Maps design-space coordinates (1x mockup px) to screen coordinates.
 struct Layout {
   ImVec2 display = {};  // io.DisplaySize (window points)
@@ -47,6 +56,10 @@ struct Layout {
   ImVec2 P(float x, float y) const;   // design point  -> screen point
   ImVec2 S(float w, float h) const;   // design size   -> screen size
   float S(float v) const;             // design length -> screen length
+  Rect R(float x,
+         float y,
+         float w,
+         float h) const;              // design rect -> screen rect
   ImVec2 FromRight(float dx, float y) const;    // dx from safe right edge
   ImVec2 FromBottom(float x, float dy) const;   // dy from safe bottom edge
   ImVec2 FromBottomRight(float dx, float dy) const;
