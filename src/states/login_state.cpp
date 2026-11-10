@@ -18,6 +18,7 @@
 #include <imgui_impl_sdlrenderer3.h>
 
 #include "states/login_state.hpp"
+#include "ui/colors.hpp"
 #include "ui/draw.hpp"
 #include "ui/layout.hpp"
 #include "ui/widgets.hpp"
@@ -28,14 +29,27 @@
 namespace {
 // -----------------------------------------------------------------------------
 struct LoginDesign {
-  float logo[4];  // x, y, w, h (design px)
+  float logo[4];    // x, y, w, h (design px)
   float dialog[4];
   float form[4];
+  float fs;         // auth field font size
+  float gap;        // vertical gap between form rows
+  float button_h;   // Login button height
 };
-constexpr LoginDesign kLoginLandscape = {
-    {164, 231, 560, 373}, {849, 109, 487, 730}, {917, 368, 351, 347}};
-constexpr LoginDesign kLoginPortrait = {
-    {45, 32, 300, 200}, {15, 225, 360, 540}, {62, 417, 266, 256}};
+constexpr LoginDesign kLoginLandscape = {{164, 231, 560, 373},  // logo
+                                         {849, 109, 487, 730},  // dialog
+                                         {917, 368, 351, 347},  // form
+                                         22,                    // fs
+                                         14,                    // gap
+                                         61};                   // button_h
+constexpr LoginDesign kLoginPortrait = {{45, 32, 300, 200},     // logo
+                                        {15, 225, 360, 540},    // dialog
+                                        {62, 417, 266, 256},    // form
+                                        16,                     // fs
+                                        10,                     // gap
+                                        48};                    // button_h
+constexpr float kRowH = 22.0f;      // "Remember me" row height (design px)
+constexpr float kRowFont = 15.0f;   // "Remember me" / link font size
 // -----------------------------------------------------------------------------
 } // namespace
 // -----------------------------------------------------------------------------
@@ -48,7 +62,9 @@ LoginState::LoginState(SDLState& sdl_state,
     : sdl_state_(sdl_state),
       asset_manager_(asset_manager),
       imgui_state_(imgui_state),
-      username_{0} {}
+      username_{0},
+      password_{0},
+      remember_(false) {}
 // -----------------------------------------------------------------------------
 
 LoginState::~LoginState() {
@@ -74,6 +90,7 @@ void LoginState::OnDraw() {
   ui::Rect dialog = L.R(d.dialog[0], d.dialog[1], d.dialog[2], d.dialog[3]);
   ui::Rect form = L.R(d.form[0], d.form[1], d.form[2], d.form[3]);
 
+  // draw background
   ImDrawList* bg = ImGui::GetBackgroundDrawList();
   const AssetTexture* bg_tex = asset_manager_.GetAssetTexture(
       L.portrait ? "home/background_v" : "home/background_h");
@@ -84,6 +101,8 @@ void LoginState::OnDraw() {
                   {0, 0},
                   L.display);
   }
+
+  // draw veil
   const ImU32 veil_dark  = IM_COL32(8, 18, 58, 140);   // .55
   const ImU32 veil_light = IM_COL32(8, 18, 58, 26);    // .10
   const ImU32 veil_clear = IM_COL32(8, 18, 58, 0);     // 0
@@ -106,13 +125,120 @@ void LoginState::OnDraw() {
                                 veil_clear,  // bottom right
                                 veil_dark);  // bottom left
   }
+
+  // draw logo
   if (const AssetTexture* t = asset_manager_.GetAssetTexture("home/logo")) {
     bg->AddImage(ui::TexRef(t->sdl_texture), logo.min, logo.max);
   }
+
+  // draw dialog
   if (const AssetTexture* t =
           asset_manager_.GetAssetTexture("home/dlg_login_back")) {
     bg->AddImage(ui::TexRef(t->sdl_texture), dialog.min, dialog.max);
   }
+
+  // draw form
+  const float s = L.scale;
+  const float w = form.Size().x;
+  const float field_h = d.fs * 0.8f * 1.1f + 3.0f + d.fs * 2.2f;  // design px
+  const float total_h = (2 * field_h + kRowH + d.button_h + 3 * d.gap) * s;
+
+  ImGui::SetNextWindowPos(form.min);
+  ImGui::SetNextWindowSize(form.Size());
+  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, {0.0f, 0.0f});  // before Begin
+  ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, {0.0f, d.gap * s});
+  ImGui::Begin("##login_form",
+               nullptr,
+               ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground |
+                   ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
+
+  // centre the whole stack vertically inside the form rect
+  ImGui::SetCursorPosY((form.Size().y - total_h) * 0.5f);
+
+  // Account + Password
+  ui::AuthField("##account",
+                "Account",
+                "icon_user",
+                "Your account",
+                username_,
+                sizeof(username_),
+                0,
+                d.fs,
+                s,
+                w);
+  bool submit = ui::AuthField(
+      "##password",
+      "Password",
+      "icon_lock",
+      "Password",
+      password_,
+      sizeof(password_),
+      ImGuiInputTextFlags_Password | ImGuiInputTextFlags_EnterReturnsTrue,
+      d.fs,
+      s,
+      w);
+
+  // Remember me (left) + Forgot password? (right)
+  ImDrawList* dl = ImGui::GetWindowDrawList();
+  ImGui::PushFont(asset_manager_.ImFontBodyStrong(), kRowFont * s);
+  const float row_h = kRowH * s;
+  const float text_y_off = (row_h - kRowFont * s) * 0.5f;
+
+  const char* kRemember = "Remember me";
+  const float box = 22.0f * s;
+  const float gap_x = 8.0f * s;
+  ImVec2 row_min = ImGui::GetCursorScreenPos();
+  float remember_w = box + gap_x + ImGui::CalcTextSize(kRemember).x;
+  if (ImGui::InvisibleButton("##remember", {remember_w, row_h})) {
+    remember_ = !remember_;
+  }
+  if (const UiImage* img = asset_manager_.GetUiImage(
+          remember_ ? "checkbox_on" : "checkbox_off")) {
+    ImVec2 b_min(row_min.x, row_min.y + (row_h - box) * 0.5f);
+    ui::DrawImage(dl, *img, b_min, b_min + ImVec2(box, box));
+  }
+  dl->AddText(
+      {row_min.x + box + gap_x, row_min.y + text_y_off}, ui::kGtext, kRemember);
+
+  const char* kForgot = "Forgot password?";
+  float forgot_w = ImGui::CalcTextSize(kForgot).x;
+  ImGui::SameLine(w - forgot_w);                 // right-aligned
+  ImVec2 link_min = ImGui::GetCursorScreenPos();
+  if (ImGui::InvisibleButton("##forgot", {forgot_w, row_h})) {
+    SDL_Log("Login: forgot password clicked");   // TODO: go to Forgot Password
+  }
+  bool link_hover = ImGui::IsItemHovered();
+  if (link_hover) {
+    ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+  }
+  ImU32 link_col = link_hover ? ui::kNavy : ui::kLink;
+  float text_y = link_min.y + text_y_off;
+  dl->AddText({link_min.x, text_y}, link_col, kForgot);
+  dl->AddLine({link_min.x, text_y + kRowFont * s + 1.0f * s},
+              {link_min.x + forgot_w, text_y + kRowFont * s + 1.0f * s},
+              link_col, 1.5f * s);
+  ImGui::PopFont();
+
+  // Login button (disabled while a field is empty)
+  bool can_submit = username_[0] != '\0' && password_[0] != '\0';
+  if (ui::GameButton("##login", "Login", "yellow", {w, d.button_h * s}, s,
+                     can_submit)) {
+    submit = true;
+  }
+
+  ImGui::End();
+  ImGui::PopStyleVar(2);   // ItemSpacing, WindowPadding
+
+  if (submit && can_submit) {
+    OnSubmit();
+  }
+}
+// -----------------------------------------------------------------------------
+
+void LoginState::OnSubmit() {
+  // Never log the password.
+  SDL_Log("Login: submit account '%s' (remember=%d)", username_, remember_);
+  // TODO(4e): send to server, switch to Sending state
 }
 // -----------------------------------------------------------------------------
 

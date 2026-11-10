@@ -44,12 +44,16 @@ class LoginState {
  private:
   void Cleanup();
 
+  void OnSubmit();
+
  private:
   SDLState &sdl_state_;
   AssetManager &asset_manager_;
   ImguiState& imgui_state_;
 
-  char username_[32];
+  char username_[64];
+  char password_[64];
+  bool remember_;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(LoginState);
