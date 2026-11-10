@@ -106,6 +106,7 @@ void ImguiState::BeginFrame() {
 
   ImGuiIO& io = ImGui::GetIO();
   if (io.DisplaySize.x > 0.0f && io.DisplaySize.y > 0.0f) {
+    // TODO(ui): use ui::ComputeLayout() here once all screens use ui::Layout (Phase 4).
     float ui_scale = std::min(io.DisplaySize.x / sdl_state_.LogW(),
                               io.DisplaySize.y / sdl_state_.LogH());
     if (ui_scale != ui_scale_) {

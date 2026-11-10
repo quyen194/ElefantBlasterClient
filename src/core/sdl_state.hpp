@@ -37,6 +37,8 @@ class SDLState {
 
   void ShowWindow();
 
+  SDL_Rect SafeArea() const;
+
   bool IsInited();
 
   inline void SetWidth(int value) { width_ = value; }
@@ -46,7 +48,9 @@ class SDLState {
   inline int Height() const { return height_; }
   inline int LogW() const { return logW_; }
   inline int LogH() const { return logH_; }
-  inline SDL_RendererLogicalPresentation PresentationMode() const { return presentation_mode_; }
+  inline SDL_RendererLogicalPresentation PresentationMode() const {
+    return presentation_mode_;
+  }
 
   SDL_Window *Window() const { return window_; }
   SDL_Renderer *Renderer() const { return renderer_; }

@@ -153,3 +153,17 @@ void SDLState::ShowWindow() {
   }
 }
 // -----------------------------------------------------------------------------
+
+SDL_Rect SDLState::SafeArea() const {
+  SDL_Rect rect;
+  if (!SDL_GetWindowSafeArea(window_, &rect)) {
+    int w = 0, h = 0;
+    SDL_GetWindowSize(window_, &w, &h);
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = w;
+    rect.h = h;
+  }
+  return rect;
+}
+// -----------------------------------------------------------------------------
