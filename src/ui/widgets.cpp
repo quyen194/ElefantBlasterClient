@@ -59,7 +59,8 @@ bool GameButton(const char* id,
                 const char* variant,
                 ImVec2 size,
                 float scale,
-                bool enabled) {
+                bool enabled,
+                float font_px) {
   AssetManager& asset_manager = AssetManager::Instance();
 
   if (!enabled) {
@@ -90,10 +91,11 @@ bool GameButton(const char* id,
     dl->AddRectFilled(p_min, p_max, kSun, 8.0f * scale);
   }
   else {
-    DrawNineSlice(dl, *ui_image, p_min, p_max, scale);
+    ImVec2 m(kKitMargin * scale, kKitMargin * scale);
+    DrawNineSlice(dl, *ui_image, p_min - m, p_max + m, scale);
   }
 
-  ImGui::PushFont(asset_manager.ImFontTitle(), 20.0f * scale);
+  ImGui::PushFont(asset_manager.ImFontTitle(), font_px * scale);
 
   const char* label_end = ImGui::FindRenderedTextEnd(label);
   ImVec2 ts = ImGui::CalcTextSize(label, label_end);
@@ -167,8 +169,9 @@ bool AuthField(const char* id,
   // 4. Background channel: box + icon, drawn below the text
   dl->ChannelsSetCurrent(0);  // background: drawn below channel 1
 
+  ImVec2 m(kKitMargin * scale, kKitMargin * scale);
   if (const UiImage* box = asset_manager.GetUiImage(active ? "input_focus" : "input")) {
-    DrawNineSlice(dl, *box, box_min, box_max, scale);
+    DrawNineSlice(dl, *box, box_min - m, box_max + m, scale);
   }
   if (const UiImage* ic = asset_manager.GetUiImage(icon)) {
     float s = 1.05f * fs * scale;

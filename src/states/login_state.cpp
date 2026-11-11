@@ -195,7 +195,8 @@ void LoginState::OnDraw() {
   if (const UiImage* img = asset_manager_.GetUiImage(
           remember_ ? "checkbox_on" : "checkbox_off")) {
     ImVec2 b_min(row_min.x, row_min.y + (row_h - box) * 0.5f);
-    ui::DrawImage(dl, *img, b_min, b_min + ImVec2(box, box));
+    ImVec2 m(ui::kKitMargin * s, ui::kKitMargin * s);
+    ui::DrawImage(dl, *img, b_min - m, b_min + ImVec2(box, box) + m);
   }
   dl->AddText(
       {row_min.x + box + gap_x, row_min.y + text_y_off}, ui::kGtext, kRemember);

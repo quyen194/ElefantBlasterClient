@@ -33,6 +33,12 @@ namespace ui {
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
+// UI kit PNGs are exported with this pad (1x px) around the CSS box; it holds
+// overflow such as shadows and focus rings. Draw kit images outset by it.
+constexpr float kKitMargin = 10.0f;
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 ImTextureRef TexRef(SDL_Texture* tex);
 
 void DrawImage(ImDrawList* dl,

@@ -33,7 +33,8 @@ bool GameButton(const char* id,
                 const char* variant,
                 ImVec2 size,
                 float scale,
-                bool enabled = true);
+                bool enabled = true,
+                float font_px = 20.0f);
 // -----------------------------------------------------------------------------
 // Label above a 9-slice input box with a tinted icon on the left.
 // Returns true when Enter is pressed (if flags has EnterReturnsTrue).
