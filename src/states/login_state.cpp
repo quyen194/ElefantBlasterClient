@@ -28,6 +28,8 @@
 // -----------------------------------------------------------------------------
 namespace {
 // -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 struct LoginDesign {
   float logo[4];    // x, y, w, h (design px)
   float dialog[4];
@@ -35,21 +37,70 @@ struct LoginDesign {
   float fs;         // auth field font size
   float gap;        // vertical gap between form rows
   float button_h;   // Login button height
+  float chip[4];    // connection chip (x, y, w, h)
+  float create[4];  // "Create account" ghost button
+  float guest[4];   // "Watch as guest" ghost button
+  float link_fs;    // ghost button font size
 };
+// -----------------------------------------------------------------------------
+
 constexpr LoginDesign kLoginLandscape = {{164, 231, 560, 373},  // logo
                                          {849, 109, 487, 730},  // dialog
                                          {917, 368, 351, 347},  // form
                                          22,                    // fs
                                          14,                    // gap
-                                         61};                   // button_h
+                                         61,                    // button_h
+                                         {355, 622, 178, 33},   // chip
+                                         {239, 673, 200, 50},   // create
+                                         {449, 673, 200, 50},   // guest
+                                         20};                   // link_fs
+
 constexpr LoginDesign kLoginPortrait = {{45, 32, 300, 200},     // logo
                                         {15, 225, 360, 540},    // dialog
                                         {62, 417, 266, 256},    // form
                                         16,                     // fs
                                         10,                     // gap
-                                        48};                    // button_h
+                                        48,                     // button_h
+                                        {49, 787, 70, 33},      // chip
+                                        {127, 787, 133, 33},    // create
+                                        {268, 787, 74, 33},     // guest
+                                        15};                    // link_fs
+
 constexpr float kRowH = 22.0f;      // "Remember me" row height (design px)
 constexpr float kRowFont = 15.0f;   // "Remember me" / link font size
+constexpr const char* kClientVersion = "v0.3.0-dev";  // TODO: from CMake
+constexpr ImGuiWindowFlags kOverlayFlags =
+    ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground |
+    ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
+// -----------------------------------------------------------------------------
+
+void DrawStatusChip(ImDrawList* dl,
+                    AssetManager& am,
+                    const ui::Rect& r,
+                    ImU32 dot_col,
+                    const char* text,
+                    float s) {
+  if (const UiImage* img = am.GetUiImage("status_chip")) {
+    ImVec2 m(ui::kKitMargin * s, ui::kKitMargin * s);
+    ui::DrawNineSlice(dl, *img, r.min - m, r.max + m, s);
+  }
+
+  const float h = r.Size().y;
+  ImVec2 dot(r.min.x + h * 0.5f, r.min.y + h * 0.5f);
+
+  dl->AddCircleFilled(
+      dot, 7.5f * s, (dot_col & ~IM_COL32_A_MASK) | IM_COL32(0, 0, 0, 64));
+  dl->AddCircleFilled(dot, 4.5f * s, dot_col);
+
+  ImFont* font = am.ImFontBodyStrong();
+  const float px = 14.0f * s;
+
+  ImVec2 pos(dot.x + 12.5f * s, r.min.y + (h - px) * 0.5f);
+
+  dl->AddText(font, px, pos, ui::kWhite, text);
+}
+// -----------------------------------------------------------------------------
+
 // -----------------------------------------------------------------------------
 } // namespace
 // -----------------------------------------------------------------------------
@@ -89,6 +140,9 @@ void LoginState::OnDraw() {
   ui::Rect logo = L.R(d.logo[0], d.logo[1], d.logo[2], d.logo[3]);
   ui::Rect dialog = L.R(d.dialog[0], d.dialog[1], d.dialog[2], d.dialog[3]);
   ui::Rect form = L.R(d.form[0], d.form[1], d.form[2], d.form[3]);
+  ui::Rect chip = L.R(d.chip[0], d.chip[1], d.chip[2], d.chip[3]);
+  ui::Rect create = L.R(d.create[0], d.create[1], d.create[2], d.create[3]);
+  ui::Rect guest = L.R(d.guest[0], d.guest[1], d.guest[2], d.guest[3]);
 
   // draw background
   ImDrawList* bg = ImGui::GetBackgroundDrawList();
@@ -137,23 +191,40 @@ void LoginState::OnDraw() {
     bg->AddImage(ui::TexRef(t->sdl_texture), dialog.min, dialog.max);
   }
 
+  // draw connection chip
+  const char* chip_text =
+      L.portrait ? "42 ms" : "Connected \xC2\xB7 asia-1 \xC2\xB7 42 ms";
+  DrawStatusChip(bg,
+                 asset_manager_,
+                 chip,
+                 IM_COL32(0x3f, 0xd3, 0x5a, 0xff),
+                 chip_text,
+                 L.scale);
+
+  // draw version (bottom-right of the safe area, desktop only)
+  if (!L.portrait) {
+    ImFont* vf = asset_manager_.ImFontBody();
+    const float vpx = 12.0f * L.scale;
+    ImVec2 ts = vf->CalcTextSizeA(vpx, FLT_MAX, 0.0f, kClientVersion);
+    ImVec2 br = L.FromBottomRight(18.0f, 12.0f);
+    bg->AddText(vf, vpx, br - ts, IM_COL32(255, 255, 255, 204), kClientVersion);
+  }
+
   // draw form
   const float s = L.scale;
   const float w = form.Size().x;
   const float field_h = d.fs * 0.8f * 1.1f + 3.0f + d.fs * 2.2f;  // design px
   const float total_h = (2 * field_h + kRowH + d.button_h + 3 * d.gap) * s;
 
-  ImGui::SetNextWindowPos(form.min);
-  ImGui::SetNextWindowSize(form.Size());
-  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, {0.0f, 0.0f});  // before Begin
+  ImVec2 m(ui::kKitMargin * s, ui::kKitMargin * s);
+  ImGui::SetNextWindowPos(form.min - m);
+  ImGui::SetNextWindowSize(form.Size() + m * 2.0f);
+  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, m);  // before Begin
   ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, {0.0f, d.gap * s});
-  ImGui::Begin("##login_form",
-               nullptr,
-               ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground |
-                   ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
+  ImGui::Begin("##login_form", nullptr, kOverlayFlags);
 
   // centre the whole stack vertically inside the form rect
-  ImGui::SetCursorPosY((form.Size().y - total_h) * 0.5f);
+  ImGui::SetCursorPosY(m.y + (form.Size().y - total_h) * 0.5f);
 
   // Account + Password
   ui::AuthField("##account",
@@ -203,7 +274,7 @@ void LoginState::OnDraw() {
 
   const char* kForgot = "Forgot password?";
   float forgot_w = ImGui::CalcTextSize(kForgot).x;
-  ImGui::SameLine(w - forgot_w);                 // right-aligned
+  ImGui::SameLine(m.x + w - forgot_w);                 // right-aligned
   ImVec2 link_min = ImGui::GetCursorScreenPos();
   if (ImGui::InvisibleButton("##forgot", {forgot_w, row_h})) {
     SDL_Log("Login: forgot password clicked");   // TODO: go to Forgot Password
@@ -222,13 +293,50 @@ void LoginState::OnDraw() {
 
   // Login button (disabled while a field is empty)
   bool can_submit = username_[0] != '\0' && password_[0] != '\0';
-  if (ui::GameButton("##login", "Login", "yellow", {w, d.button_h * s}, s,
-                     can_submit)) {
+  if (ui::GameButton("##login",
+                     "Login",
+                     "yellow",
+                     {w, d.button_h * s},
+                     s,
+                     can_submit,
+                     L.portrait ? 20.0f : 26.0f)) {
     submit = true;
   }
 
   ImGui::End();
   ImGui::PopStyleVar(2);   // ItemSpacing, WindowPadding
+
+  // ghost buttons under the logo
+  ui::Rect links = {create.min, guest.max};
+  ImGui::SetNextWindowPos(links.min - m);
+  ImGui::SetNextWindowSize(links.Size() + m * 2.0f);
+  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, m);
+  ImGui::Begin("##login_links", nullptr, kOverlayFlags);
+
+  const char* variant = L.portrait ? "sm_ghost" : "ghost";
+  ImGui::SetCursorScreenPos(create.min);
+  if (ui::GameButton("##create",
+                     "Create account",
+                     variant,
+                     create.Size(),
+                     L.scale,
+                     true,
+                     d.link_fs)) {
+    SDL_Log("Login: create account clicked");  // TODO: go to Create Account
+  }
+  ImGui::SetCursorScreenPos(guest.min);
+  if (ui::GameButton("##guest",
+                     L.portrait ? "Guest" : "Watch as guest",
+                     variant,
+                     guest.Size(),
+                     L.scale,
+                     true,
+                     d.link_fs)) {
+    SDL_Log("Login: watch as guest clicked");  // TODO: go to Login as Guest
+  }
+
+  ImGui::End();
+  ImGui::PopStyleVar();
 
   if (submit && can_submit) {
     OnSubmit();

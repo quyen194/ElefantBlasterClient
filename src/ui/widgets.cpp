@@ -40,6 +40,17 @@ namespace ui {
 
 // -----------------------------------------------------------------------------
 namespace {
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+
+struct LabelStyle {
+  ImU32 text;
+  ImU32 shadow;  // 0 = no shadow
+};
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 
 // Widgets run every frame: warn about a missing image only once per name.
 void WarnMissingImageOnce(const std::string& name) {
@@ -50,7 +61,27 @@ void WarnMissingImageOnce(const std::string& name) {
                 name.c_str());
   }
 }
+// -----------------------------------------------------------------------------
 
+LabelStyle LabelStyleFor(const std::string& variant) {
+  std::string v = variant;
+  if (v.rfind("sm_", 0) == 0) {
+    v = v.substr(3);
+  }
+  if (v == "blue") {
+    return {kWhite, IM_COL32(0x1b, 0x4f, 0xa8, 0xff)};
+  }
+  if (v == "red") {
+    return {kWhite, IM_COL32(0x8e, 0x1e, 0x18, 0xff)};
+  }
+  if (v == "green") {
+    return {kWhite, IM_COL32(0x1d, 0x62, 0x19, 0xff)};
+  }
+  return {kGtext, 0};
+}
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
 }  // namespace
 // -----------------------------------------------------------------------------
 
@@ -103,8 +134,11 @@ bool GameButton(const char* id,
   if (state == "pressed") {
     pos.y += 2 * scale;
   }
-  dl->AddText(pos + ImVec2(0, 2 * scale), kNavy, label, label_end);
-  dl->AddText(pos, kWhite, label, label_end);
+  LabelStyle ls = LabelStyleFor(variant);
+  if (ls.shadow != 0) {
+    dl->AddText(pos + ImVec2(0, 2 * scale), ls.shadow, label, label_end);
+  }
+  dl->AddText(pos, ls.text, label, label_end);
 
   ImGui::PopFont();
 
