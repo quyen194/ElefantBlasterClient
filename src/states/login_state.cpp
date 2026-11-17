@@ -115,7 +115,9 @@ LoginState::LoginState(SDLState& sdl_state,
       imgui_state_(imgui_state),
       username_{0},
       password_{0},
-      remember_(false) {}
+      remember_(false),
+      phase_(LoginPhase::kIdle),
+      reply_in_(0.0f) {}
 // -----------------------------------------------------------------------------
 
 LoginState::~LoginState() {
@@ -344,10 +346,28 @@ void LoginState::OnDraw() {
 }
 // -----------------------------------------------------------------------------
 
+void LoginState::OnUpdate(float delta_time) {
+  if (phase_ != LoginPhase::kSending) {
+    return;
+  }
+
+  reply_in_ -= delta_time;
+  if (reply_in_ > 0.0f) {
+    return;
+  }
+
+  // SDL_Log("login ok");
+  // phase_ = LoginPhase::kIdle;
+  phase_ = LoginPhase::kError;
+  error_ = "Account or password is incorrect";
+}
+// -----------------------------------------------------------------------------
+
 void LoginState::OnSubmit() {
   // Never log the password.
   SDL_Log("Login: submit account '%s' (remember=%d)", username_, remember_);
-  // TODO(4e): send to server, switch to Sending state
+  phase_ = LoginPhase::kSending;
+  reply_in_ = 1.0f;
 }
 // -----------------------------------------------------------------------------
 

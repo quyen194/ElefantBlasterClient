@@ -107,6 +107,7 @@ void AppState::OnLoop() {
 void AppState::OnUpdate(float delta_time) {
   switch (state_) {
     case State::kLogin: {
+      login_state_.OnUpdate(delta_time);
     } break;
 
     case State::kMatch: {

@@ -19,6 +19,8 @@
 
 
 // -----------------------------------------------------------------------------
+#include <string>
+
 #include "definitions/macro.hpp"
 
 #include "core/asset_manager.hpp"
@@ -26,6 +28,17 @@
 #include "core/sdl_state.hpp"
 // -----------------------------------------------------------------------------
 
+
+// -----------------------------------------------------------------------------
+namespace _LoginPhase {
+enum T {
+  kIdle,
+  kSending,
+  kError,
+};
+}
+typedef _LoginPhase::T LoginPhase;
+// -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
 
@@ -39,6 +52,7 @@ class LoginState {
   bool Initialize();
 
   void OnDraw();
+  void OnUpdate(float delta_time);
   void OnEvent(SDL_Event &event);
 
  private:
@@ -54,6 +68,9 @@ class LoginState {
   char username_[64];
   char password_[64];
   bool remember_;
+  LoginPhase phase_;
+  std::string error_;
+  float reply_in_;  // fake server: seconds until the reply arrives
 
  private:
   DISALLOW_COPY_AND_ASSIGN(LoginState);
