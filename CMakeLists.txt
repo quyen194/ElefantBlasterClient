@@ -204,7 +204,14 @@ FetchContent_MakeAvailable(sdl)
 target_link_libraries(${EXECUTABLE_NAME} PUBLIC SDL3::SDL3)
 
 # SDL_ttf (used for rendering fonts)
-set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
+# On Linux desktop, use the system freetype/harfbuzz: the vendored harfbuzz
+# defines a plain "harfbuzz" target that clashes with the "harfbuzz" library
+# name wxWidgets (gtk3) gets from GTK3_LIBRARIES in the same CMake tree.
+if(UNIX AND NOT APPLE AND NOT ANDROID AND NOT EMSCRIPTEN)
+    set(SDLTTF_VENDORED OFF)
+else()
+    set(SDLTTF_VENDORED ON) # tell SDL_ttf to build its own dependencies
+endif()
 FetchContent_Declare(
     sdl_ttf
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/libs/SDL_ttf
