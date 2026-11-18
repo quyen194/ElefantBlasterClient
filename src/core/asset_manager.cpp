@@ -45,6 +45,8 @@ using namespace aries_base;
 
 // -----------------------------------------------------------------------------
 constexpr int kUiKitVersion = 1;
+constexpr int kPlayerWalkFrames = 4;
+constexpr float kPlayerFrameDuration = 0.25f;
 // -----------------------------------------------------------------------------
  AssetManager* AssetManager::instance_ = nullptr;
 // -----------------------------------------------------------------------------
@@ -112,18 +114,11 @@ bool AssetManager::Load() {
 
   asset_texture.sdl_texture = texture;
 
-  asset_texture.rect = { AssetTileType::kGrass * sprite_size_, 0, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetTileType::kGrass), asset_texture);
-  asset_texture.rect = { AssetTileType::kWall * sprite_size_, 0, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetTileType::kWall), asset_texture);
-  asset_texture.rect = { AssetTileType::kBalk * sprite_size_, 0, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetTileType::kBalk), asset_texture);
-  asset_texture.rect = { AssetTileType::kTeleportGate * sprite_size_, 0, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetTileType::kTeleportGate), asset_texture);
-  asset_texture.rect = { AssetTileType::kQuarantineZone * sprite_size_, 0, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetTileType::kQuarantineZone), asset_texture);
-  asset_texture.rect = { AssetTileType::kDragonEggGst * sprite_size_, 0, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetTileType::kDragonEggGst), asset_texture);
+  // kDragonEggGst_Ani is separated file so it's excluded from this loop
+  for (int i = AssetTileType::kBalk; i <= AssetTileType::kDragonEggGst; i++) {
+    asset_texture.rect = { static_cast<float>(i) * sprite_size_, 0, sprite_size_, sprite_size_ };
+    asset_textures_.insert_or_assign(GetId(static_cast<AssetTileType>(i)), asset_texture);
+  }
 
   texture = LoadTexture(renderer, R("graphics/animations/dragon_egg_gst.png"));
   if (!texture) {
@@ -145,14 +140,10 @@ bool AssetManager::Load() {
 
   asset_texture.sdl_texture = texture;
 
-  asset_texture.rect = { 0, AssetSpoilType::kDragonEggMystic * sprite_size_, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetSpoilType::kDragonEggMystic), asset_texture);
-  asset_texture.rect = { 0, AssetSpoilType::kDragonEggAttack * sprite_size_, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetSpoilType::kDragonEggAttack), asset_texture);
-  asset_texture.rect = { 0, AssetSpoilType::kDragonEggDelay * sprite_size_, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetSpoilType::kDragonEggDelay), asset_texture);
-  asset_texture.rect = { 0, AssetSpoilType::kDragonEggSpeed * sprite_size_, sprite_size_, sprite_size_ };
-  asset_textures_.insert_or_assign(GetId(AssetSpoilType::kDragonEggSpeed), asset_texture);
+  for (int i = 0; i < AssetSpoilType::kMax; i++) {
+    asset_texture.rect = { 0, static_cast<float>(i) * sprite_size_, sprite_size_, sprite_size_ };
+    asset_textures_.insert_or_assign(GetId(static_cast<AssetSpoilType>(i)), asset_texture);
+  }
 
   for (int i = 0; i < PlayerNo::kMax; i++) {
     std::string filename = utils::string_format("player%02d.png", i + 1);
@@ -168,22 +159,16 @@ bool AssetManager::Load() {
   }
 
   player_stand_rects_.resize(AssetPlayerDir::kMax);
-  player_stand_rects_[AssetPlayerDir::kDown] = { sprite_size_, AssetPlayerDir::kDown * sprite_size_, sprite_size_, sprite_size_ };
-  player_stand_rects_[AssetPlayerDir::kUp] = { sprite_size_, AssetPlayerDir::kUp * sprite_size_, sprite_size_, sprite_size_ };
-  player_stand_rects_[AssetPlayerDir::kLeft] = { sprite_size_, AssetPlayerDir::kLeft * sprite_size_, sprite_size_, sprite_size_ };
-  player_stand_rects_[AssetPlayerDir::kRight] = { sprite_size_, AssetPlayerDir::kRight * sprite_size_, sprite_size_, sprite_size_ };
+  for (int i = 0; i < AssetPlayerDir::kMax; i++) {
+    player_stand_rects_[i] = { sprite_size_, static_cast<float>(i) * sprite_size_, sprite_size_, sprite_size_ };
+  }
 
   player_animations_.resize(AssetPlayerDir::kMax);
-  player_animations_[AssetPlayerDir::kDown] = Animation(4, 0.25f);
-  player_animations_[AssetPlayerDir::kUp] = Animation(4, 0.25f);
-  player_animations_[AssetPlayerDir::kLeft] = Animation(4, 0.25f);
-  player_animations_[AssetPlayerDir::kRight] = Animation(4, 0.25f);
-
   player_animation_rects_.resize(AssetPlayerDir::kMax);
-  player_animation_rects_[AssetPlayerDir::kDown] = { 0, AssetPlayerDir::kDown * sprite_size_, sprite_size_, sprite_size_ };
-  player_animation_rects_[AssetPlayerDir::kUp] = { 0, AssetPlayerDir::kUp * sprite_size_, sprite_size_, sprite_size_ };
-  player_animation_rects_[AssetPlayerDir::kLeft] = { 0, AssetPlayerDir::kLeft * sprite_size_, sprite_size_, sprite_size_ };
-  player_animation_rects_[AssetPlayerDir::kRight] = { 0, AssetPlayerDir::kRight * sprite_size_, sprite_size_, sprite_size_ };
+  for (int i = 0; i < AssetPlayerDir::kMax; i++) {
+    player_animations_[i] = Animation(kPlayerWalkFrames, kPlayerFrameDuration);
+    player_animation_rects_[i] = { 0, static_cast<float>(i) * sprite_size_, sprite_size_, sprite_size_ };
+  }
 
   return LoadUiKit();
 }
